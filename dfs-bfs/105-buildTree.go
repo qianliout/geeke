@@ -33,12 +33,23 @@ func FindIndex(list []int, value int) int {
 // 在前序遍历知道根节点之后，要在中序遍历中找到根节点，避免每次都做线性查找
 // 可以使用哈希表来存储中序遍历中每个节点对应的下标
 // 使用辅助哈希表和递归过程的栈空间，所以Time:(n),n为节点数量 Space:O(n)
-func buildTree(preorder []int, inorder []int) *treenode.TreeNode {
+func BuildTreePreAndIn(preorder []int, inorder []int) *treenode.TreeNode {
 	inPos := make(map[int]int) // 辅助hash表存储中序遍历节点的下标
 	for i := 0; i < len(inorder); i++ {
 		inPos[inorder[i]] = i // 中序遍历元素作为key下标作为value存储
 	}
-	return buildTreeHelper(preorder, 0, len(preorder)-1, 0, inPos)
+	return BuildTreePreAndInHelper(preorder, 0, len(preorder)-1, 0, inPos)
+}
+func BuildTreePreAndInHelper(pre []int, preStart, preEnd, inStart int, inPos map[int]int) *treenode.TreeNode {
+	if preStart > preEnd {
+		return nil
+	}
+	root := treenode.TreeNode{Val: pre[preStart]}
+	rootIndex := inPos[pre[preStart]]
+	leftLen := rootIndex - inStart
+	root.Left = BuildTreePreAndInHelper(pre, preStart+1, preStart+leftLen, inStart, inPos)
+	root.Right = BuildTreePreAndInHelper(pre, preStart+leftLen+1, preEnd, rootIndex+1,inPos)
+	return &root
 }
 
 // pre前序遍历序列，preStart开始下标，preEnd结束下标，中序遍历序列inStart开始下标，和hash表

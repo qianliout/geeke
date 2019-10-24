@@ -22,19 +22,19 @@ func BuildTreeInAndPost(inorder, postorder []int) *treenode.TreeNode {
 	for key, value := range inorder {
 		pos[value] = key
 	}
-	return InAndPostHelper(postorder, len(postorder)-1, 0, len(inorder)-1, pos)
+	return InAndPostHelper(postorder, len(postorder)-1, 0, 0, pos)
 
 }
 
 func InAndPostHelper(postorder []int, postStart, postEnd, inStart int, pos map[int]int) *treenode.TreeNode {
 	// 从后往前走
-	if postEnd > postStart {
+	if postEnd > postStart || postStart < 0 {
 		return nil
 	}
 	root := treenode.TreeNode{Val: postorder[postStart]}
 	rootIndex := pos[postorder[postStart]]
-	rightLen := inStart - rootIndex
-	root.Right = InAndPostHelper(postorder, postStart-1, postStart-rightLen, rootIndex+1, pos)
-	root.Left = InAndPostHelper(postorder, postStart-rightLen-1, 0, rootIndex-1, pos)
+	rightLen := postStart - rootIndex
+	root.Right = InAndPostHelper(postorder, postStart-1, postStart-rightLen, rootIndex-1, pos)
+	root.Left = InAndPostHelper(postorder, postStart-rightLen-1, postEnd, inStart, pos)
 	return &root
 }
