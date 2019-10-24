@@ -47,7 +47,7 @@ func buildTreeHelper(pre []int, preStart, preEnd, inStart int, inPos map[int]int
 		return nil // 说明本次构建的二叉树中已经没有节点，返回空树
 	}
 	// 否则拿出前序遍历序列开始的元素，构建一个树节点，即为当前树的根节点
-	root := &treenode.TreeNode{Value: pre[preStart]}
+	root := &treenode.TreeNode{Val: pre[preStart]}
 	// 在hash表中查到当前根节点在中序遍历中的下标
 	rootIdx := inPos[pre[preStart]]
 	// 减去本次中序遍历的开始下标，即为左子树的节点个数
@@ -64,7 +64,7 @@ func BuildTree(preorder, inorder []int) *treenode.TreeNode {
 		return nil
 	}
 	//前序遍历第一个值为根节点
-	root := treenode.TreeNode{Value: preorder[0]}
+	root := treenode.TreeNode{Val: preorder[0]}
 	//因为没有重复元素，所以可以直接根据值来查找根节点在中序遍历中的位置
 	mid := FindIndex(inorder, preorder[0])
 	root.Left = BuildTree(preorder[1:mid+1], inorder[:mid])
