@@ -1,0 +1,16 @@
+*.gz
+*.tmp
+.DS_Store
+log/
+*.log
+.idea/**
+*.iml
+error.log
+dump.rdb
+*.exe~
+.idea/
+bin/
+go/pkg
+exec_dir/
+swagger/
+baize-boss
