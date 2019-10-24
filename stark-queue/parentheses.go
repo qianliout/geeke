@@ -24,22 +24,13 @@ package starkqueue
 */
 func IsValidParentheses(parentheses string) bool {
 	validMap := map[byte]byte{')': '(', '}': '{', ']': '['}
-
 	stark := make([]byte, 0)
-
 	for _, value := range []byte(parentheses) {
+		p, _ := validMap[value]
 		if value == '(' || value == '{' || value == '[' {
 			stark = append(stark, value)
-		} else {
-			second, _ := validMap[value]
-			if len(stark) == 0 {
-				return false
-			}
-			if len(stark) > 0 && stark[len(stark)-1] != second {
-				return false
-			} else {
-				stark = stark[:len(stark)-1]
-			}
+		} else if len(stark) == 0 || p != stark[len(stark)-1] {
+			return false
 		}
 	}
 	if len(stark) == 0 {
@@ -47,5 +38,4 @@ func IsValidParentheses(parentheses string) bool {
 	} else {
 		return false
 	}
-
 }
