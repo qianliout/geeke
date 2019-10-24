@@ -20,3 +20,14 @@ func TestMyQueue(t *testing.T) {
 	fmt.Println(v)
 	fmt.Println(myQueue.Empty())
 }
+
+func TestMyStark(t *testing.T) {
+	myQueue := ConstructorStark()
+	myQueue.Push(5)
+	myQueue.Push(4)
+	n := myQueue.Pop()
+	fmt.Println(n)
+	v := myQueue.Top()
+	fmt.Println(v)
+	fmt.Println(myQueue.Empty())
+}
