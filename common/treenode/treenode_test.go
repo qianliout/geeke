@@ -1,20 +1,30 @@
 package treenode
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestPostOrderTraversal(t *testing.T) {
-	root := TreeNode{Value: 3}
-	root.Left = &TreeNode{Value: 4}
-	root.Right = &TreeNode{Value: 5}
-	root.Left.Right = &TreeNode{Value: 6}
-	root.Left.Left = &TreeNode{Value: 7}
-	root.Right.Left = &TreeNode{Value: 8}
-	root.Right.Right = &TreeNode{Value: 9}
-	res := make([]int, 0)
-	InOrderTraversal(&root)
-	fmt.Println(res)
+func newTree() *TreeNode {
+	/*
+		返回如下的二叉树：
+		    3
+		   / \
+		  9  20
+		    /  \
+		   15   7
+	*/
 
+	root := TreeNode{Val: 3}
+	root.Left = &TreeNode{Val: 9}
+	root.Right = &TreeNode{Val: 20}
+	root.Right.Left = &TreeNode{Val: 15}
+	root.Right.Right = &TreeNode{Val: 7}
+	return &root
+}
+
+func TestPostOrderTraversal(t *testing.T) {
+	root := newTree()
+	InOrderTraversal(root)
+	PreOrderTraversal(root)
+	PostOrderTraversal(root)
 }

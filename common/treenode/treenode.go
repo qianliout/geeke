@@ -3,7 +3,7 @@ package treenode
 import "fmt"
 
 type TreeNode struct {
-	Val int
+	Val   int
 	Left  *TreeNode
 	Right *TreeNode
 }
@@ -15,9 +15,8 @@ func SliceToTreeNode(nums []interface{}) *TreeNode {
 
 func PreOrderTraversal(root *TreeNode) {
 	if root != nil {
-		//traversePath = append(traversePath, root.Value)
+		fmt.Printf("%d ", root.Val)
 		PreOrderTraversal(root.Left)
-		fmt.Println(root.Val)
 		PreOrderTraversal(root.Right)
 	}
 }
@@ -25,19 +24,17 @@ func PreOrderTraversal(root *TreeNode) {
 // 中序排列
 func InOrderTraversal(root *TreeNode) {
 	if root != nil {
-		PreOrderTraversal(root.Left)
-		//traversePath = append(traversePath, root.Value)
-		fmt.Println(root.Val)
-		PreOrderTraversal(root.Right)
+		InOrderTraversal(root.Left)
+		fmt.Printf("%d ", root.Val)
+		InOrderTraversal(root.Right)
 	}
 }
 
 // 后序排列
 func PostOrderTraversal(root *TreeNode) {
 	if root != nil {
-		PreOrderTraversal(root.Right)
-		//traversePath = append(traversePath, root.Value)
-		fmt.Println(root.Val)
-		PreOrderTraversal(root.Left)
+		InOrderTraversal(root.Right)
+		InOrderTraversal(root.Left)
+		fmt.Printf("%d ", root.Val)
 	}
 }

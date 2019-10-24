@@ -11,3 +11,11 @@ func TestBuildTree(t *testing.T) {
 	root := BuildTree(preorder, inorder)
 	treenode.InOrderTraversal(root)
 }
+
+func TestInAndPostHelper(t *testing.T)  {
+	preorder := []int{9,15,7,20,3}
+	inorder := []int{9,3,15,20,7}
+	root := BuildTreeInAndPost(preorder, inorder)
+	treenode.InOrderTraversal(root)
+	treenode.PostOrderTraversal(root)
+}
