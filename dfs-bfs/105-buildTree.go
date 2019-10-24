@@ -58,3 +58,16 @@ func buildTreeHelper(pre []int, preStart, preEnd, inStart int, inPos map[int]int
 	root.Right = buildTreeHelper(pre, preStart+leftLen+1, preEnd, rootIdx+1, inPos)
 	return root // 最后返回这棵树即可
 }
+
+func BuildTree(preorder, inorder []int) *treenode.TreeNode {
+	if len(preorder) == 0 || len(inorder) == 0 {
+		return nil
+	}
+	//前序遍历第一个值为根节点
+	root := treenode.TreeNode{Value: preorder[0]}
+	//因为没有重复元素，所以可以直接根据值来查找根节点在中序遍历中的位置
+	mid := FindIndex(inorder, preorder[0])
+	root.Left = BuildTree(preorder[1:mid+1], inorder[:mid])
+	root.Right = BuildTree(preorder[mid+1:], inorder[mid+1:])
+	return &root
+}
