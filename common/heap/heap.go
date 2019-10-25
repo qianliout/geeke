@@ -25,10 +25,17 @@ func (h *IntMinHeap) Pop() interface{} {
 	*h = old[0 : n-1]
 	return x
 }
-func (h *IntMinHeap) Peek() interface{} {
+
+// 移出最小的那个值
+func (h *IntMinHeap) PopMini() interface{} {
 	old := *h
-	n := len(old)
-	x := old[n-1]
+	x := old[0]
+	*h = old[1:]
+	return x
+}
+
+func (h *IntMinHeap) Peek() interface{} {
+	x := (*h)[0]
 	return x
 }
 
