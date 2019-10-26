@@ -57,8 +57,8 @@ func ConstructorKthLargestByHeap(k int, nums []int) *KthLargest {
 				continue
 			} else {
 				minHeap.Push(value)
-				heap.Init(&minHeap)
 				minHeap.PopMini()
+				heap.Init(&minHeap)
 			}
 		}
 	}
@@ -99,5 +99,4 @@ func AddByMinHeap(this *KthLargest, val int) int {
 		this.MinHeap.PopMini()
 		return this.MinHeap.Peek().(int)
 	}
-
 }
