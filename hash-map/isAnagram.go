@@ -1,5 +1,7 @@
 package hashmap
 
+import "sort"
+
 /*
 242. 有效的字母异位词
 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
@@ -51,6 +53,24 @@ func IsAnagramByMap(s string, t string) bool {
 }
 
 func IsAnagramBySort(s, t string) bool {
-	return true
+	if len(s) != len(t) {
+		return false
+	}
+	preSlice := make([]int, 0)
+	afterSlice := make([]int, 0)
+	for _, value := range []byte(s) {
+		preSlice = append(preSlice, int(value))
+	}
 
+	for _, value := range []byte(t) {
+		afterSlice = append(afterSlice, int(value))
+	}
+	sort.Ints(preSlice)
+	sort.Ints(afterSlice)
+	for i := 0; i < len(preSlice); i++ {
+		if preSlice[i] != afterSlice[i] {
+			return false
+		}
+	}
+	return true
 }
