@@ -1,6 +1,7 @@
 package tree
 
 import (
+	"fmt"
 	"outback/leetcode/common/treenode"
 	"testing"
 )
@@ -17,4 +18,11 @@ func TestBuildTreeInorderAndPostOrder105(t *testing.T) {
 	postorder := []int{9, 15, 7, 20, 3}
 	root := BuildTree105(inorder, postorder)
 	treenode.PostOrderTraversal(root)
+}
+
+func TestIsValidBST(t *testing.T) {
+	root := treenode.TreeNode{Val: 3}
+
+	n := IsValidBST(&root)
+	fmt.Println(n)
 }

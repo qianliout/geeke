@@ -38,3 +38,8 @@ func PostOrderTraversal(root *TreeNode) {
 		fmt.Printf("%d ", root.Val)
 	}
 }
+
+func InorderTraversalToSlice(root *TreeNode) []int {
+	reslut := make([]int, 0)
+	return reslut
+}
