@@ -41,5 +41,12 @@ func PostOrderTraversal(root *TreeNode) {
 
 func InorderTraversalToSlice(root *TreeNode) []int {
 	reslut := make([]int, 0)
+	func(root *TreeNode) {
+		if root != nil {
+			InOrderTraversal(root.Left)
+			reslut = append(reslut, root.Val)
+			InOrderTraversal(root.Right)
+		}
+	}(root)
 	return reslut
 }

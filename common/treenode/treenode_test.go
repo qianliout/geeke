@@ -1,6 +1,7 @@
 package treenode
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -24,9 +25,14 @@ func newTree() *TreeNode {
 
 func TestPostOrderTraversal(t *testing.T) {
 	root := newTree()
-	InOrderTraversal(root)
-	PreOrderTraversal(root)
-	PostOrderTraversal(root)
+	r := InorderTraversalToSlice(root)
+	for _, value := range r {
+		fmt.Println(value)
+	}
+
+	fmt.Println(fmt.Sprintf("%+v", r))
+
+	//InOrderTraversal(root)
+	//PreOrderTraversal(root)
+	//PostOrderTraversal(root)
 }
-
-

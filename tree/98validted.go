@@ -30,10 +30,28 @@ import (
 */
 
 func IsValidBST(root *treenode.TreeNode) bool {
-	return IsValideByRecusion(root, nil, nil)
+	//return IsValideByRecusion(root, nil, nil)
+	return IsValideByInorder(nil, root)
 }
 
 // BST有个特点是，进行一次中序遍历后，是一个升序序列，所以，可以使用。
+func IsValideByInorder(pre, root *treenode.TreeNode) bool {
+	// pre 表示前继结点，前继结点一定比之后结点小。
+	if root == nil {
+		return true
+	}
+	// 先遍历左
+	if !IsValideByInorder(pre, root.Left) {
+		return false
+	}
+	// 再判断当前
+	if pre != nil && pre.Val >= root.Val {
+		return false
+	}
+	// 再遍历右，
+	pre = root
+	return IsValideByInorder(pre, root.Right)
+}
 
 // 递归的方法
 func IsValideByRecusion(root, min, max *treenode.TreeNode) bool {
