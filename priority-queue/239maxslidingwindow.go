@@ -60,7 +60,7 @@ func MaxSlidingWindowByDqueue(nums []int, k int) []int {
 			dq = dq[:len(dq)-1]
 		}
 		dq = append(dq, i)
-		if len(dq) > 0 && dq[0] == i-k {
+		if len(dq) > 0 && i-dq[0] >= k {
 			dq = dq[1:]
 		}
 		if i >= k-1 {

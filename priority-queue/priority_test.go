@@ -28,11 +28,3 @@ func TestMinHeap(t *testing.T) {
 	fmt.Println(min.Pop())
 	fmt.Println(min)
 }
-
-func TestMaxSlidingWindow(t *testing.T) {
-	nums := []int{1, 3, -1, -3, 5, 3, 6, 7}
-	//nums := []int{1,-1}
-	_ = MaxSlidingWindow(nums, 3)
-	//fmt.Println(r)
-	//fmt.Println(nums[:0])
-}
