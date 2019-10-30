@@ -134,3 +134,32 @@ func DfsMinDepth(root *treenode.TreeNode) int {
 	}
 	return depth
 }
+
+func DfsMinDepthByStark(root *treenode.TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	type Result struct {
+		Node  *treenode.TreeNode
+		Depth int
+	}
+	stark := make([]Result, 0)
+	stark = append(stark, Result{
+		Node:  root,
+		Depth: 1,
+	})
+	depth := math.MaxInt32
+	for len(stark) > 0 {
+		r := stark[len(stark)-1]
+		depth = int(math.Min(float64(r.Depth), float64(depth)))
+		stark = append(stark, Result{
+			Node:  r.Node.Left,
+			Depth: depth,
+		})
+		stark = append(stark, Result{
+			Node:  r.Node.Right,
+			Depth: depth,
+		})
+	}
+	return depth
+}
