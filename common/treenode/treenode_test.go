@@ -28,9 +28,9 @@ func TestPostOrderTraversal(t *testing.T) {
 	r := InorderTraversalToSlice(root)
 	for _, value := range r {
 		fmt.Println(value)
+		fmt.Println("hello")
+		fmt.Println(len(r))
 	}
-
-	fmt.Println(fmt.Sprintf("%+v", r))
 
 	//InOrderTraversal(root)
 	//PreOrderTraversal(root)

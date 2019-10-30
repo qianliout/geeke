@@ -43,9 +43,9 @@ func InorderTraversalToSlice(root *TreeNode) []int {
 	reslut := make([]int, 0)
 	func(root *TreeNode) {
 		if root != nil {
-			InOrderTraversal(root.Left)
+			InorderTraversalToSlice(root.Left)
 			reslut = append(reslut, root.Val)
-			InOrderTraversal(root.Right)
+			InorderTraversalToSlice(root.Right)
 		}
 	}(root)
 	return reslut
