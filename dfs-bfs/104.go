@@ -151,15 +151,17 @@ func DfsMinDepthByStark(root *treenode.TreeNode) int {
 	depth := math.MaxInt32
 	for len(stark) > 0 {
 		r := stark[len(stark)-1]
-		depth = int(math.Min(float64(r.Depth), float64(depth)))
-		stark = append(stark, Result{
-			Node:  r.Node.Left,
-			Depth: depth,
-		})
-		stark = append(stark, Result{
-			Node:  r.Node.Right,
-			Depth: depth,
-		})
+		if r.Node != nil { // 因为这里统一判断了，所以在下面加入时可以不判断
+			depth = int(math.Min(float64(r.Depth), float64(depth)))
+			stark = append(stark, Result{
+				Node:  r.Node.Left,
+				Depth: depth,
+			})
+			stark = append(stark, Result{
+				Node:  r.Node.Right,
+				Depth: depth,
+			})
+		}
 	}
 	return depth
 }
