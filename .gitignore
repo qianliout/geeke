@@ -9,12 +9,4 @@ error.log
 dump.rdb
 *.exe~
 .idea/
-bin/
-go/pkg
-exec_dir/
-swagger/
-baize-boss
-binary_search/
-greedy/
-hashmap/
-trie/
+
