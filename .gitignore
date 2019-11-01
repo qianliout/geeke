@@ -14,3 +14,7 @@ go/pkg
 exec_dir/
 swagger/
 baize-boss
+binary_search/
+greedy/
+hashmap/
+trie/
