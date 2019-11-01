@@ -45,5 +45,7 @@ func GenerateParenthesisByC(n int) []string {
 }
 
 func generateParenthesisByDP(n int) []string {
-
+	return []string{}
 }
+
+
