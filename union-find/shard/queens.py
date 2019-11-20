@@ -6,9 +6,7 @@ class Queens1(object):
         if n <= 1:
             return []
         self.result = []
-        self.cols = set()
-        self.pie = set()
-        self.na = set()
+        self.cols, self.pie, self.na = set(), set(), set()
         self.DFS(n, 0, [])
         return self._gen_res(n)
 
