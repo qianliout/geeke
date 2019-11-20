@@ -9,6 +9,7 @@ type Trienode struct {
 }
 
 func FindWords(board [][]byte, words []string) []string {
+	// 构造字典树
 	root := &Trienode{next: map[rune]*Trienode{}}
 	for _, w := range words {
 		p := root

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	unionfind "outback/leetcode/union-find"
 )
 
@@ -102,12 +101,12 @@ func fullBFS(grid [][]int, i, j int) {
 	}
 }
 
-func main() {
-	grid := [][]int{
-		[]int{1, 0, 0, 0, 0},
-		[]int{1, 1, 0, 0, 0},
-		[]int{0, 1, 0, 0, 0},
-		[]int{0, 0, 0, 1, 0},
-	}
-	fmt.Println(FindCircleNumByFull(grid))
-}
+//func main() {
+//	grid := [][]int{
+//		[]int{1, 0, 0, 0, 0},
+//		[]int{1, 1, 0, 0, 0},
+//		[]int{0, 1, 0, 0, 0},
+//		[]int{0, 0, 0, 1, 0},
+//	}
+//	fmt.Println(FindCircleNumByFull(grid))
+//}
