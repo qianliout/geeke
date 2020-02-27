@@ -19,52 +19,58 @@ package main
 //	backtrack(nums, tem)
 //	return res
 //}
-var res [][]int
+//var res [][]int
 
-func permute6(nums []int) [][]int {
-
-	res = make([][]int, 0)
-	var tmp []int
-	//visited := make([]int, len(nums))
-	//backtrack(nums, tmp, visited)
-	used := make([]bool, len(nums))
-	dfs(nums, len(nums), 0, tmp, used)
+func permute1(nums []int) [][]int {
+	size := len(nums)
+	if size == 0 {
+		return nil
+	}
+	ans := make([]int, 0)
+	res := make([][]int, 0)
+	used := make([]bool, size)
+	helper(nums, used, ans, &res)
 
 	return res
 }
 
-func backtrack(nums, tmp, visited []int) {
-	if len(tmp) == len(nums) {
-		//fmt.Println("tmp ", tmp)
-		res = append(res, tmp)
+func helper(nums []int, used []bool, ans []int, res *[][]int) {
+	if len(ans) == len(nums) {
+		*res = append(*res, append([]int{}, ans...))
+		//fmt.Println("ans ", ans)
+		/*
+		   注意这里很容易出错，通过打印发现，每次执行到这里时ans是正确的值，但是res append是ans的内存地址，
+		   但是递归回来时会把这个内存地址的值改了，所以一定要注意
+		*/
+		//*res = append(*res, ans)
 		return
 	}
+
 	for i := 0; i < len(nums); i++ {
-		if visited[i] == 1 {
-			continue
+		if !used[i] {
+			used[i] = true
+			ans = append(ans, nums[i])
+			helper(nums, used, ans, res)
+			ans = ans[:len(ans)-1]
+			used[i] = false
 		}
-		visited[i] = 1
-		tmp = append(tmp, nums[i])
-		backtrack(nums, tmp, visited)
-		visited[i] = 0
-		tmp = tmp[:len(tmp)-1]
 	}
 }
 
-func dfs(nums []int, length, depth int, path []int, used []bool) {
-	if depth == length {
-		res = append(res, path)
-		return
+func permute2(nums []int) [][]int {
+	result := make([][]int, 0)
+	backtrack(nums, len(nums), 0, &result)
+	return result
+}
+func backtrack(nums []int, length, first int, res *[][]int) {
+	// 通过两两交换位置的方式来改变
+	if first == length {
+		*res = append(*res, append([]int{}, nums...))
 	}
-	for i := 0; i < length; i++ {
-		if !used[i] {
+	for i := first; i < length; i++ {
+		nums[i], nums[first] = nums[first], nums[i]
+		backtrack(nums, length, first+1, res)
+		nums[i], nums[first] = nums[first], nums[i]
+	}
 
-			used[i] = true
-			path = append(path, nums[i])
-			dfs(nums, length, depth+1, path, used)
-			used[i] = false
-			//path = path[:len(path)-1]
-			path = append(path[:depth], path[depth+1:]...)
-		}
-	}
 }
