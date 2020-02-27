@@ -9,6 +9,6 @@ func main() {
 	//nums[0], nums[1] = nums[1], nums[0]
 	//fmt.Println(nums)
 
-	res := permute2(nums)
+	res := permute3(nums)
 	fmt.Println(res)
 }

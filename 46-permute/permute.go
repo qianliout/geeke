@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //func permute5(nums []int) [][]int {
 //	res = make([][]int, 0)
 //	var backtrack func(nums, tep []int)
@@ -62,6 +64,7 @@ func permute2(nums []int) [][]int {
 	backtrack(nums, len(nums), 0, &result)
 	return result
 }
+
 func backtrack(nums []int, length, first int, res *[][]int) {
 	// 通过两两交换位置的方式来改变
 	if first == length {
@@ -72,5 +75,27 @@ func backtrack(nums []int, length, first int, res *[][]int) {
 		backtrack(nums, length, first+1, res)
 		nums[i], nums[first] = nums[first], nums[i]
 	}
+}
 
+func permute3(nums []int) [][]int {
+	result := make([][]int, 0)
+	path := make([]int, 0)
+	dfs(nums, path, &result)
+	return result
+}
+
+func dfs(nums, path []int, res *[][]int) {
+	if len(nums) == 0 {
+		fmt.Println("path ", path)
+		*res = append(*res, append([]int{}, path...))
+		return
+	}
+
+	for i := 0; i < len(nums); i++ {
+		path = append(path, nums[i])
+		second := append(append([]int{}, nums[:i]...), nums[i+1:]...)
+		fmt.Println("second:", second)
+		dfs(second, path, res)
+		//path = path[:len(path)-1]
+	}
 }
