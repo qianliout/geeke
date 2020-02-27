@@ -3,7 +3,6 @@ package binarysearch
 import (
 	"fmt"
 	"testing"
-	"sync"
 )
 
 func TestSqrt(t *testing.T) {

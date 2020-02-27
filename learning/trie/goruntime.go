@@ -1,8 +1,7 @@
 package trie
 
-import ("fmt"
-"runtime"
-
+import (
+	"fmt"
 )
 
 func Run() {
