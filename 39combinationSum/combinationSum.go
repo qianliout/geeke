@@ -1,8 +1,9 @@
 package main
 
-import "fmt"
-
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
   给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -40,7 +41,7 @@ func combinationSum(candidates []int, target int) [][]int {
 		return res
 	}
 	path := make([]int, 0)
-	sort.Ints(candidates)
+	sort.Ints(candidates) // 通过提交可以知道，排序可以加快速度
 	combinationHelper(candidates, path, target, 0, &res)
 	return res
 }

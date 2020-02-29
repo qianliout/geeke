@@ -15,7 +15,6 @@ import "fmt"
 func main() {
 	res := combinationsUsequeue("23")
 	fmt.Println(res)
-
 }
 
 // 回溯的方法，这也是最基本的方法

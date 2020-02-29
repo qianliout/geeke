@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -26,10 +29,43 @@ candidates 中的每个数字在每个组合中只能使用一次。
 ]
 */
 func main() {
-	fmt.Println("vim-go")
+	candidates := []int{2, 5, 2, 1, 2}
+	target := 5
+	res := combinationSum2(candidates, target)
+	fmt.Println(res)
 }
 
 func combinationSum2(candidates []int, target int) [][]int {
-
+	res := make([][]int, 0)
+	if len(candidates) == 0 {
+		return res
+	}
+	path := make([]int, 0)
+	sort.Ints(candidates)
+	combinationHelper(candidates, path, target, 0, 0, &res)
+	return res
 }
-func dfs(candidates,path []int,used)
+
+func combinationHelper(candidates, path []int, target, left, preValue int, res *[][]int) {
+	if target == 0 {
+		// fmt.Println("path is ", path)
+		*res = append(*res, append([]int{}, path...))
+		return
+	}
+
+	for i := left; i < len(candidates); i++ {
+		if target < candidates[i] {
+			return // 因为已排序的了
+		}
+		if candidates[i] == preValue {
+			continue
+		}
+		preValue = candidates[i]
+		path = append(path, candidates[i])
+		//下一次递归还是从i开始说明自己可以选
+		combinationHelper(candidates, path, target-candidates[i], i+1, preValue, res)
+		path = path[:len(path)-1]
+		// path也可以在下一层再加，这样就不用回漱
+		// combinationHelper(candidates, append(path, candidates[i]), target-candidates[i], i, res)
+	}
+}
