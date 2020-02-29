@@ -7,7 +7,7 @@ import (
 
 func main() {
 	nums := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
-	max := maxSubArray(nums)
+	max := maxSubArray2(nums)
 	fmt.Println("max is ", max)
 }
 
@@ -19,4 +19,16 @@ func maxSubArray(nums []int) int {
 		maxSum = int(math.Max(float64(maxSum), float64(currSum)))
 	}
 	return maxSum
+}
+
+// 使用动态规划的方法
+func maxSubArray2(nums []int) int {
+	dp := make([]int, len(nums))
+	dp[0] = nums[0]
+	result := dp[0]
+	for i := 1; i < len(nums); i++ {
+		dp[i] = int(math.Max(float64(dp[i-1]+nums[i]), float64(nums[i])))
+		result = int(math.Max(float64(result), float64(dp[i])))
+	}
+	return result
 }
