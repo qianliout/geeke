@@ -9,4 +9,4 @@ error.log
 dump.rdb
 *.exe~
 .idea/
-
+.vscode
