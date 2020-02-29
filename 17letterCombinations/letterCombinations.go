@@ -13,11 +13,12 @@ import "fmt"
 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
 */
 func main() {
-	res := letterCombinations("23")
+	res := combinationsUsequeue("23")
 	fmt.Println(res)
 
 }
 
+// 回溯的方法，这也是最基本的方法
 func letterCombinations(digits string) []string {
 	if len(digits) == 0 {
 		return []string{}
@@ -57,3 +58,61 @@ func combinations(digits []byte, digitsMap map[byte][]byte, path []byte, depth i
 		path = path[:len(path)-1]
 	}
 }
+
+// 队列的方法
+// 我们也可以使用队列，先将输入的 digits 中第一个数字对应的每一个字母入队，
+// 然后将出队的元素与第二个数字对应的每一个字母组合后入队...直到遍历到 digits
+// 的结尾。最后队列中的元素就是所求结果。
+
+func combinationsUsequeue(digits string) []string {
+	res := make([]string, 0)
+	// var queue [][]byte
+	queue := make([][]byte, 1)
+	queue[0] = []byte{}
+	// queue = append(queue,[][]byte{{''}})
+
+	// queue = append(queue, make([][]byte))
+
+	digitsMap := make(map[byte][]byte)
+	digitsMap['2'] = []byte("abc")
+	digitsMap['3'] = []byte("def")
+	digitsMap['4'] = []byte("ghi")
+	digitsMap['5'] = []byte("jkl")
+	digitsMap['6'] = []byte("mno")
+	digitsMap['7'] = []byte("pqrs")
+	digitsMap['8'] = []byte("tuv")
+	digitsMap['9'] = []byte("wxyz")
+
+	for i := 0; i < len(digits); i++ {
+		for _ = range queue {
+			tem := queue[0]
+			queue = queue[1:len(queue)]
+			liter := digitsMap[digits[i]]
+			for _, letter := range liter {
+				second := append(tem, letter)
+				queue = append(queue, append([]byte{}, second...))
+			}
+
+		}
+
+	}
+
+	for _, v := range queue {
+		res = append(res, string(v))
+	}
+	return res
+}
+
+/*
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits: return []
+        phone = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
+        queue = ['']  # 初始化队列
+        for digit in digits:
+            for _ in range(len(queue)):
+                tmp = queue.pop(0)
+                for letter in phone[ord(digit)-50]:# 这里我们不使用 int() 转换字符串，使用ASCII码
+                    queue.append(tmp + letter)
+        return queue
+*/
