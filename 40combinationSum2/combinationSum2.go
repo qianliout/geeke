@@ -42,11 +42,11 @@ func combinationSum2(candidates []int, target int) [][]int {
 	}
 	path := make([]int, 0)
 	sort.Ints(candidates)
-	combinationHelper(candidates, path, target, 0, 0, &res)
+	combinationHelper(candidates, path, target, 0, &res)
 	return res
 }
 
-func combinationHelper(candidates, path []int, target, left, preValue int, res *[][]int) {
+func combinationHelper(candidates, path []int, target, left int, res *[][]int) {
 	if target == 0 {
 		// fmt.Println("path is ", path)
 		*res = append(*res, append([]int{}, path...))
@@ -57,13 +57,13 @@ func combinationHelper(candidates, path []int, target, left, preValue int, res *
 		if target < candidates[i] {
 			return // 因为已排序的了
 		}
-		if candidates[i] == preValue {
+		// 同层结点数值相同，剪枝.todo 这里一定要好好理解，把这里理解透了，dfs和回漱也理解透了
+		if i != left && candidates[i] == candidates[i-1] {
 			continue
 		}
-		preValue = candidates[i]
 		path = append(path, candidates[i])
 		//下一次递归还是从i开始说明自己可以选
-		combinationHelper(candidates, path, target-candidates[i], i+1, preValue, res)
+		combinationHelper(candidates, path, target-candidates[i], i+1, res)
 		path = path[:len(path)-1]
 		// path也可以在下一层再加，这样就不用回漱
 		// combinationHelper(candidates, append(path, candidates[i]), target-candidates[i], i, res)

@@ -48,7 +48,6 @@ func combinationSum(candidates []int, target int) [][]int {
 
 func combinationHelper(candidates, path []int, target, left int, res *[][]int) {
 	if target == 0 {
-		fmt.Println("path is ", path)
 		*res = append(*res, append([]int{}, path...))
 		return
 	}
@@ -57,6 +56,7 @@ func combinationHelper(candidates, path []int, target, left int, res *[][]int) {
 		if target < candidates[i] {
 			return // 因为已排序的了
 		}
+
 		path = append(path, candidates[i])
 		combinationHelper(candidates, path, target-candidates[i], i, res)
 		path = path[:len(path)-1]
