@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	nums := []int{2, 0, 2, 1, 1, 0, 1, 2, 0, 2}
-	res := sortColors(nums)
+	nums := []int{0}
+	res := sortColors2(nums)
 	fmt.Println(res)
 }
 
@@ -24,7 +24,7 @@ func main() {
     首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
     你能想出一个仅使用常数空间的一趟扫描算法吗？
 */
-
+// 这种方法很通用，可以使用多数的排序，但是题目中说了只有三种数据，所以可以有更好的方法
 func sortColors(nums []int) []int {
 	if len(nums) == 1 || len(nums) == 0 {
 		for i := 1; i < len(nums); i++ {
@@ -35,6 +35,29 @@ func sortColors(nums []int) []int {
 						break
 					}
 				}
+			}
+		}
+	}
+	return nums
+}
+
+// 因为只有三个数字，所以我们知道，0一定是在最前面，2，一定是在最后边，所以可以使用双指针的方式
+func sortColors2(nums []int) []int {
+	if len(nums) > 1 {
+		p1, curr := 0, 0
+		p2 := len(nums) - 1
+		for curr <= p2 {
+			currentNum := nums[curr]
+			if currentNum == 2 {
+				nums[curr], nums[p2] = nums[p2], nums[curr]
+				p2--
+			} else if currentNum == 0 {
+				nums[curr], nums[p1] = nums[p1], nums[curr]
+
+				p1++
+				curr++
+			} else {
+				curr++
 			}
 		}
 	}
