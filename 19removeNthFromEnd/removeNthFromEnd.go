@@ -47,6 +47,8 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	first.Next = first.Next.Next
 	return dump.Next
 }
+
+// 双指针
 func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	if head == nil || n == 0 {
 		return head

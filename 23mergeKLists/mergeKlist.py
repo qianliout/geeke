@@ -15,6 +15,7 @@ class Solution(object):
             point = point.next
         return head.next
 
+
 class Solution(object):
     def mergeKLists(self, lists):
         """
@@ -41,8 +42,7 @@ class Solution(object):
                 l1 = point.next.next
             point = point.next
         if not l1:
-            point.next=l2
+            point.next = l2
         else:
-            point.next=l1
+            point.next = l1
         return head.next
-
