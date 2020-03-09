@@ -1,0 +1,36 @@
+REGISTRY=quay.io/coreos/etcd
+ETCD_VERSION=v3.2
+TOKEN=loyocrm30etcdtoken
+CLUSTER_STATE=new
+NAME_1=etcd01
+NAME_2=etcd02
+HOST_1=192.168.2.26
+HOST_2=192.168.2.27
+CLUSTER=${NAME_1}=http://${HOST_1}:2380,${NAME_2}=http://${HOST_2}:2380
+DATA_DIR=/data/etcd/data
+
+THIS_NAME=${NAME_2}
+THIS_IP=${HOST_2}
+sudo docker run -d \
+  --hostname=${THIS_NAME} --restart=always \
+  -p 2379:2379 \
+  -p 2380:2380 \
+  --add-host=${NAME_1}:${HOST_1}  \
+  --add-host=${NAME_2}:${HOST_2}  \
+  --volume=${DATA_DIR}:/etcd-data \
+  --name ${THIS_NAME} ${REGISTRY}:${ETCD_VERSION} \
+  /usr/local/bin/etcd \
+  --data-dir=/etcd-data --name ${THIS_NAME} \
+  --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://0.0.0.0:2380 \
+  --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
+  --initial-cluster ${CLUSTER} \
+  --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
+
+
+ docker pull quay.io/coreos/etcd:v3.2
+
+
+
+
+ sudo docker run -d --hostname=rabbit01 --restart=always --name=rabbit01 -e RABBITMQ_ERLANG_COOKIE='loyocrm30rabbitcookie' -e RABBITMQ_NODENAME=rabbit01 -e RABBITMQ_DEFAULT_USER=loyo -e RABBITMQ_DEFAULT_PASS=loyo -e RABBITMQ_DEFAULT_VHOST=crm3 -p 5672:5672 -p 15672:15672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 5671:5671 --add-host=rabbit02:192.168.2.33 --add-host=rabbit01:192.168.2.32  rabbitmq:3.7-management
+ sudo docker run -d --hostname=rabbit02 --restart=always --name=rabbit02 -e RABBITMQ_ERLANG_COOKIE='loyocrm30rabbitcookie' -e RABBITMQ_NODENAME=rabbit02 -e RABBITMQ_DEFAULT_USER=loyo -e RABBITMQ_DEFAULT_PASS=loyo -e RABBITMQ_DEFAULT_VHOST=crm3 -p 5672:5672 -p 15672:15672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 5671:5671 --add-host=rabbit02:192.168.2.33 --add-host=rabbit01:192.168.2.32  rabbitmq:3.7-management

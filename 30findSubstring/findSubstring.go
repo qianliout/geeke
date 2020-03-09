@@ -1,15 +1,15 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 func main() {
-	//words := []string{"fooo", "barr", "wing", "ding", "wing"}
-	words := []string{"a"}
-	//res := findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", words)
-	res := findSubstring("a", words)
+	//defer profile.Start().Stop()
+	words := []string{"fooo", "barr", "wing", "ding", "wing"}
+	//words := []string{"a"}
+	res := findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", words)
+	//res := findSubstring("a", words)
 	fmt.Println("res is ", res)
 }
 
@@ -45,18 +45,22 @@ func findSubstring(s string, words []string) []int {
 	byteSlice := []byte(s)
 	for i := 0; i < len(s)-wordNum*n+1; i++ {
 		cur := i
+		//curWordsMap := make(map[string]int) // 性能杀手
+		//bytes, _ := json.Marshal(wordsMap)
+		//json.Unmarshal(bytes, &curWordsMap)
 		curWordsMap := make(map[string]int)
-		bytes, _ := json.Marshal(wordsMap)
-		json.Unmarshal(bytes, &curWordsMap)
 		matched := 0
 		for cur < len(byteSlice) {
 			word := string(byteSlice[cur : cur+n])
-			v, exit := curWordsMap[word]
-			if v > 0 && exit {
+			window, _ := curWordsMap[word]
+			need, exit := wordsMap[word]
+
+			if exit && window < need {
+				curWordsMap[word] += 1
 				cur += n
-				curWordsMap[word] -= 1
 				matched++
 			} else {
+				// 如果当前的单词不存在给定的words中，就不往后匹配，
 				break
 			}
 			if matched == wordNum {

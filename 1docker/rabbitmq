@@ -1,0 +1,135 @@
+rabbitmq集群搭建，
+
+每一步，vagrantfile文件中修改
+
+
+
+
+docker run -d --hostname rabbit02 --name rabbit02 -e RABBITMQ_ERLANG_COOKIE='loyocrm30rabbitcookie' -e RABBITMQ_NODENAME=rabbit02 -e RABBITMQ_DEFAULT_USER=loyo -e RABBITMQ_DEFAULT_PASS=loyo -e RABBITMQ_DEFAULT_VHOST=loyocrm3 -p 5672:5672 -p 15672:15672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 5671:5671  --add-host=rabbit02:192.168.199.104 --add-host=rabbit01:192.168.199.103 rabbitmq:3.7-management
+
+docker run -d --hostname rabbit01 --name rabbit01 -e RABBITMQ_ERLANG_COOKIE='loyocrm30rabbitcookie' -e RABBITMQ_NODENAME=rabbit01 -e RABBITMQ_DEFAULT_USER=loyo -e RABBITMQ_DEFAULT_PASS=loyo -e RABBITMQ_DEFAULT_VHOST=loyocrm3 -p 5672:5672 -p 15672:15672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 5671:5671 --add-host=rabbit02:192.168.199.104 --add-host=rabbit01:192.168.199.103  rabbitmq:3.7-management
+
+
+rabbitmqctl join_cluster rabbit01@rabbit01
+
+
+
+export NODE1=192.168.199.101
+export NODE2=192.168.199.102
+
+sudo docker run --net=default:IP=${NODE1} quay.io/coreos/etcd:v3.2  -name=etcd1   \
+-advertise-client-urls=http://${NODE1}:2379
+-initial-advertise-peer-urls=http://${NODE1}:2380
+-listen-client-urls=http://0.0.0.0:2379
+-listen-peer-urls=http://${NODE1}:2380
+-initial-cluster=node1=http://${NODE1}:2380,node2=http://${NODE2}:2380
+
+# node 2
+sudo rkt run --net=default:IP=${NODE2} quay.io/coreos/etcd:v3.2 -- -name=node2 -advertise-client-urls=http://${NODE2}:2379 -initial-advertise-peer-urls=http://${NODE2}:2380 -listen-client-urls=http://0.0.0.0:2379 -listen-peer-urls=http://${NODE2}:2380 -initial-cluster=node1=http://${NODE1}:2380,node2=http://${NODE2}:2380,node3=http://${NODE3}:2380
+
+ETCDCTL_API=3 etcdctl --endpoints=http://192.168.199.101:2379,http://192.168.199.102:2379 endpoint health
+
+
+docker run -d --name etcd \
+    -p 2379:2379 \
+    -p 2380:2380 \
+    --name etcdnode1 \
+    --add-host=etcd01:192.168.199.101
+    --add-host=etcd02:192.168.199.102
+    quay.io/coreos/etcd:v3.2 \
+    /usr/local/bin/etcd \
+    --name etcd01 \
+    --data-dir /etcd-data \
+    --initial-advertise-peer-urls http://192.168.199.101:2380 \
+    --listen-peer-urls http://192.168.199.101:2380 \
+    --advertise-client-urls http://192.168.199.101:2379 \
+    --listen-client-urls http://192.168.199.101:2379 \
+    --initial-cluster-state new \
+    --initial-cluster-token docker-etcd \
+    --initial-cluster   etcd01=http://192.168.199.101:2380,etcd01=http://192.168.199.102:2380 \
+    --auto-tls --peer-auto-tls \
+    --log-level info \
+    --logger zap \
+    --log-outputs stderr
+
+
+
+
+
+REGISTRY=gcr.io/etcd-development/etcd
+
+# For each machine
+# 另一个可以替代的REGISTRY
+# REGISTRY=gcr.io/etcd-development/etcd
+REGISTRY=quay.io/coreos/etcd
+ETCD_VERSION=v3.2
+TOKEN=loyocrm3
+CLUSTER_STATE=new
+NAME_1=etcd01
+NAME_2=etcd02
+HOST_1=192.168.199.101
+HOST_2=192.168.199.102
+CLUSTER=${NAME_1}=http://${HOST_1}:2380,${NAME_2}=http://${HOST_2}:2380
+DATA_DIR=/var/lib/etcd
+
+# For node 1
+THIS_NAME=${NAME_1}
+THIS_IP=${HOST_1}
+docker run \
+  -p 2379:2379 \
+  -p 2380:2380 \
+  --add-host=${NAME_1}:${HOST_1}  \
+  --add-host=${NAME_2}:${HOST_2}  \
+  --volume=${DATA_DIR}:/etcd-data \
+  --name ${THIS_NAME} ${REGISTRY}:${ETCD_VERSION} \
+  /usr/local/bin/etcd \
+  --data-dir=/etcd-data --name ${THIS_NAME} \
+  --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://0.0.0.0:2380 \
+  --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
+  --initial-cluster ${CLUSTER} \
+  --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
+
+
+ # For node 2
+ THIS_NAME=${NAME_2}
+ THIS_IP=${HOST_2}
+ docker run -d \
+   -p 2379:2379 \
+   -p 2380:2380 \
+   --add-host=${NAME_1}:${HOST_1}  \
+   --add-host=${NAME_2}:${HOST_2}  \
+   --volume=${DATA_DIR}:/etcd-data \
+   --name ${THIS_NAME} ${REGISTRY}:${ETCD_VERSION} \
+   /usr/local/bin/etcd \
+   --data-dir=/etcd-data --name ${THIS_NAME} \
+   --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://0.0.0.0:2380 \
+   --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://0.0.0.0:2379 \
+   --initial-cluster ${CLUSTER} \
+   --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}
+
+
+docker exec etcd02 /bin/sh -c "export ETCDCTL_API=3 && /usr/local/bin/etcdctl put foo bar"
+
+
+
+docker run -d --name etcd \
+    -p 2379:2379 \
+    -p 2380:2380 \
+    --name etcdnode1 \
+    --add-host=etcd01:192.168.199.101
+    --add-host=etcd02:192.168.199.102
+    quay.io/coreos/etcd:v3.2 \
+    /usr/local/bin/etcd \
+    --name etcd01 \
+    --data-dir /etcd-data \
+    --initial-advertise-peer-urls http://192.168.199.102:2380 \
+    --listen-peer-urls http://192.168.199.102:2380 \
+    --advertise-client-urls http://192.168.199.102:2379 \
+    --listen-client-urls http://192.168.199.102:2379 \
+    --initial-cluster-state new \
+    --initial-cluster-token docker-etcd \
+    --initial-cluster   etcd01=http://192.168.199.101:2380,etcd01=http://192.168.199.102:2380 \
+    --auto-tls --peer-auto-tls \
+    --log-level info \
+    --logger zap \
+    --log-outputs stderr

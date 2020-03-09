@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+app_servers = {
+    :master1 => '10.1.1.20',
+    :master2 => '10.1.1.21',
+    :node1 => '10.1.1.22',
+    :node2 => '10.1.1.23'
+}
+
+
+Vagrant.configure("2") do |config|
+
+    #遍历app_servers map，将key和value分别赋值给app_server_name和app_server_ip
+    app_servers.each do |app_server_name, app_server_ip|
+        #针对每一个app_server_name，来配置config.vm.define配置节点，命名为app_config
+        config.vm.define app_server_name do |app_config|
+            app_config.vm.hostname=app_server_name
+            app_config.vm.network "private_network", ip: app_server_ip
+            # app_config.vm.network "public_network", ip: '192.168.31.'  , bridge: "en0: Wi-Fi (Wireless)"#  en0: Wi-Fi (Wireless)
+            app_config.vm.box = "wolferhua/bionic64"  
+            app_config.vm.synced_folder "/Users/wolferhua/workspace/folder/ssh", "/root/.ssh", owner: "root",group: "wolferhua", mount_options: ["uid=0", "gid=0"] 
+            app_config.vm.synced_folder "/Users/wolferhua/workspace/folder/ssh", "/home/wolferhua/.ssh", owner: "wolferhua",group: "wolferhua", mount_options: ["uid=998", "gid=998"]
+            app_config.vm.synced_folder "/Users/wolferhua/.oh-my-zsh", "/home/wolferhua/.oh-my-zsh", owner: "wolferhua",group: "wolferhua", mount_options: ["uid=998", "gid=998"]
+            app_config.vm.synced_folder "~/", "/Users/wolferhua", owner: "wolferhua",group: "wolferhua", mount_options: ["uid=998", "gid=998"]
+            app_config.ssh.username = "wolferhua"
+            app_config.ssh.shell = "zsh -l"
+            # config.ssh.port = 6595
+            # config.ssh.guest_port = 6595
+            app_config.ssh.private_key_path = ['~/.ssh/id_rsa','~/.ssh/vagrant']
+            # 此处配置，参考config.vm.define
+            app_config.vm.provider :virtualbox do |vb|
+
+                #指定vm-name，也就是virtualbox管理控制台中的虚机名称。如果不指定该选项会生成一个随机的名字，不容易区分。
+                vb.name = "k8s-#{app_server_name}"
+                
+                # vagrant up启动时，是否自动打开virtual box的窗口，缺省为false
+                vb.gui = false
+                
+                #指定vm内存，单位为MB
+                vb.memory = "4096"
+                
+                #设置CPU个数 
+                vb.cpus = 4
+            end
+            #             config.vm.provision "shell", inline: <<SCRIPT
+            #             cd /Users/wolferhua/workspace/crm3softs/docker && sudo dpkg -i containerd.io_1.2.10-3_amd64.deb docker-ce-cli_19.03.6\~3-0\~ubuntu-bionic_amd64.deb docker-ce_19.03.5\~3-0\~ubuntu-bionic_amd64.deb && sudo usermod -a -G docker $USER
+            # SCRIPT
+            app_config.vm.provision "shell", inline: <<SCRIPT
+            sudo mkdir -p /usr/lib/systemd/system/
+            sudo mkdir -p /etc/docker/
+            sudo mkdir -p /etc/systemd/system/
+            ln -s /Users/wolferhua/workspace/folder/bash/bash.zshrc /home/wolferhua/.zshrc 
+            # sleep 5 
+            # sudo ip route add default via 10.1.1.1 > /tmp/error
+            # cat /tmp/error
+SCRIPT
+              # default router
+              app_config.vm.provision "shell", run: "always", inline: "sudo route del default"
+              app_config.vm.provision "shel l", run: "always", inline: "sudo route add default gw 10.1.1.1" 
+        end
+    end
+ 
+end
+
+ 

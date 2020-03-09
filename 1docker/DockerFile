@@ -1,0 +1,21 @@
+FROM alpine:3.11
+
+RUN addgroup -S -g 1000 beanstalkd && adduser -S -G beanstalkd -u 999 beanstalkd
+
+RUN mkdir /data && chown beanstalkd:beanstalkd /data
+
+RUN apk add --no-cache 'su-exec>=0.2'
+
+VOLUME /data
+WORKDIR /data
+
+COPY docker-entrypoint.sh /usr/locdocker-entrypoint.shal/bin/
+COPY beanstalkd /usr/local/bin/
+ENV PATH ${PATH}:/usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 11300
+CMD ["beanstalkd"]
+
+# sudo docker run --restart=always  -d --name beanstalk -p 11300:11300 beanstalkd:v1
