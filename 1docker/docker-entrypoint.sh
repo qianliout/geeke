@@ -10,7 +10,7 @@ fi
 # allow the container to be started with `--user`
 if [ "$1" = 'beanstalkd' -a "$(id -u)" = '0' ]; then
 	find . \! -user beanstalkd -exec chown beanstalkd '{}' +
-	exec su-exec beanstalkd "$0" "$@"
+	exec su beanstalkd "$0" "$@"
 fi
 
 exec "$@"

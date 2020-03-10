@@ -1,20 +1,27 @@
-FROM alpine:3.11
+FROM daocloud.io/ubuntu:18.04 as builder
 
-RUN addgroup -S -g 1000 beanstalkd && adduser -S -G beanstalkd -u 999 beanstalkd
 
+# 更改源
+
+RUN sed -i "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+
+# 千万不能加sudo,一定要加  -y
+RUN  apt update &&  apt -y  install gcc make git
+
+WORKDIR /data
+RUN git clone  https://github.com/beanstalkd/beanstalkd.git
+WORKDIR /data/beanstalkd
+RUN make && ls -la
+FROM daocloud.io/ubuntu:18.04
+RUN  adduser beanstalkd
 RUN mkdir /data && chown beanstalkd:beanstalkd /data
-
-RUN apk add --no-cache 'su-exec>=0.2'
-
 VOLUME /data
 WORKDIR /data
-
-COPY docker-entrypoint.sh /usr/locdocker-entrypoint.shal/bin/
-COPY beanstalkd /usr/local/bin/
+COPY docker-entrypoint.sh /usr/local/bin/
+COPY --from=builder /data/beanstalkd/beanstalkd /usr/local/bin/
 ENV PATH ${PATH}:/usr/local/bin/
-
+USER beanstalkd
 ENTRYPOINT ["docker-entrypoint.sh"]
-
 EXPOSE 11300
 CMD ["beanstalkd"]
 
