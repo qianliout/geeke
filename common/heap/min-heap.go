@@ -39,6 +39,10 @@ func (h *IntMinHeap) Peek() interface{} {
 	return x
 }
 
+func InitMin(h heap.Interface) {
+	heap.Init(h)
+}
+
 // This example inserts several ints into an IntHeap, checks the minimum,
 // and removes them in order of priority.
 func Example_intHeap() {
