@@ -27,14 +27,14 @@ func nthUglyNumber(n int) int {
 	}
 	i2, i3, i5 := 0, 0, 0
 	nums := make([]int, 0)
-	exitmap := make(map[int]bool)
+	exitMap := make(map[int]bool)
 	nums = append(nums, 1)
 	i := 0
 	for {
 		tem := minInt(nums[i2]*2, nums[i3]*3, nums[i5]*5)
-		if !exitmap[tem] {
+		if !exitMap[tem] {
 			nums = append(nums, tem)
-			exitmap[tem] = true
+			exitMap[tem] = true
 		}
 		if tem == nums[i2]*2 {
 			i2++

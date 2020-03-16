@@ -1,12 +1,14 @@
 package heap
 
-import "container/heap"
+import (
+	"container/heap"
+)
 
 type IntMaxHeap []int
 
-func (h IntMaxHeap) Len() int           { return len(h) }
-func (h IntMaxHeap) Less(i, j int) bool { return h[i] < h[j] }
-func (h IntMaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *IntMaxHeap) Len() int           { return len(*h) }
+func (h *IntMaxHeap) Less(i, j int) bool { return (*h)[i] < (*h)[j] }
+func (h *IntMaxHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
 
 func (h *IntMaxHeap) Push(x interface{}) {
 	// Push and Pop use pointer receivers because they modify the slice's length,
@@ -30,7 +32,12 @@ func (h *IntMaxHeap) PopMax() interface{} {
 	return x
 }
 
-func InitMax(h heap.Interface) {
+func (h *IntMaxHeap) Peek() interface{} {
+	x := (*h)[0]
+	return x
+}
+
+func InitMax(h *IntMaxHeap) {
 	// heapify
 	n := h.Len()
 	for i := n/2 - 1; i >= 0; i-- {

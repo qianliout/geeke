@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
@@ -14,12 +15,12 @@ func main() {
 }
 
 func permuteUnique(nums []int) [][]int {
-	//res := make([][]int, 0)
-	//sort.Ints(nums)
-	//path := make([]int, 0)
-	//used := make([]bool, len(nums))
-	//backtrack(nums, path, len(nums), 0, used, &res)
-	//return res
+	res := make([][]int, 0)
+	sort.Ints(nums)
+	path := make([]int, 0)
+	used := make([]bool, len(nums))
+	backtrack(nums, path, len(nums), 0, used, &res)
+	return res
 
 	//res := make([][]int, 0)
 	//path := make([]int, 0)
@@ -27,9 +28,10 @@ func permuteUnique(nums []int) [][]int {
 	//depthUsed := make([]bool, len(nums))
 	//backtrackNotUseSort(nums, path, len(nums), 0, dataUsed, depthUsed, &res)
 	//return res
-	res := make([][]int, 0)
-	swap(nums, 0, &res)
-	return res
+
+	//res := make([][]int, 0)
+	//swap(nums, 0, &res)
+	//return res
 
 }
 
@@ -54,7 +56,7 @@ func backtrack(nums, path []int, length, depth int, used []bool, res *[][]int) {
 	}
 }
 
-// 如果不用排序的话，有什么办法没有呢，
+// 如果不用排序的话，有什么办法没有呢，好像真没有
 func backtrackNotUseSort(nums, path []int, length, depth int, dataUsed map[int]int, depthUsed []bool, res *[][]int) {
 	if depth == length {
 		*res = append(*res, append([]int{}, path...))

@@ -64,6 +64,9 @@ func dfs(nums, n, k, left int, path []int, used map[int]bool, res *[][]int) {
 	}
 
 	for i := 1; i < nums+1; i++ {
+		if len(*res) >= 1 {
+			break
+		}
 		u, exit := used[i]
 		if exit && u {
 			continue

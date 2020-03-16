@@ -1,16 +1,16 @@
 package heap
 
 import (
-	"container/heap"
+	cheap "container/heap"
 	"fmt"
 )
 
 // An IntHeap is a min-heap of ints.
 type IntMinHeap []int
 
-func (h IntMinHeap) Len() int           { return len(h) }
-func (h IntMinHeap) Less(i, j int) bool { return h[i] < h[j] }
-func (h IntMinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *IntMinHeap) Len() int           { return len(*h) }
+func (h *IntMinHeap) Less(i, j int) bool { return (*h)[i] < (*h)[j] }
+func (h *IntMinHeap) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
 
 func (h *IntMinHeap) Push(x interface{}) {
 	// Push and Pop use pointer receivers because they modify the slice's length,
@@ -38,20 +38,24 @@ func (h *IntMinHeap) Peek() interface{} {
 	x := (*h)[0]
 	return x
 }
+func (h *IntMinHeap) PeekLast() interface{} {
+	x := (*h)[len(*h)-1]
+	return x
+}
 
-func InitMin(h heap.Interface) {
-	heap.Init(h)
+func InitMin(h *IntMinHeap) {
+	cheap.Init(h)
 }
 
 // This example inserts several ints into an IntHeap, checks the minimum,
 // and removes them in order of priority.
 func Example_intHeap() {
 	h := &IntMinHeap{2, 1, 5}
-	heap.Init(h)
-	heap.Push(h, 3)
+	cheap.Init(h)
+	cheap.Push(h, 3)
 	fmt.Printf("minimum: %d\n", (*h)[0])
 	for h.Len() > 0 {
-		fmt.Printf("%d ", heap.Pop(h))
+		fmt.Printf("%d ", cheap.Pop(h))
 	}
 	// Output:
 	// minimum: 1
