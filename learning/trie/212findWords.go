@@ -2,20 +2,20 @@ package trie
 
 import "fmt"
 
-type Trienode struct {
+type TrieNode struct {
 	val  rune
 	word string
-	next map[rune]*Trienode
+	next map[rune]*TrieNode
 }
 
 func FindWords(board [][]byte, words []string) []string {
 	// 构造字典树
-	root := &Trienode{next: map[rune]*Trienode{}}
+	root := &TrieNode{next: map[rune]*TrieNode{}}
 	for _, w := range words {
 		p := root
 		for i, b := range w {
 			if _, ok := p.next[b]; !ok {
-				p.next[b] = &Trienode{val: b, next: map[rune]*Trienode{}}
+				p.next[b] = &TrieNode{val: b, next: map[rune]*TrieNode{}}
 			}
 			if i == len(w)-1 {
 				p.next[b].word = w
@@ -34,7 +34,7 @@ func FindWords(board [][]byte, words []string) []string {
 	return res
 }
 
-func DFS(brd [][]byte, res *[]string, node *Trienode, i, j int, visited map[string]bool) {
+func DFS(brd [][]byte, res *[]string, node *TrieNode, i, j int, visited map[string]bool) {
 	k := fmt.Sprintf("%v_%v", i, j)
 
 	if i < 0 || j < 0 || i >= len(brd) || j >= len(brd[0]) || visited[k] {
