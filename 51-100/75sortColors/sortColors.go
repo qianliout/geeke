@@ -53,7 +53,6 @@ func sortColors2(nums []int) []int {
 				p2--
 			} else if currentNum == 0 {
 				nums[curr], nums[p1] = nums[p1], nums[curr]
-
 				p1++
 				curr++
 			} else {
