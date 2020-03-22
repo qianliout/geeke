@@ -37,48 +37,28 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 	if root == nil {
 		return res
 	}
-	firstStack := make([]*TreeNode, 0)
-	secondStack := make([]*TreeNode, 0)
-	firstStack = append(firstStack, root)
-	for {
-		s := make([]int, 0)
-		s2 := make([]int, 0)
-		for len(firstStack) > 0 {
-			node := firstStack[0]
-			fmt.Println(node.Val)
-			if node.Left != nil {
-				secondStack = append(secondStack, node.Left)
+	curLevel := make([]*TreeNode, 0)
+	curLevel = append(curLevel, root)
+	left := true // 表示从左开始
+	for len(curLevel) > 0 {
+		s := make([]int, len(curLevel))
+		nextLevel := make([]*TreeNode, 0)
+		for i, n := range curLevel {
+			if left {
+				s[i] = n.Val
+			} else {
+				s[len(curLevel)-i-1] = n.Val
 			}
-			if node.Right != nil {
-				secondStack = append(secondStack, node.Right)
+			if n.Left != nil {
+				nextLevel = append(nextLevel, n.Left)
 			}
-			s = append(s, node.Val)
-			firstStack = firstStack[1:]
-		}
-		if len(s) > 0 {
-			res = append(res, s)
-			s = make([]int, 0)
-		}
-
-		for len(secondStack) > 0 {
-			node := secondStack[len(secondStack)-1]
-			if node.Left != nil {
-				firstStack = append(firstStack, node.Left)
+			if n.Right != nil {
+				nextLevel = append(nextLevel, n.Right)
 			}
-			if node.Right != nil {
-				firstStack = append(firstStack, node.Right)
-			}
-			s2 = append(s2, node.Val)
-			secondStack = secondStack[:len(secondStack)-1]
 		}
-		if len(s2) > 0 {
-			res = append(res, s2)
-			s2 = make([]int, 0)
-		}
-
-		if len(firstStack) == 0 && len(secondStack) == 0 {
-			break
-		}
+		left = !left
+		res = append(res, s)
+		curLevel = nextLevel
 	}
 	return res
 }
