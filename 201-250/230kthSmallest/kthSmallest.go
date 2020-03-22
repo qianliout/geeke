@@ -59,13 +59,11 @@ func inOrder(root *TreeNode, res *[]int, k int) {
 		return
 	}
 
-	if root != nil && root.Left != nil {
+	if root.Left != nil {
 		inOrder(root.Left, res, k)
 	}
-	if root != nil {
-		*res = append(*res, root.Val)
-	}
-	if root != nil && root.Right != nil {
+	*res = append(*res, root.Val)
+	if root.Right != nil {
 		inOrder(root.Right, res, k)
 	}
 }
