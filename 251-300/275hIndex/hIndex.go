@@ -27,21 +27,9 @@ h 篇论文分别被引用了至少 h 次。（其余的 N - h 篇论文每篇�
     你可以优化你的算法到对数时间复杂度吗？
 */
 func hIndex(citations []int) int {
-	if len(citations) == 0 {
-		return 0
+	i := 0
+	for i < len(citations) && citations[len(citations)-i-1] > i {
+		i++
 	}
-	right := len(citations) - 1
-	num := 0
-	for right >= 0 {
-		va := citations[right]
-		num++
-		right--
-		if va <= num {
-			break
-		}
-	}
-	if num < citations[right+1] {
-		return num
-	}
-	return citations[right+1]
+	return i
 }
