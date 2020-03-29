@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"outback/leetcode/common/trie"
 )
 
 func main() {
@@ -84,4 +86,10 @@ func dfs(board [][]byte, path, word []byte, i, j, k int, used map[int]map[int]bo
 // 字典树的方法
 func exist2(board [][]byte, word string) bool {
 	return true
+}
+
+func newTrie(board [][]byte) *trie.Trie {
+	t := trie.Constructor()
+	return &t
+
 }

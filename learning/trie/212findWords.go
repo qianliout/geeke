@@ -18,6 +18,7 @@ func FindWords(board [][]byte, words []string) []string {
 				p.next[b] = &TrieNode{val: b, next: map[rune]*TrieNode{}}
 			}
 			if i == len(w)-1 {
+				//记录单词
 				p.next[b].word = w
 			}
 			p = p.next[b]

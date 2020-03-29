@@ -1,11 +1,22 @@
 package main
 
 import (
-	"outback/leetcode/common/trie"
+	"fmt"
+
+	. "outback/leetcode/common/trie"
 )
 
 func main() {
-
+	board := [][]byte{
+		{'a', 'b'},
+		{'a', 'a'},
+		//{'i', 'h', 'k', 'r'},
+		//{'i', 'f', 'l', 'v'},
+	}
+	//words := []string{"oath", "pea", "eat", "rain"}
+	words := []string{"aba", "baa", "bab", "aaab", "aaa", "aaaa", "aaba"}
+	res := findWords(board, words)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -21,17 +32,56 @@ words = ["oath","pea","eat","rain"] and board =
   ['i','h','k','r'],
   ['i','f','l','v']
 ]
+["eat","oath"]
 */
 func findWords(board [][]byte, words []string) []string {
+	result := make([]string, 0)
+	if len(board) == 0 || len(board[0]) == 0 || len(words) == 0 {
+		return result
+	}
 
+	tr := Constructor()
+	for _, word := range words {
+		tr.Insert(word)
+	}
+	used := make(map[string]bool)
+	res := make([]string, 0)
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[i]); j++ {
+			dfs(board, &res, "", &tr, j, i, used)
+		}
+	}
+	// 注意res这里去不了重，是为什么呢
+	set := make(map[string]interface{})
+	for _, i2 := range res {
+		set[i2] = nil
+	}
+
+	for i := range set {
+		result = append(result, i)
+	}
+	//fmt.Println(res)
+	return result
 }
 
-// 构造trie树
-func generateTire(board [][]byte) *trie.Trie {
-	node := trie.Constructor()
+func dfs(board [][]byte, res *[]string, path string, trieNode *Trie, row, col int, used map[string]bool) {
+	v := fmt.Sprintf("%d_%d", col, row)
+	if trieNode.Search(path) {
+		*res = append(*res, path)
+		path = ""
+		return
+	}
+	if row < 0 || col < 0 || row >= len(board[0]) || col >= len(board) || used[v] {
+		return
+	}
 
-}
+	used[v] = true
+	path = path + string(board[col][row])
 
-func addToNode(board [][]byte, i, j int, node *trie.Trie) {
-
+	dfs(board, res, path, trieNode, row+1, col, used)
+	dfs(board, res, path, trieNode, row-1, col, used)
+	dfs(board, res, path, trieNode, row, col+1, used)
+	dfs(board, res, path, trieNode, row, col-1, used)
+	used[v] = false
+	path = string([]byte(path)[:len(path)-1])
 }
