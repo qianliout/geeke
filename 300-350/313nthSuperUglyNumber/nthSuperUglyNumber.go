@@ -1,7 +1,17 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"math"
 
+	. "outback/leetcode/common/heap"
+)
+
+func main() {
+	n := 500
+	primes := []int{5, 7, 13, 17, 23, 29, 31, 43, 53, 59, 61, 71, 73, 79, 83, 97, 109, 131, 137, 163, 167, 181, 191, 193, 197, 199, 227, 233, 251, 263}
+	res := nthSuperUglyNumber(n, primes)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -19,6 +29,58 @@ func main() {
 链接：https://leetcode-cn.com/problems/super-ugly-number
 */
 
-func nthSuperUglyNumber(n int, primes []int) int {
+// 自已在本地不会超出时间限制，但是提交会超出限制
+// 使用小顶堆
+func nthSuperUglyNumber2(n int, primes []int) int {
+	h := new(IntMinHeap)
+	h.Push(1)
+	n--
+	for n > 0 {
+		tem := h.PopMini().(int)
+		n--
+		InitMin(h)
+		// 因为下面可能会加重复元素，所以把相同都Pop出来
+		for h.Len() > 0 && tem == h.Peek().(int) {
+			tem = h.PopMini().(int)
+			InitMin(h)
+		}
+		for _, p := range primes {
+			t := tem * p
+			h.Push(t) // 这里可能加重复元素
+			InitMin(h)
+		}
+	}
+	return h.PopMini().(int)
+}
 
+func nthSuperUglyNumber(n int, primes []int) int {
+	idx := make([]int, len(primes))
+	// 理解这个idx表示的是什么是这道题的关键，以题目的样例为例
+	/*
+			i等于1时，dp[i] = primes[0]*dp[0] 也就是2*1  此时idx[0] = 1 (原来是0，dp[i],选中的是primes[0],所以idx[0]要加一)
+			i等于2时，dp[i] =  min(dp[0]*idx[0],dp[1]*idx[1]....) 显然应该是dp[0]*idx[0] = 2*2 (从这里也可以看出为什么idx[k]++)
+		因为不加加的话就会再次出现一个2，导致重复计算，得不到正确的值
+	*/
+	dp := make([]int, n)
+	dp[0] = 1
+	for i := 1; i < n; i++ {
+		min := math.MaxInt32
+		for k := 0; k < len(primes); k++ {
+			tmp := primes[k] * dp[idx[k]]
+			if tmp < min {
+				min = tmp
+			}
+		}
+		dp[i] = min
+
+		for k := 0; k < len(primes); k++ {
+			tmp := primes[k] * dp[idx[k]]
+			if tmp == min {
+				idx[k]++
+				// idx[k]++ 下次再使用于时就要使用这个增加后的
+			}
+		}
+	}
+	//fmt.Println(dp)
+	return dp[n-1]
 }
