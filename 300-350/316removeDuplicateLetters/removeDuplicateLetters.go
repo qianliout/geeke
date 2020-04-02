@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"strings"
+)
 
+func main() {
+	s := "daaabbbccca"
+	res := removeDuplicateLetters2(s)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -14,6 +21,69 @@ func main() {
 输出: "acdb"
 链接：https://leetcode-cn.com/problems/remove-duplicate-letters
 */
+//使用stark的方式
 func removeDuplicateLetters(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	exit := make(map[byte]int)
+	for _, i := range []byte(s) {
+		exit[i] += 1
+	}
+	exit2 := make(map[byte]bool)
 
+	stark := make([]byte, 0)
+
+	for _, i := range []byte(s) {
+		if exit2[i] {
+			exit[i] -= 1
+			continue // 已以在里面的了
+		}
+		if len(stark) == 0 || (len(stark) > 0 && stark[len(stark)-1] < i) {
+			stark = append(stark, i)
+			exit[i] -= 1
+			exit2[i] = true
+		} else {
+			for len(stark) > 0 && stark[len(stark)-1] > i {
+				peek := stark[len(stark)-1]
+				if exit[peek] <= 0 {
+					break
+				}
+				exit2[peek] = false
+				stark = stark[:len(stark)-1]
+			}
+			stark = append(stark, i)
+			exit[i] -= 1
+			exit2[i] = true
+		}
+	}
+	res := ""
+	for _, i := range stark {
+		res = res + string(i)
+	}
+	return res
+}
+
+//使用递归，贪心算法
+func removeDuplicateLetters2(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	exit := make(map[byte]int)
+	for _, i := range []byte(s) {
+		exit[i] += 1
+	}
+	pos := 0
+	for i, v := range []byte(s) {
+		if v < []byte(s)[pos] {
+			pos = i
+		}
+		exit[v]--
+		if exit[v] == 0 {
+			break
+		}
+	}
+	pre := string([]byte(s)[pos])
+	new2 := strings.Replace(string([]byte(s)[pos:]), pre, "", -1)
+	return pre + removeDuplicateLetters2(new2)
 }
