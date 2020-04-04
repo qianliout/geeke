@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -30,9 +31,9 @@ import (
 var remind int
 
 func main() {
-	n := 4
-	k := 9
-	str := getPermutation(n, k)
+	n := 3
+	k := 2
+	str := getPermutation2(n, k)
 	fmt.Println(str)
 }
 
@@ -79,4 +80,62 @@ func dfs(nums, n, k, left int, path []int, used map[int]bool, res *[][]int) {
 		used[i] = false
 		path = path[:len(path)-1]
 	}
+}
+
+var (
+	m map[int]int
+)
+
+func getPermutation2(n int, k int) string {
+	if k == 0 || n == 0 {
+		return ""
+	}
+	nums := make([]int, 0)
+	res := make([]int, 0)
+	for i := n; i > 0; i-- {
+		nums = append(nums, i)
+	}
+	helper(nums, k, &res)
+
+	ans := ""
+	for _, num := range res {
+		ans = ans + strconv.Itoa(num)
+	}
+	return ans
+}
+
+func helper(nums []int, k int, res *[]int) {
+	if m == nil {
+		m = make(map[int]int)
+	}
+	start := len(nums) - 1
+
+	for start >= 0 {
+		j := start
+
+		pre := Fib(len(nums)-1, &m)
+		if len(nums) == 1 {
+			*res = append(*res, nums[0])
+			break
+		}
+		for k > pre {
+			j--
+			k -= pre
+		}
+		*res = append(*res, nums[j])
+		nums = append(nums[:j], nums[j+1:]...)
+		start = len(nums) - 1
+	}
+}
+
+func Fib(n int, m *map[int]int) int {
+	if n <= 1 {
+		return n
+	}
+	if v, ok := (*m)[n]; ok {
+		return v
+	}
+	r := Fib(n-1, m) * n
+	(*m)[n] = r
+	return r
 }

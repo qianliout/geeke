@@ -23,6 +23,9 @@ func PreOrderTraversal(root *TreeNode) {
 
 // 中序排列
 func InOrderTraversal(root *TreeNode) {
+	//if root == nil {
+	//	fmt.Printf("nil ")
+	//}
 	if root != nil {
 		InOrderTraversal(root.Left)
 		fmt.Printf("%d ", root.Val)
@@ -39,14 +42,6 @@ func PostOrderTraversal(root *TreeNode) {
 	}
 }
 
-func InorderTraversalToSlice(root *TreeNode) []int {
-	reslut := make([]int, 0)
-	func(root *TreeNode) {
-		if root != nil {
-			InorderTraversalToSlice(root.Left)
-			reslut = append(reslut, root.Val)
-			InorderTraversalToSlice(root.Right)
-		}
-	}(root)
-	return reslut
+func InorderTraversalToSlice(root *TreeNode) {
+
 }
