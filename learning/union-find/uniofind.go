@@ -8,8 +8,8 @@ type UnionFine struct {
 
 func NewUnionFind(grid [][]int) UnionFine {
 	m, n := len(grid), len(grid[0])
-	parent := []int{}
-	rank := []int{}
+	parent := make([]int, 0)
+	rank := make([]int, 0)
 	count := 0
 	for i := 0; i < m*n; i++ {
 		parent = append(parent, -1)
@@ -49,7 +49,7 @@ func (this *UnionFine) Union(x, y int) {
 			this.Parent[rootX] = rootY
 		} else {
 			this.Parent[rootY] = rootX
-			this.Rank[rootX] ++
+			this.Rank[rootX]++
 		}
 		this.Count--
 	}
