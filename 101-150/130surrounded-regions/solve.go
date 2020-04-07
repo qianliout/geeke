@@ -56,7 +56,6 @@ func solve(board [][]byte) {
 	for _, nums := range board {
 		fmt.Println(string(nums))
 	}
-	fmt.Println()
 	// 换值
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {
@@ -121,8 +120,8 @@ func solve2(board [][]byte) {
 			}
 		}
 	}
-	fmt.Println(uf.Parent)
-	fmt.Println(uf.Rank)
+	//fmt.Println(uf.Parent)
+	//fmt.Println(uf.Rank)
 
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {

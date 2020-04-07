@@ -3,6 +3,7 @@ package unionfind
 type UnionFind struct {
 	Parent []int
 	Rank   []int
+	Count  int
 }
 
 func NewUnionFind(totalNodes int) *UnionFind {
@@ -12,7 +13,7 @@ func NewUnionFind(totalNodes int) *UnionFind {
 		p[i] = i
 		r[i] = 1
 	}
-	return &UnionFind{Parent: p, Rank: r}
+	return &UnionFind{Parent: p, Rank: r, Count: totalNodes}
 }
 
 func (u *UnionFind) Find(x int) int {
@@ -26,18 +27,17 @@ func (u *UnionFind) Find(x int) int {
 func (u *UnionFind) Union(x, y int) {
 	xRoot := u.Find(x)
 	yRoot := u.Find(y)
-	if xRoot == yRoot {
-		return
-	}
 
+	// 把低的rank赋值给高的node，这里有些不理解，
 	if xRoot != yRoot {
+		u.Count--
 		if u.Rank[xRoot] > u.Rank[yRoot] {
 			u.Parent[yRoot] = xRoot
 		} else if u.Rank[xRoot] < u.Rank[yRoot] {
 			u.Parent[xRoot] = yRoot
 		} else {
-			u.Parent[xRoot] = yRoot
-			u.Rank[yRoot]++
+			u.Parent[yRoot] = xRoot
+			u.Rank[xRoot]++
 		}
 	}
 }
