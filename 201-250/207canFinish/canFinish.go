@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	prerequisites := [][]int{{1, 0}}
+
+	res := canFinish(2, prerequisites)
+	fmt.Println("can finish is ", res)
 }
 
 /*
@@ -22,6 +29,65 @@ func main() {
     1 <= numCourses <= 10^5
 链接：https://leetcode-cn.com/problems/course-schedule
 */
+// bfs 容易理解
 func canFinish(numCourses int, prerequisites [][]int) bool {
+	indegrees := make([]int, numCourses)
+	// 注意理解这个变量，这里这个变量是最重要的，他的意思是，当前课程，有多少个对应的前置课程
+	adjacency := make([][]int, numCourses)
+	// 先把所有的课程加进去,注意，这里是当前课程指向前置课程，所以是长前置课程的入度
+	for _, req := range prerequisites {
+		indegrees[req[0]]++
+		adjacency[req[1]] = append(adjacency[req[1]], req[0]) // 计算出，当前课程有多少个前置课程
+	}
 
+	queue := make([]int, 0)
+	// 先把初始条件下，出度为0的课程找出来，放到队列中
+	for i := 0; i < numCourses; i++ {
+		if indegrees[i] == 0 {
+			queue = append(queue, i)
+		}
+	}
+	for len(queue) > 0 {
+		pre := queue[0]
+		numCourses--
+		queue = queue[1:len(queue)]
+		for _, cu := range adjacency[pre] {
+			indegrees[cu]--
+			if indegrees[cu] == 0 {
+				queue = append(queue, cu)
+			}
+		}
+	}
+	return numCourses == 0
+}
+
+func canFinish2(numCourses int, prerequisites [][]int) bool {
+	flag := make([]int, numCourses)
+	adjacency := make([][]int, numCourses)
+	for _, req := range prerequisites {
+		adjacency[req[1]] = append(adjacency[req[1]], req[0]) // 计算出，当前课程有多少个前置课程
+	}
+	for i := 0; i < numCourses; i++ {
+		if !dfs(adjacency, flag, i) {
+			return false
+		}
+	}
+	return true
+
+}
+func dfs(adjacency [][]int, flag []int, i int) bool {
+	if flag[i] == 1 {
+		return false
+	}
+	if flag[i] == -1 {
+		return true
+	}
+	flag[i] = 1
+	for _, curr := range adjacency[i] {
+		if !dfs(adjacency, flag, curr) {
+			return false
+		}
+	}
+	flag[i] = -1
+	return true
 }
