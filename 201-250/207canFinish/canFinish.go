@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	prerequisites := [][]int{{1, 0}}
+	prerequisites := [][]int{{1, 0}, {0, 1}}
 
-	res := canFinish(2, prerequisites)
+	res := canFinish2(2, prerequisites)
 	fmt.Println("can finish is ", res)
 }
 

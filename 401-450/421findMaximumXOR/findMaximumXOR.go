@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"math"
+)
 
+func main() {
+	nums := []int{3, 10, 5, 25, 2, 8}
+	ans := findMaximumXOR(nums)
+	fmt.Println("ans is ", ans)
 }
 
 /*
@@ -15,5 +22,39 @@ func main() {
  解释: 最大的结果是 5 ^ 25 = 28.
 */
 func findMaximumXOR(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	return find(nums)
+}
 
+//https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/solution/li-yong-yi-huo-yun-suan-de-xing-zhi-tan-xin-suan-f/
+func find(nums []int) int {
+	res := 0
+	mask := 0
+	for i := 30; i >= 0; i-- {
+		mask = mask | (1 << i)
+		set := make(map[int]interface{})
+		for _, num := range nums {
+			set[mask&num] = nil
+		}
+		temp := res | (1 << i)
+		for key := range set {
+			if _, ok := set[key^temp]; ok {
+				res = temp
+				break
+			}
+		}
+	}
+	return res
+}
+
+func Max(nums []int) int {
+	m := math.MinInt64
+	for _, n := range nums {
+		if n > m {
+			m = n
+		}
+	}
+	return m
 }

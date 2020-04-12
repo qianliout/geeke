@@ -73,7 +73,10 @@ func add(node *Node, word string, index int) {
 	add(node.next[c], word, index+1)
 }
 
-/** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+/*
+Returns if the word is in the data structure. A word could contain the dot character
+'.' to represent any one letter.
+*/
 func (this *WordDictionary) Search(word string) bool {
 	return find(this.root, word, 0)
 }

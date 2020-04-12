@@ -31,7 +31,6 @@ false
 */
 
 //dp
-
 func canIWin(maxChoosableInteger int, desiredTotal int) bool {
 	if maxChoosableInteger*((maxChoosableInteger+1)/2) < desiredTotal {
 		return false
