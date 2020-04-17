@@ -1,7 +1,11 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	fmt.Println(isHappy(29))
 }
 
 /*
@@ -24,5 +28,22 @@ func isHappy(n int) bool {
 	}
 	m := make(map[int]bool)
 
+	for n != 1 {
+		n = happy(n)
+		if m[n] {
+			return false
+		}
+		m[n] = true
+	}
+
 	return true
+}
+
+func happy(n int) int {
+	res := 0
+	for n > 0 {
+		res += (n % 10) * (n % 10)
+		n = n / 10
+	}
+	return res
 }

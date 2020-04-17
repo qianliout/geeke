@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 func main() {
-	calculate("(1+(4+5+20)-3)+(6+48)")
+	res := calculate2("(1+3-(4+5+2)-3)+(6+8)")
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -22,51 +24,133 @@ func main() {
 输入: "(1+(4+5+2)-3)+(6+8)"
 输出: 23
 */
+
+type item struct {
+	value  int
+	symbol string
+}
+
 func calculate(s string) int {
-	symbolStark := make([]string, 0)
-	numStark := make([]int, 0)
 	if len(s) == 0 {
 		return 0
 	}
+	s = strings.Replace(s, " ", "", -1)
 	ss := []byte(s)
 	length := len(ss)
 	symbolMap := map[string]bool{"(": true, ")": true, "+": true, "-": true}
 	i := 0
+	itemStark := make([]item, 0)
 
 	for i < length {
 		if symbolMap[string(ss[i])] {
-			symbolStark = append(symbolStark, string(ss[i]))
+			itemStark = append(itemStark, item{symbol: string(ss[i])})
 		} else {
 			num, _ := strconv.Atoi(string(ss[i]))
-			for !symbolMap[string(ss[i+1])] {
+			for i+1 < length && !symbolMap[string(ss[i+1])] {
 				r, _ := strconv.Atoi(string(ss[i+1]))
 				num = num*10 + r
 				i++
 			}
-			numStark = append(numStark, num)
+			itemStark = append(itemStark, item{value: num})
 		}
 		i++
 	}
-	first := false
+	numStark := make([]int, 0)
+	symbolStak := make([]string, 0)
 
-	symbolStark2 := make([]string, 0)
-	numStark2 := make([]int, 0)
-	if symbolStark[0] == "(" {
-		first = true
-	}
-	if first {
-		for len(symbolStark) > 0 && len(numStark) > 0 {
-			symbol := symbolStark[0]
-			symbolStark = symbolStark[1:]
-			if symbol == "(" {
-				symbolStark2 = append(symbolStark2, symbol)
+	for _, it := range itemStark {
+		if len(it.symbol) > 0 && it.symbol != ")" {
+			symbolStak = append(symbolStak, it.symbol)
+		}
+		if len(it.symbol) > 0 && it.symbol == ")" {
+			if len(symbolStak) < 1 || symbolStak[len(symbolStak)-1] != "(" {
+				fmt.Println("非法1")
+				return 0
 			}
-			if symbol
+			symbolStak = symbolStak[:len(symbolStak)-1]
+			if len(symbolStak) > 0 && symbolStak[len(symbolStak)-1] != "(" {
+				if len(numStark) < 2 {
+					fmt.Println("非法2", numStark, symbolStak)
+					return 0
+				}
+				var newNum int
+				lastSymbol := symbolStak[len(symbolStak)-1]
+				symbolStak = symbolStak[:len(symbolStak)-1]
+
+				if lastSymbol == "-" {
+					newNum = numStark[len(numStark)-2] - numStark[len(numStark)-1]
+				} else if lastSymbol == "+" {
+					newNum = numStark[len(numStark)-2] + numStark[len(numStark)-1]
+				}
+				numStark = numStark[:len(numStark)-2]
+				numStark = append(numStark, newNum)
+			}
 
 		}
 
-	}
+		// 说明是数字
+		if len(it.symbol) == 0 {
+			if len(symbolStak) == 0 || symbolStak[len(symbolStak)-1] == "(" || len(numStark) == 0 {
+				numStark = append(numStark, it.value)
+			} else {
+				for {
+					lastSymbol := symbolStak[len(symbolStak)-1]
+					lastNum := numStark[len(numStark)-1]
+					numStark = numStark[:len(numStark)-1]
 
-	fmt.Println(symbolStark, numStark)
-	return 0
+					if lastSymbol == "-" {
+						lastNum = lastNum - it.value
+					} else if lastSymbol == "+" {
+						lastNum = lastNum + it.value
+					}
+					numStark = append(numStark, lastNum)
+					symbolStak = symbolStak[:len(symbolStak)-1]
+					if len(symbolStak) == 0 || symbolStak[len(symbolStak)-1] == "(" {
+						break
+					}
+				}
+			}
+		}
+	}
+	return numStark[0]
+}
+
+func calculate2(s string) int {
+	res := 0
+	operator := 1
+	stark := make([]int, 0)
+	num := 0
+	if len(s) == 0 {
+		return res
+	}
+	s = strings.ReplaceAll(s, " ", "")
+	for _, ch := range []byte(s) {
+		if string(ch) == "(" {
+			stark = append(stark, res)
+			stark = append(stark, operator)
+			res = 0
+			operator = 1
+			num = 0
+		} else if string(ch) == ")" {
+			res = res + num*operator
+			res = res * stark[len(stark)-1]
+			res = res + stark[len(stark)-2]
+			stark = stark[:len(stark)-2]
+			num = 0
+			operator = 1
+		} else if string(ch) == "+" {
+			res = res + num*operator
+			operator = 1
+			num = 0
+		} else if string(ch) == "-" {
+			res = res + num*operator
+			operator = -1
+			num = 0
+		} else {
+			n, _ := strconv.Atoi(string(ch))
+			num = num*10 + n
+		}
+	}
+	// 要注意的是，最后可能是数字，所以就会存在漏加的情况，1+1 就可以验证
+	return res + operator*num
 }
