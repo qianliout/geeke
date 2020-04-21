@@ -1,7 +1,12 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"sort"
+)
 
+func main() {
+	nextPermutation([]int{1, 3, 2})
 }
 
 /*
@@ -15,5 +20,20 @@ func main() {
 */
 
 func nextPermutation(nums []int) {
-
+	length := len(nums)
+	if len(nums) <= 1 {
+		return
+	}
+	flag := false
+	for i := length - 1; i >= 1; i-- {
+		if nums[i] > nums[i-1] {
+			nums[i], nums[i-1] = nums[i-1], nums[i]
+			flag = true
+			break
+		}
+	}
+	if !flag {
+		sort.Ints(nums)
+	}
+	fmt.Println(nums)
 }

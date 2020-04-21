@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 /*
 给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。
 '?' 可以匹配任何单个字符。
@@ -40,9 +44,67 @@ p = "a*c?b"
 */
 
 func main() {
-
+	//res := isMathisMatch("acdcb", "a*c?b")
+	//res := isMathisMatch("aa", "*")
+	res := isMathisMatch("adceb", "*a*b")
+	fmt.Println(res)
 }
 
-func isMathisMatch(s string, p string) bool {
-	return true
+func isMathisMatch2(s string, p string) bool {
+	if len(p) == 0 {
+		return len(s) == 0
+	}
+
+	ss := []byte(s)
+	pp := []byte(p)
+
+	i, j, iStart, jStart := 0, 0, -1, -1
+	for i < len(ss) {
+		if j < len(pp) && (ss[i] == pp[j] || pp[j] == '?') {
+			i++
+			j++
+		} else if j < len(pp) && pp[j] == '*' {
+			iStart = i
+			jStart = j
+			j++
+		} else if iStart > -1 {
+			iStart = iStart + 1
+			i = iStart
+			j = jStart + 1
+		} else {
+			return false
+		}
+	}
+	for j < len(pp) && pp[j] == '*' {
+		j++
+	}
+	return j == len(pp)
+}
+
+func isMathisMatch(s, p string) bool {
+	if len(p) == 0 {
+		return len(s) == 0
+	}
+	dp := make(map[int]map[int]bool)
+	for i := 0; i <= len(s); i++ {
+		dp[i] = make(map[int]bool)
+	}
+	dp[0][0] = true
+	ss := []byte(s)
+	pp := []byte(p)
+
+	for j := 1; j <= len(p); j++ {
+		dp[0][j] = pp[j-1] == '*' && dp[0][j-1]
+	}
+
+	for i := 1; i <= len(s); i++ {
+		for j := 1; j <= len(p); j++ {
+			if ss[i-1] == pp[j-1] || pp[j-1] == '?' {
+				dp[i][j] = dp[i-1][j-1]
+			} else if pp[j-1] == '*' {
+				dp[i][j] = dp[i-1][j] || dp[i][j-1]
+			}
+		}
+	}
+	return dp[len(s)][len(p)]
 }
