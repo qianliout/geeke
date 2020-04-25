@@ -1,14 +1,15 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 
-	"outback/leetcode/common/heap"
+	. "outback/leetcode/common/commonHeap"
 )
 
 func main() {
-	num := []int{5, 3, 1, 1, 1, 3, 73, 1}
-	res := topKFrequent(num, 2)
+	num := []int{3, 0, 1, 0, 1, 1, 2}
+	res := topKFrequent(num, 1)
 	fmt.Println("res is ", res)
 }
 
@@ -25,32 +26,29 @@ func main() {
     你可以假设给定的 k 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。
     你的算法的时间复杂度必须优于 O(n log n) , n 是数组的大小。
 */
+// 使用优先队列
 func topKFrequent(nums []int, k int) []int {
-	ans := make([]int, 0)
-	if len(nums) == 0 || len(nums) < k {
-		return ans
+	res := make([]int, 0)
+	if len(nums) == 0 || k == 0 {
+		return res
 	}
-	m := make(map[int]int)
-	for _, v := range nums {
-		m[v] += 1
+	frequency := make(map[int]int)
+	for _, num := range nums {
+		frequency[num] += 1
 	}
-	fmt.Println("map is ", m)
-	// 再使用小顶堆把第k大的值找出来(其实是优先队列的用法)
-	minHeap := heap.IntMinHeap{}
-	for n, v := range m {
-		if len(minHeap) < k {
-			minHeap.Push(n)
-		} else {
-			if v > m[minHeap.Peek().(int)] {
-				minHeap.PopMini()
-				minHeap.Push(n)
-			}
-		}
-		heap.InitMin(&minHeap) // 这里会出错，因为他是以数值进行重排的,如果想有用的话就要重写Less方法
-		fmt.Println("heap is ", minHeap)
+	//fmt.Println(frequency)
+	// 构建优先队列
+	pq := make(PriorityQueue, 0)
+	for i, v := range frequency {
+		heap.Push(&pq, &IntItem{Value: i, Priority: v})
 	}
-	for len(minHeap) > 0 {
-		ans = append(ans, minHeap.PopMini().(int))
+	//for _, v := range pq {
+	//	fmt.Println(v.Value, v.Priority)
+	//}
+
+	for i := 0; i < k; i++ {
+		value := heap.Remove(&pq, 0).(*IntItem).Value
+		res = append(res, value)
 	}
-	return ans
+	return res
 }

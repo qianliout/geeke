@@ -4,8 +4,7 @@ import (
 	"container/heap"
 	"fmt"
 
-	. "outback/leetcode/common/heap/maxheap"
-	. "outback/leetcode/common/heap/minheap"
+	heap2 "outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -104,15 +103,15 @@ findMedian() -> 2
 
 // 使用两个堆,这个代码可以优化，因为对于大顶堆index=0是最大值，对于小顶堆index=0就是最小值
 type MedianFinder struct {
-	LeftData  MaxHeap
-	RightData MinHeap
+	LeftData  heap2.MaxHeap
+	RightData heap2.MinHeap
 }
 
 /** initialize your data structure here. */
 func Constructor() MedianFinder {
 	m := new(MedianFinder)
-	m.LeftData = make(MaxHeap, 0)
-	m.RightData = make(MinHeap, 0)
+	m.LeftData = make(heap2.MaxHeap, 0)
+	m.RightData = make(heap2.MinHeap, 0)
 	return *m
 }
 func (this *MedianFinder) FindMedian() float64 {

@@ -6,7 +6,7 @@ import (
 	"math"
 	"sort"
 
-	. "outback/leetcode/common/heap/maxheap"
+	heap2 "outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -42,7 +42,7 @@ func getSkyline2(buildings [][]int) [][]int {
 		return pairs[i][1] <= pairs[j][1]
 	})
 
-	maxHeap := make(MaxHeap, 0)
+	maxHeap := make(heap2.MaxHeap, 0)
 	prev := 0
 	for _, pair := range pairs {
 		if pair[1] < 0 {

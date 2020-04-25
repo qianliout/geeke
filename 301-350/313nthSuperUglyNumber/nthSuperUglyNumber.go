@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	. "outback/leetcode/common/heap"
+	. "outback/leetcode/common/commonHeap"
 )
 
 func main() {

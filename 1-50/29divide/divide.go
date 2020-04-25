@@ -7,8 +7,7 @@ import (
 
 func main() {
 	res := divide(-2147483648, -1)
-	fmt.Println("res is ", res)
-	fmt.Println("2 32", int(math.Pow(float64(2), float64(31))))
+	fmt.Println("res is ", res, math.MaxInt32)
 }
 
 /*
@@ -27,12 +26,18 @@ func main() {
 */
 // 不使用乘法、除法和 mod 运算符,那意思是可以使用加减法，
 // 二分法。TODO 这里防止溢出是关键，因为还没有完全掌握位移运算，所以，暂时不管这里
+
+var sing = false
+
 func divide(dividend int, divisor int) int {
+
 	if dividend < 0 && divisor > 0 {
+		sing = true
 		return -divide(-dividend, divisor)
 	}
 
 	if dividend > 0 && divisor < 0 {
+		sing = true
 		return -divide(dividend, -divisor)
 	}
 
@@ -40,11 +45,12 @@ func divide(dividend int, divisor int) int {
 		return divide(-dividend, -divisor)
 	}
 
-	if dividend < divisor {
-		return 0
-	}
 	if dividend == divisor {
 		return 1
+	}
+
+	if dividend < divisor {
+		return 0
 	}
 
 	result := 1
@@ -54,5 +60,8 @@ func divide(dividend int, divisor int) int {
 		result = result + result
 	}
 	result = result + divide(dividend-p, divisor)
+	if result > math.MaxInt32 && !sing {
+		return math.MaxInt32
+	}
 	return result
 }

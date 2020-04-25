@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"outback/leetcode/common/heap"
+	"outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -39,13 +39,13 @@ func findKthLargest2(nums []int, k int) int {
 	if len(nums) == 0 || k > len(nums) {
 		return 0
 	}
-	ans := heap.IntMinHeap{}
+	ans := commonHeap.IntMinHeap{}
 	for i := 0; i < len(nums); i++ {
 		if i < k {
 			ans.Push(nums[i])
-			heap.InitMin(&ans)
+			commonHeap.InitMin(&ans)
 		} else {
-			heap.InitMin(&ans)
+			commonHeap.InitMin(&ans)
 			fmt.Println("ans is ", ans)
 			if nums[i] > ans.Peek().(int) {
 				ans.PopMini()

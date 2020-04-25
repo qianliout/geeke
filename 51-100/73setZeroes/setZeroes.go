@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 func main() {
 	matrix := [][]int{
 		{0, 1, 2, 0},
@@ -46,18 +42,24 @@ func setZeroes(matrix [][]int) {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return
 	}
-	col, row := 0, 0
-	for col < len(matrix) {
-		for row < len(matrix[0]) {
-			if matrix[col][row] == 0 {
-				full(&matrix, row, col)
-				row++
-				col++
-			}
+	// 最简单的方式,新建另一个矩阵
+	othrer := make([][]int, len(matrix))
 
+	for i, v1 := range matrix {
+		for j, v2 := range v1 {
+			if othrer[i] == nil {
+				othrer[i] = make([]int, len(matrix[0]))
+			}
+			othrer[i][j] = v2
 		}
 	}
-	fmt.Println("matrix is ", matrix)
+	for i, v1 := range othrer {
+		for j, v2 := range v1 {
+			if v2 == 0 {
+				full(&matrix, i, j)
+			}
+		}
+	}
 }
 
 func full(matrix *[][]int, col, row int) {

@@ -6,8 +6,13 @@ import (
 
 func main() {
 	num := []int{9, 0, 3, 5, 7}
-	res := subsets(num)
-	fmt.Println(res)
+	//res := subsets(num)
+	res := make([][]int, 0)
+	used := make(map[int]bool)
+	path := make([]int, 0)
+	heller(num, 4, used, &res, path, 0)
+	fmt.Println("res is ", res)
+
 }
 
 /*
@@ -68,6 +73,29 @@ func dfs(nums, path []int, left int, res *[][]int) {
 	for i := left; i < len(nums); i++ {
 		path = append(path, nums[i])
 		dfs(nums, path, i+1, res)
+		path = path[:len(path)-1]
+	}
+}
+
+// 用回塑算法的话,去重是个太难题,所这里不用这种方法
+func methodOfData(nums []int) {
+
+}
+
+func heller(nums []int, n int, used map[int]bool, res *[][]int, path []int, left int) {
+	if left >= len(nums) {
+		return
+	}
+	if len(path) == n {
+		fmt.Println("path is ", path)
+		*res = append(*res, append([]int{}, path...))
+	}
+	// 数组中不含有重复元素,所以,这里以什么去重都可以
+	if !used[left] {
+		path = append(path, nums[left])
+		used[left] = true
+		heller(nums, n, used, res, path, left+1)
+		used[left] = false
 		path = path[:len(path)-1]
 	}
 }

@@ -2,7 +2,7 @@ package priority
 
 import (
 	"container/heap"
-	commonheap "outback/leetcode/common/heap"
+	commonheap "outback/leetcode/common/commonHeap"
 	"sort"
 )
 

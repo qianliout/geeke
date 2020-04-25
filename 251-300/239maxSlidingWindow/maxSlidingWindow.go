@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"outback/leetcode/common/heap"
+	"outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -39,7 +39,7 @@ func maxSlidingWindow(nums []int, k int) []int {
 		return res
 	}
 
-	preMinHaap := make(heap.IntMinHeap, 0)
+	preMinHaap := make(commonHeap.IntMinHeap, 0)
 	for i, va := range nums {
 		if i < k {
 			preMinHaap.Push(va)
@@ -47,11 +47,11 @@ func maxSlidingWindow(nums []int, k int) []int {
 			preMinHaap.Pop() // 先移出最后的那个
 			preMinHaap.Push(va)
 		}
-		minHeap := make(heap.IntMinHeap, k)
+		minHeap := make(commonHeap.IntMinHeap, k)
 		copy(minHeap, preMinHaap)
 		fmt.Println("1,", minHeap)
 		if i >= k-1 {
-			heap.InitMin(&minHeap)
+			commonHeap.InitMin(&minHeap)
 			res = append(res, minHeap.PeekLast().(int))
 		}
 	}

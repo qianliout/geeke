@@ -6,7 +6,10 @@ import (
 )
 
 func main() {
-	nextPermutation([]int{1, 3, 2})
+	num := []int{1, 2} // 这个就是个不好
+	nextPermutation(num)
+	fmt.Println("nums is ", num)
+
 }
 
 /*
@@ -20,20 +23,36 @@ func main() {
 */
 
 func nextPermutation(nums []int) {
-	length := len(nums)
-	if len(nums) <= 1 {
+	if len(nums) == 0 {
 		return
 	}
+	ln := len(nums)
 	flag := false
-	for i := length - 1; i >= 1; i-- {
-		if nums[i] > nums[i-1] {
-			nums[i], nums[i-1] = nums[i-1], nums[i]
+
+	// find start
+	start := 0
+	for i := ln - 1; i >= 1; i-- {
+		if nums[i-1] < nums[i] {
+			start = i - 1
 			flag = true
 			break
 		}
 	}
+	// 找到下一次比start大的,但是是后面排列中最小的一个数
 	if !flag {
 		sort.Ints(nums)
+		return
 	}
-	fmt.Println(nums)
+
+	nexMax := start + 1
+	for j := nexMax; j < ln; j++ {
+		if nums[j] < nums[nexMax] && nums[j] > nums[start] {
+			nexMax = j
+		}
+	}
+
+	// 交换值
+	nums[start], nums[nexMax] = nums[nexMax], nums[start]
+	// 排列后面的值
+	sort.Ints(nums[start+1:])
 }

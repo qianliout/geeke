@@ -2,7 +2,7 @@ package priority
 
 import (
 	"fmt"
-	commonHeap "outback/leetcode/common/heap"
+	commonHeap "outback/leetcode/common/commonHeap"
 	"testing"
 )
 
