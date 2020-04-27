@@ -13,5 +13,4 @@ func main() {
 输出: 6
 */
 func trap(height []int) int {
-
 }

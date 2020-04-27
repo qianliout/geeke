@@ -43,7 +43,7 @@ func topKFrequent(nums []int, k int) []int {
 		heap.Push(&pq, &IntItem{Value: i, Priority: v})
 	}
 	//for _, v := range pq {
-	//	fmt.Println(v.Value, v.Priority)
+	//	fmt.Println(v.Key, v.Priority)
 	//}
 
 	for i := 0; i < k; i++ {

@@ -16,3 +16,14 @@ func PrintListNode(node *ListNode) {
 		node = node.Next
 	}
 }
+
+type DoubleLinkedNode struct {
+	Val       int
+	Frequency int
+	Pre       *DoubleLinkedNode
+	Post      *DoubleLinkedNode
+}
+
+func NewDumpDoubleLinkedNode() *DoubleLinkedNode {
+	return new(DoubleLinkedNode)
+}

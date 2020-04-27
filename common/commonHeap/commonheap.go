@@ -48,7 +48,7 @@ func (h *MinHeap) Pop() interface{} {
 }
 
 type IntItem struct {
-	Value    int // The Value of the item; arbitrary.
+	Value    int // The Key of the item; arbitrary.
 	Priority int // The Priority of the item in the queue.
 	// The index is needed by update and is maintained by the heap.Interface methods.
 	index int // The index of the item in the heap.
@@ -87,7 +87,7 @@ func (pq *PriorityQueue) Pop() interface{} {
 	return item
 }
 
-// update modifies the Priority and Value of an IntItem in the queue.
+// update modifies the Priority and Key of an IntItem in the queue.
 func (pq *PriorityQueue) update(item *IntItem, value int, priority int) {
 	item.Value = value
 	item.Priority = priority
