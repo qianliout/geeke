@@ -1,7 +1,15 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
 
+	//nums := []int{0, 3, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	nums := []int{4, 2, 3}
+	res := trap(nums)
+	fmt.Println("rain is ", res)
 }
 
 /*
@@ -12,5 +20,39 @@ func main() {
 输入: [0,1,0,2,1,0,1,3,2,1,2,1]
 输出: 6
 */
+// 单调递减栈
 func trap(height []int) int {
+	n := len(height)
+	if n == 0 {
+		return 0
+	}
+	stark := make([]int, 0)
+
+	stark = append(stark, -1)
+	rain := 0
+	for i := 0; i < n; i++ {
+		// 一定是大于,比栈顶的原素都大,那说明可以计算之前可以接的水了
+		for len(stark) > 1 && height[i] > height[stark[len(stark)-1]] {
+			pop := stark[len(stark)-1]
+			stark = stark[:len(stark)-1]
+			rain += calculateRain(height, stark[len(stark)-1], i, pop)
+		}
+		stark = append(stark, i)
+	}
+	return rain
+}
+
+func calculateRain(height []int, left, right, pop int) int {
+	if left == -1 {
+		return 0
+	}
+	if right-left <= 1 {
+		return 0
+	}
+	min := height[left]
+	if height[right] < min {
+		min = height[right]
+	}
+
+	return (right - left - 1) * (min - height[pop])
 }
