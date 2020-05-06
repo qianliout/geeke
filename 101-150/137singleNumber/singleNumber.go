@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	nums := []int{20, 2, 2, 2}
+	//nums := []int{20, 2, 2, 2, 3, 3, 3}
+	nums := []int{-1, -1, -1, -2}
 	res := singleNumber(nums)
 	fmt.Println("res is ", res)
 }
@@ -23,7 +24,7 @@ func main() {
 链接：https://leetcode-cn.com/problems/single-number-ii
 */
 func singleNumber(nums []int) int {
-	return find1(nums)
+	return find2(nums)
 }
 
 // 也可以使用map，这里就不写了，太简单了
@@ -41,4 +42,26 @@ func find1(nums []int) int {
 		twos &= ^threes
 	}
 	return ones
+}
+
+// 使用遍历的方式,这里就有计算机补码的方式,这里要特别考虑才行呢
+func find2(nums []int) int {
+	counts := make([]int, 32)
+	for _, num := range nums {
+		for i := 0; i < 32; i++ {
+			counts[i] += num & 1
+			num = num >> 1
+		}
+	}
+	fmt.Println(counts)
+	res := 0
+	for i := 1; i < 32; i++ {
+		res = res << 1
+		res = res | counts[31-i]%3
+	}
+
+	if counts[31]%3 == 0 {
+		return res
+	}
+	return -res
 }
