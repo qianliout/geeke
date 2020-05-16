@@ -1,6 +1,13 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
+	nums := []int{1, 2, 3, 4, 5, 6, 7}
+	Rotate3(nums, 3)
+	fmt.Println(nums)
 
 }
 
@@ -28,13 +35,54 @@ func rotate(nums []int, k int) {
 
 }
 
-// 暴力法
+// 暴力法,反转k次
 func Rotate1(nums []int, k int) {
 	for i := 0; i < k; i++ {
+	}
+}
 
-
-
-
+// 解法二,把后面k个数存起来,然后把nums移动之后放在前面,但是空间复杂度不对
+func Rotate2(nums []int, k int) {
+	length := len(nums)
+	if k == length {
+		return
+	}
+	if k > length {
+		k = k % length
 	}
 
+	tem := make([]int, k)
+
+	for i := 0; i < k; i++ {
+		tem[i] = nums[length-1-i]
+	}
+	// 移动Nums
+
+	for i := length - 1; i-k >= 0; i-- {
+		nums[i] = nums[i-k]
+	}
+	// 把临时数组放到前面去
+	for i, i2 := range tem {
+		nums[k-i-1] = i2
+	}
+}
+
+// 反转数据
+func Rotate3(nums []int, k int) {
+	length := len(nums)
+	if k%length == 0 {
+		return
+	}
+	k = k % length
+	rotateHelper(nums, 0, len(nums)-1)
+	rotateHelper(nums, k, length-1)
+	rotateHelper(nums, 0, k-1)
+}
+
+func rotateHelper(nums []int, start, end int) {
+	for start < end {
+		nums[start], nums[end] = nums[end], nums[start]
+		start++
+		end--
+	}
 }

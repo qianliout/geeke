@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	prereq := [][]int{{1, 0}, {2, 0}, {2, 3}, {3, 2},}
+	order := findOrder(4, prereq)
+	fmt.Println("res is ", order)
 }
 
 /*
@@ -27,6 +33,47 @@ func main() {
     拓扑排序也可以通过 BFS 完成。
 
 */
+// 先使用bfs
 func findOrder(numCourses int, prerequisites [][]int) []int {
+	res := make([]int, 0)
 
+	// 不能有以下条件,因为,没有条件约束时,是完全可以学完的
+	//if numCourses <= 0 {
+	//	return res
+	//}
+	//if len(prerequisites) == 0 || len(prerequisites[0]) == 0 {
+	//	return res
+	//}
+	inDegree := make([]int, numCourses)
+	preCourse := make([][]int, numCourses)
+
+	for _, pre := range prerequisites {
+		inDegree[pre[0]]++
+		preCourse[pre[1]] = append(preCourse[pre[1]], pre[0])
+	}
+
+	queue := make([]int, 0)
+
+	for cur, i := range inDegree {
+		if i == 0 {
+			queue = append(queue, cur)
+		}
+	}
+	for len(queue) > 0 {
+		cur := queue[0]
+		queue = queue[1:]
+		res = append(res, cur)
+		numCourses--
+		for _, pre := range preCourse[cur] {
+			inDegree[pre]--
+			if inDegree[pre] == 0 {
+				queue = append(queue, pre)
+			}
+		}
+	}
+	if numCourses == 0 {
+		return res
+	}
+	empty := make([]int, 0)
+	return empty
 }

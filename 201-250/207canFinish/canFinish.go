@@ -32,16 +32,16 @@ func main() {
 // bfs 容易理解
 func canFinish(numCourses int, prerequisites [][]int) bool {
 	indegrees := make([]int, numCourses)
-	// 注意理解这个变量，这里这个变量是最重要的，他的意思是，当前课程，有多少个对应的前置课程
+	// 注意理解这个变量，这里这个变量是最重要的，他的意思是，当前课程，是另外多少课程的前置课程
 	adjacency := make([][]int, numCourses)
-	// 先把所有的课程加进去,注意，这里是当前课程指向前置课程，所以是长前置课程的入度
+	// 先把所有的课程加进去,注意，这里是当前课程的前置课程指向当前课程，所以是当前课程的入度
 	for _, req := range prerequisites {
 		indegrees[req[0]]++
-		adjacency[req[1]] = append(adjacency[req[1]], req[0]) // 计算出，当前课程有多少个前置课程
+		adjacency[req[1]] = append(adjacency[req[1]], req[0]) // 计算出，当前课程的前置课程是有多少个前置课程
 	}
 
 	queue := make([]int, 0)
-	// 先把初始条件下，出度为0的课程找出来，放到队列中
+	// 先把初始条件下，入度为0的课程找出来，放到队列中
 	for i := 0; i < numCourses; i++ {
 		if indegrees[i] == 0 {
 			queue = append(queue, i)
@@ -61,6 +61,7 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return numCourses == 0
 }
 
+// dfs
 func canFinish2(numCourses int, prerequisites [][]int) bool {
 	flag := make([]int, numCourses)
 	adjacency := make([][]int, numCourses)
