@@ -13,9 +13,9 @@ func main() {
 	root.Right = &TreeNode{Val: 3}
 	root.Left.Right = &TreeNode{Val: 3}
 	root.Right.Right = &TreeNode{Val: 1}
-	//root.Right.Left = &TreeNode{Val: 1}
-	//root.Left.Left = &TreeNode{Val: 1}
-	//root.Left.Right = &TreeNode{Val: 3}
+	// root.Right.Left = &TreeNode{Val: 1}
+	// root.Left.Left = &TreeNode{Val: 1}
+	// root.Left.Right = &TreeNode{Val: 3}
 	res := rob2(root)
 	fmt.Println("res is ", res)
 }
@@ -44,20 +44,21 @@ func main() {
 解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9.
 */
 
-//典型的dp
+// 典型的dp
 var mermery map[*TreeNode][]int
+var mem map[*TreeNode]int
 
 // todo 这种方法不能得到正确的答案，是为什么呢
 func rob(root *TreeNode) int {
-	//if mermery == nil {
+	// if mermery == nil {
 	//	mermery = make(map[*TreeNode]int)
-	//}
+	// }
 	if root == nil {
 		return 0
 	}
-	//if v, ok := mermery[root]; ok {
+	// if v, ok := mermery[root]; ok {
 	//	return v
-	//}
+	// }
 
 	next := 0
 	if root.Left != nil {
@@ -72,7 +73,7 @@ func rob(root *TreeNode) int {
 	notdoit := rob(root.Left) + rob(root.Right)
 	this := Max(doit, notdoit)
 
-	//mermery[root] = this
+	// mermery[root] = this
 	return this
 }
 
@@ -84,7 +85,6 @@ func Max(nums ...int) int {
 		}
 	}
 	return max
-
 }
 
 func rob2(root *TreeNode) int {
@@ -112,4 +112,29 @@ func robTree(root *TreeNode) (int, int) {
 	mermery[root] = []int{l, r}
 
 	return Max(ln, lr) + Max(rn, rr), root.Val + ln + rn
+}
+
+func rob3(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if mem == nil {
+		mem = make(map[*TreeNode]int)
+	}
+	if v, ok := mem[root]; ok {
+		return v
+	}
+	// 抢,然后去下下家
+	doIt := root.Val
+	if root.Left != nil {
+		doIt += rob3(root.Left.Left) + rob3(root.Left.Right)
+	}
+	if root.Right != nil {
+		doIt += rob3(root.Right.Left) + rob3(root.Right.Right)
+	}
+	// 不抢,去下家
+	notDoit := rob3(root.Left) + rob3(root.Right)
+	res := Max(doIt, notDoit)
+	mem[root] = res
+	return res
 }
