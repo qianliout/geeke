@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	nums := []int{5, 7, 7, 8, 8, 10}
-	target := 10
-	res := searchRange(nums, target)
+	nums := []int{5,7,7,8,8,10}
+	target := 6
+	res := searchRange2(nums, target)
 	fmt.Println("res is ", res)
 
 }
@@ -42,7 +42,7 @@ func searchRange(nums []int, target int) []int {
 			start = mid + 1
 		}
 	}
-	//检查越界
+	// 检查越界
 	if start >= len(nums) || nums[start] != target {
 		left = -1
 	} else {
@@ -60,11 +60,53 @@ func searchRange(nums []int, target int) []int {
 			start = mid + 1
 		}
 	}
-	//检查越界
+	// 检查越界
 	if end < 0 || nums[end] != target {
 		right = -1
 	} else {
 		right = end
 	}
+	return []int{left, right}
+}
+
+func searchRange2(nums []int, target int) []int {
+	left, right := -1, -1
+	if len(nums) == 0 {
+		return []int{left, right}
+	}
+	length := len(nums) - 1
+	start, end := 0, length
+
+	// 先确实左边界
+	for start < end {
+		mid := start + (end-start)/2
+		if nums[mid] < target {
+			// 下一轮的搜索区间是[mid+1,end]
+			start = mid + 1
+		} else {
+			// 搜索区间是[start,mid]
+			end = mid
+		}
+	}
+	//  判断是否存在目标元素
+	if nums[start] != target {
+		return []int{-1, -1}
+	}
+
+	left = start
+
+	// 先确实右边界
+	start, end = 0, length
+	for start < end {
+		mid := start + (end-start+1)/2 // 因为下达的start=mid,所以要向上取整
+		if nums[mid] > target {
+			// 下一轮的搜索区间是 [start,mid-1]
+			end = mid - 1
+		} else {
+			// 搜索区间是[mid,end]
+			start = mid // 如果是这种,就一定得向上取整
+		}
+	}
+	right = start
 	return []int{left, right}
 }

@@ -5,10 +5,12 @@ import (
 )
 
 func main() {
-	nums := []int{1, 3, 5, 6}
-	tart := 8
-	res := searchInsert(nums, tart)
-	fmt.Println("res is ", res)
+	// nums := []int{1, 3, 5, 6}
+	// tart := 8
+	// res := searchInsert(nums, tart)
+	// fmt.Println("res is ", res)
+	fmt.Println(len([]rune("你好你在那里")))
+
 }
 
 /*
@@ -43,5 +45,80 @@ func searchInsert(nums []int, target int) int {
 		}
 	}
 	// 因为如果越界，刚好就是插入的位置
+	return left
+}
+
+func searchInsert2(nums []int, target int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	lenght := len(nums)
+	if nums[lenght-1] < target {
+		return lenght
+	}
+	left, right := 0, lenght-1
+	for left < right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			//  因为题目中说没有重复元素
+			return mid
+		} else if nums[mid] < target {
+			//  严格小于target,一定不是解,区间是[mid+1,rigth]
+			left = mid + 1   // 这种方式下,向下取整也没有问题
+		} else {
+			//  此时区间是 [left,mid]
+			right = mid
+		}
+	}
+	//  检查最后一个元素,如果最后一个都不符合, 则插入到right的位置,此时left刚才就是lenght
+	return left
+}
+
+func searchInsert3(nums []int, target int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	lenght := len(nums)
+
+	left, right := 0, lenght
+	//  上面没有做最后一个的验证,所以要把边界扩到最后面
+	for left < right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			//  因为题目中说没有重复元素
+			return mid
+		} else if nums[mid] < target {
+			//  严格小于target,一定不是解,区间是[mid+1,rigth]
+			left = mid + 1   // 这种方式下,向下取整也没有问题
+		} else {
+			//  此时区间是 [left,mid]
+			right = mid
+		}
+	}
+	//  检查最后一个元素,如果最后一个都不符合, 则插入到right的位置,此时left刚才就是lenght
+	return left
+}
+
+
+func searchInsert3(nums []int, target int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	lenght := len(nums)
+
+	left, right := 0, lenght
+	//  上面没有做最后一个的验证,所以要把边界扩到最后面
+	for left < right {
+		mid := left + (right-left)/2
+		//  也可以不做==的判断
+		if nums[mid] < target {
+			//  严格小于target,一定不是解,区间是[mid+1,rigth]
+			left = mid + 1   // 这种方式下,向下取整也没有问题
+		} else {
+			//  此时区间是 [left,mid]
+			right = mid
+		}
+	}
+	//  检查最后一个元素,如果最后一个都不符合, 则插入到right的位置,此时left刚才就是lenght
 	return left
 }

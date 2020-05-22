@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	nums := []int{4, 5, 6, 7, 0, 1, 2}
-	target := 5
-	res := search1(nums, target)
+	nums := []int{3, 1}
+	target := 3
+	res := search2(nums, target)
 	fmt.Println("res is ", res)
 }
 
@@ -82,3 +82,4 @@ func search1(nums []int, target int) bool {
 	}
 	return false
 }
+
