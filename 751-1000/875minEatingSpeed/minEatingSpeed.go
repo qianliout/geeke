@@ -72,7 +72,7 @@ func possible(piles []int, H, k int) bool {
 	sum := 0
 	for _, p := range piles {
 		// 我们可以推断出珂珂将在 Math.ceil(p / K) = ((p-1) // K) + 1 小时内吃完这一堆，
-		// 我们将每一堆的完成时间加在一起并与 H 进行比较。
+		// 我们将每一堆的完成时间加在一起并与 H 。
 		// 向下取整后加1,防止是整数倍的情况
 		sum += (p-1)/k + 1
 	}
