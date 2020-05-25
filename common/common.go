@@ -1,7 +1,6 @@
 package common
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -26,30 +25,38 @@ func Max(nums ...int) int {
 }
 
 // 二分法,找到插入左边的位置,并插入左边
-func BitLeft(nums *[]int, tar int) int {
-	if len(*nums) == 0 {
-		*nums = append(*nums, tar)
+func FindSmallIdx(sorted *[]int, target int) int {
+
+	if len(*sorted) == 0 {
+		Insert(sorted, target, 0)
 		return 0
 	}
-	length := len(*nums)
-	left, right := 0, length-1
-	for left < right {
-		mid := left + (right-left)/2
-		if (*nums)[mid] < tar {
-			left = mid + 1
+	start := 0
+	end := len(*sorted) - 1
+
+	if (*sorted)[end] < target {
+		Insert(sorted, target, end+1)
+		return end + 1
+	}
+	if (*sorted)[start] > target {
+		Insert(sorted, target, 0)
+		return 0
+	}
+
+	for start < end {
+		mid := start + (end-start)/2
+		if (*sorted)[mid] < target {
+			start = mid + 1
 		} else {
-			right = mid
+			end = mid
 		}
 	}
-	//  检查最后
-	if (*nums)[left] < tar {
-		*nums = append(*nums, tar)
-		return left
-	}
+	// 插入数据
+	Insert(sorted, target, start)
+	return start
+}
 
-	fmt.Println("num is ", *nums, left, tar)
-	r := (*nums)[left:]
-	*nums = append(append((*nums)[:left+1], tar), r...)
-
-	return left
+func Insert(a *[]int, c int, i int) []int {
+	*a = append((*a)[:i], append([]int{c}, (*a)[i:]...)...)
+	return *a
 }
