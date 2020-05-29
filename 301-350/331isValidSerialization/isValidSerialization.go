@@ -1,5 +1,9 @@
 package main
 
+import (
+	"strings"
+)
+
 func main() {
 
 }
@@ -27,9 +31,48 @@ func main() {
 示例 3:
 输入: "9,#,#,1"
 输出: false
-链接：https://leetcode-cn.com/problems/verify-preorder-serialization-of-a-binary-tree
-
 */
+// 消耗槽位思想
 func isValidSerialization(preorder string) bool {
+	order := strings.Split(preorder, ",")
+	if len(order) == 0 {
+		return false
+	}
 
+	slots := 1
+	for _, o := range order {
+		slots--
+		if slots < 0 {
+			return false
+		}
+		if o != "#" {
+			slots = slots + 2
+		}
+
+	}
+	return slots == 0
+}
+
+var i int
+
+// 模拟建树过程, 这个方法在go语言中没有通过,不知道是为什么
+func isValidSerialization2(preorder string) bool {
+	i = 0
+	order := strings.Split(preorder, ",")
+	//构建完整棵树以后，序列化中的所有结点都应被用到，也就是 i == strings.length
+	return canBuid(order) && i == len(order)
+}
+
+func canBuid(order []string) bool {
+	//如果在建立当前结点时发现序列化中没有结点了，那就返回 false
+	if i == len(order) {
+		return false
+	}
+	//如果当前结点是 null，就返回 true
+	if order[i] == "#" {
+		return true
+	}
+	i++
+	//构建左子树和右子树
+	return canBuid(order) && canBuid(order)
 }

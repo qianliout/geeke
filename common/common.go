@@ -24,7 +24,7 @@ func Max(nums ...int) int {
 	return max
 }
 
-// 二分法,找到插入左边的位置,并插入左边
+// 二分法,找到插入左边的位置,并插入左边,和python的bitset_left一样
 func FindSmallIdx(sorted *[]int, target int) int {
 
 	if len(*sorted) == 0 {
