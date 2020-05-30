@@ -27,4 +27,18 @@ target = 4
 
 func combinationSum4(nums []int, target int) int {
 
+	if len(nums) <= 0 {
+		return 0
+	}
+	dp := make(map[int]int)
+	dp[0] = 1
+
+	for i := 0; i <= target; i++ {
+		for _, num := range nums {
+			if i >= num {
+				dp[i] += dp[i-num]
+			}
+		}
+	}
+	return dp[target]
 }
