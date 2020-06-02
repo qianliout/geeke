@@ -32,7 +32,7 @@ func countSmaller(nums []int) []int {
 	}
 	small := make([]int, 0)
 	for i := len(nums) - 1; i >= 0; i-- {
-		r := FindSmallIdx(&small, nums[i])
+		r := FindSmallIdxAndInsert(&small, nums[i])
 		res[i] = r
 	}
 

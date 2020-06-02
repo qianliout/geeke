@@ -21,37 +21,14 @@ func main() {
 
 // 第一种写法和118相同，这里就不再写
 
-var Cnmap map[int]int
-
 func getRow(rowIndex int) []int {
-	res := make([]int, rowIndex+1)
-	// 奇数
-	if rowIndex&1 == 1 {
-		for i := 0; i <= rowIndex/2; i++ {
-			res[i] = Cn(i + 1)
-			res[rowIndex-i] = Cn(i + 1)
+	kRows := make([]int, rowIndex+1)
+	for k := 0; k <= rowIndex; k++ {
+		kRows[k] = 1
+		for j := k; j > 1; j-- {
+			kRows[j-1] = kRows[j-2] + kRows[j-1]
 		}
-	} else {
-		for i := 0; i < rowIndex/2; i++ {
-			res[i] = Cn(i + 1)
-			res[rowIndex-i] = Cn(i + 1)
-		}
-		res[rowIndex/2] = Cn(rowIndex + 1)
 	}
-	return res
-}
+	return kRows
 
-func Cn(n int) int {
-	if Cnmap == nil {
-		Cnmap = make(map[int]int)
-	}
-	if Cnmap[n] > 0 {
-		return Cnmap[n]
-	}
-	if n <= 1 {
-		return n
-	}
-	r := n * Cn(n-1)
-	Cnmap[n] = r
-	return r
 }
