@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	. "outback/leetcode/common"
 )
 
 func main() {
@@ -55,4 +56,26 @@ func calculateRain(height []int, left, right, pop int) int {
 	}
 
 	return (right - left - 1) * (min - height[pop])
+}
+
+// 使用双指针,更容易理解
+func trap2(height []int) int {
+	if len(height) == 0 {
+		return 0
+	}
+	left, right := 0, len(height)-1
+	lMax, rMax := height[left], height[right]
+	ans := 0
+	for left < right {
+		if lMax < rMax {
+			ans += lMax - height[left]
+			left++
+			lMax = Max(height[left], lMax)
+		} else {
+			ans += rMax - height[right]
+			right--
+			rMax = Max(rMax, height[right])
+		}
+	}
+	return ans
 }

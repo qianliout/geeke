@@ -91,3 +91,18 @@ func reverseKGroupUseStack(head *ListNode, n int) *ListNode {
 	}
 	return res.Next
 }
+
+func reverse2(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	curr := head
+	var pre *ListNode
+	for curr != nil {
+		tem := curr.Next
+		curr.Next = pre
+		pre = curr
+		curr = tem
+	}
+	return curr
+}

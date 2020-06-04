@@ -21,14 +21,15 @@ func main() {
 输入: "cbbd"
 输出: "bb"
 */
-//使用动态规划
 
+//使用动态规划
 func longestPalindrome(s string) string {
 	var maxLenght int = math.MinInt64
 	min, max := 0, 0
 
 	byteSlice := []byte(s)
 
+	// 表示[i:j]是不是回文,注意这里的左右都包含
 	dp := make(map[int]map[int]bool)
 	// 初值
 	for i := 0; i < len(byteSlice); i++ {
@@ -52,6 +53,7 @@ func longestPalindrome(s string) string {
 	return string(byteSlice[min : max+1])
 }
 
+// 使用双指针
 func longestPalindrome2(s string) string {
 	if len(s) <= 0 {
 		return ""
@@ -82,5 +84,6 @@ func expandAroundCenter(s []byte, start, end int) (int, int) {
 		left--
 		right++
 	}
+	// 因为不符条件时,left已加1,right已加1,所以这里的返回值要注意
 	return left + 1, right - 1
 }

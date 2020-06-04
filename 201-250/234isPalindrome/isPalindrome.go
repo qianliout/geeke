@@ -74,3 +74,22 @@ func recursion(head *ListNode) bool {
 	}
 	return true
 }
+
+// 左侧指针
+var left *ListNode
+
+func isPalindrome2(head *ListNode) bool {
+	left = head
+	return traverse(head)
+}
+
+func traverse(right *ListNode) bool {
+	if right == nil {
+		return true
+	}
+	res := traverse(right.Next)
+	// 后序遍历代码
+	res = res && (right.Val == left.Val)
+	left = left.Next
+	return res
+}
