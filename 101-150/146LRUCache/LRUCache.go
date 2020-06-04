@@ -12,11 +12,13 @@ func main() {
 	fmt.Println(lru.Get(2))
 
 	lru.Put(3, 2)
+	lru.Put(4, 2)
+	lru.Put(5, 2)
 	fmt.Println(lru.Get(2))
 	fmt.Println(lru.Get(3))
-	//lru.Put(3, 3)
-	//lru.Put(4, 1)
-	//fmt.Println(lru.Get(2))
+	lru.Put(3, 3)
+	lru.Put(4, 1)
+	fmt.Println(lru.Get(2))
 }
 
 /*
@@ -44,12 +46,14 @@ type LRUCache struct {
 	CacheMap  map[int]*DoubleLinkedNode
 	CacheList *DoubleLinkedNode
 	Capacity  int
+	Size      int
 }
 
 func Constructor(capacity int) LRUCache {
 	return LRUCache{
 		CacheMap: make(map[int]*DoubleLinkedNode),
 		Capacity: capacity,
+		Size:     0,
 	}
 }
 
@@ -68,6 +72,7 @@ func (this *LRUCache) Put(key int, value int) {
 	if this.CacheList == nil {
 		this.CacheList = node
 		this.CacheMap[key] = node
+		this.Size++
 		return
 	}
 
@@ -75,13 +80,15 @@ func (this *LRUCache) Put(key int, value int) {
 	if ok {
 		this.CacheList = this.CacheList.Remove(n)
 		this.CacheList = this.CacheList.AddFirst(node)
-		this.CacheMap[key] = this.CacheList
+		n.Val = value
 	} else {
-		if this.Capacity <= len(this.CacheMap) {
+		this.CacheList = this.CacheList.AddFirst(node)
+		this.Size++
+		if this.Capacity < this.Size {
 			last := this.CacheList.PopLast()
 			delete(this.CacheMap, last.Key)
+			this.Size--
 		}
-		this.CacheList = this.CacheList.AddFirst(node)
 	}
 	this.CacheMap[key] = node
 	this.CacheList.Print("Put ")
