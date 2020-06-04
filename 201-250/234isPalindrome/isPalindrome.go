@@ -1,10 +1,6 @@
 package main
 
 import (
-	"expvar"
-
-	"golang.org/x/crypto/curve25519"
-
 	. "outback/leetcode/common/listnode"
 )
 
@@ -52,16 +48,29 @@ func recursion(head *ListNode) bool {
 	}
 	slow, fast := head, head
 	var pre *ListNode
+	var p *ListNode
 	for fast != nil && fast.Next != nil {
-		// 翻转前半部门
-		tem := slow.Next
-		slow.Next = pre
-		pre = slow
-		slow = tem
+		p = slow
 		slow = slow.Next
 		fast = fast.Next.Next
+		p.Next = pre
+		pre = p
+	}
+
+	// slow表示的是后半段的开始, 如果总的节点是偶数个数,那么fast就没有到最后,slow就是在前半段的最后一个,所以要处理一下
+	if fast != nil {
+		slow = slow.Next
 	}
 	// 然后比较
-	first := head
-
+	for p != nil && slow != nil {
+		if p.Val != slow.Val {
+			return false
+		}
+		p = p.Next
+		slow = slow.Next
+	}
+	if p != nil || slow != nil {
+		return false
+	}
+	return true
 }
