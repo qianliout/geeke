@@ -38,15 +38,16 @@ func NewDoubleLinkedNode(key, value int) *DoubleLinkedNode {
 
 // 添加节点到开头,并返回头节点
 func (d *DoubleLinkedNode) AddFirst(n *DoubleLinkedNode) *DoubleLinkedNode {
-	//d.Print("AddFirst befor " + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
+	d.Print("AddFirst befor " + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
 	if d == nil {
+		d = n
 		return n
 	}
 	d.Pre = n
 	n.Post = d
 	d = n
 	d.Print("AddFirst after " + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
-	return n
+	return d
 }
 
 // 移出一个节点
