@@ -89,6 +89,7 @@ func find2(nums1, nums2 []int) float64 {
 func find3(nums1, nums2 []int) float64 {
 	left := (len(nums1) + len(nums2) + 1) / 2
 	right := (len(nums1) + len(nums2) + 2) / 2
+	//将偶数和奇数的情况合并，如果是奇数，会求两次同样的 k
 	return float64(getK(nums1, 0, len(nums1)-1, nums2, 0, len(nums2)-1, left)+
 		getK(nums1, 0, len(nums1)-1, nums2, 0, len(nums2)-1, right)) * 0.5
 }

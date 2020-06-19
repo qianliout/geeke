@@ -65,12 +65,12 @@ func combinations(digits []byte, digitsMap map[byte][]byte, path []byte, depth i
 
 func combinationsUsequeue(digits string) []string {
 	res := make([]string, 0)
-	// var queue [][]byte
+	if len(digits) <= 0 {
+		return res
+	}
+
 	queue := make([][]byte, 1)
 	queue[0] = []byte{}
-	// queue = append(queue,[][]byte{{''}})
-
-	// queue = append(queue, make([][]byte))
 
 	digitsMap := make(map[byte][]byte)
 	digitsMap['2'] = []byte("abc")
@@ -91,14 +91,13 @@ func combinationsUsequeue(digits string) []string {
 				second := append(tem, letter)
 				queue = append(queue, append([]byte{}, second...))
 			}
-
 		}
-
 	}
 
 	for _, v := range queue {
 		res = append(res, string(v))
 	}
+
 	return res
 }
 
