@@ -28,9 +28,9 @@ func wordBreak(s string, wordDict []string) bool {
 		return false
 	}
 
-	word := make(map[string]bool)
+	wordMap := make(map[string]bool)
 	for _, w := range wordDict {
-		word[w] = true
+		wordMap[w] = true
 	}
 	dp := make(map[int]bool)
 	ss := []byte(s)
@@ -39,11 +39,11 @@ func wordBreak(s string, wordDict []string) bool {
 
 	for i := 1; i <= length; i++ {
 		for _, w := range wordDict {
-			if word[string(ss[:i])] {
+			if wordMap[string(ss[:i])] {
 				dp[i] = true
 			}
 			if i-len(w) >= 0 {
-				dp[i] = (dp[i-len(w)] && word[string(ss[i-len(w):i])]) || dp[i]
+				dp[i] = (dp[i-len(w)] && wordMap[string(ss[i-len(w):i])]) || dp[i]
 			}
 		}
 	}

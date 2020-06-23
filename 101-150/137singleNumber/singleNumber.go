@@ -45,6 +45,7 @@ func find1(nums []int) int {
 }
 
 // 使用遍历的方式,这里就有计算机补码的方式,这里要特别考虑才行呢
+// fixme 这里的写法有问题
 func find2(nums []int) int {
 	counts := make([]int, 32)
 	for _, num := range nums {
@@ -55,7 +56,7 @@ func find2(nums []int) int {
 	}
 	fmt.Println(counts)
 	res := 0
-	for i := 1; i < 32; i++ {
+	for i := 0; i < 32; i++ {
 		res = res << 1
 		res = res | counts[31-i]%3
 	}
