@@ -8,6 +8,9 @@ func main() {
 
 }
 
+/*
+编写一个程序，找到两个单链表相交的起始节点。
+*/
 // 因为题目中说了,一定相交
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	if headA == nil || headB == nil {
@@ -15,7 +18,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	}
 
 	currA, currB := headA, headB
-	inversion := 0
+	inversion := 0 // 这里是可以防止没有相交的情况,题目中说了,一定相交,所以,也可以不用这个判断
 
 	for inversion < 3 {
 		if currB != currA {

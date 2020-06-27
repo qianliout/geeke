@@ -56,15 +56,37 @@ func find2(nums []int, left, right int) int {
 		return find2(nums, left, mid)
 	} else {
 		return find2(nums, mid+1, right)
-
 	}
 }
 
-// 因为返回一个解就行
+// 因为返回一个解就行,这里为什么会对,有些不懂呢,题目中不是说大于左右相临的元素吗
 func find3(nums []int) int {
 	for i := 0; i <= len(nums)-2; i++ {
 		if nums[i] > nums[i+1] {
 			return i
+		}
+	}
+	return len(nums) - 1
+}
+
+func find4(nums []int) int {
+	if len(nums) <= 1 {
+		return 0
+	}
+
+	for i := 0; i <= len(nums)-1; i++ {
+		if i == 0 {
+			if nums[i] > nums[i+1] {
+				return i
+			}
+		} else if i == len(nums)-1 {
+			if nums[i] > nums[i-1] {
+				return i
+			}
+		} else {
+			if nums[i] > nums[i+1] && nums[i-1] < nums[i] {
+				return i
+			}
 		}
 	}
 	return len(nums) - 1
