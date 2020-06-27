@@ -38,5 +38,4 @@ func twoSum(numbers []int, target int) []int {
 	}
 	// 题目说指明一定有存在,所以可以不用检查
 	return []int{}
-
 }

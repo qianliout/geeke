@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	fmt.Println("ehllo ", "" > "30")
+	fmt.Println("ehllo ", "400">"30")
 
-	nums := []int{2, 0}
+	nums := []int{2, 0, 20}
 	//nums := []int{10, 2}
 	//nums := []int{128, 12}
 	res := largestNumber(nums)
@@ -52,7 +52,9 @@ type Numlist []string
 
 func (n Numlist) Len() int      { return len(n) }
 func (n Numlist) Swap(i, j int) { n[i], n[j] = n[j], n[i] }
+
+// 这里要学习的是字符串的比较,是以字典序的比较
 func (n Numlist) Less(i, j int) bool {
-	fmt.Printf("od %T,%+v\n", n[i]+n[j], n[i]+n[j])
+	fmt.Printf("od %+v,%+v\n", n[i]+n[j], n[i]+n[j])
 	return n[i]+n[j] > n[j]+n[i]
 }

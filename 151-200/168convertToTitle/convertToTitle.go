@@ -45,7 +45,6 @@ func convertToTitle(n int) string {
 			ans = string(byte(num+64)) + ans
 			n = n / 26
 		}
-
 	}
 	ans = string(byte(n+64)) + ans
 	return ans

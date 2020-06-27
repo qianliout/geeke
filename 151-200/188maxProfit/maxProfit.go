@@ -44,6 +44,10 @@ func maxProfit(k int, prices []int) int {
 	if k > len(prices) {
 		k = len(prices)
 	}
+
+
+	// dp[i][j][0] 表示第j天,在交易j次时,在未持有股票的情况下,最大利润
+	// dp[i][j][1] 表示第j天,在交易j次时,在持有股票的情况下,最大利润
 	dp := make(map[int]map[int]map[int]int)
 	// 初始化
 	for i := -1; i < len(prices); i++ {
@@ -59,7 +63,7 @@ func maxProfit(k int, prices []int) int {
 	//初值
 	// 必须有这一步,不然就超时,问是加了,也超时,主要的原因是没有状态压缩
 	if k > len(prices)/2 {
-		return maxProfiKinf(prices)
+		return maxProfiyGredy(prices)
 	}
 	// 状态转移方程
 	for i := 0; i < len(prices); i++ {

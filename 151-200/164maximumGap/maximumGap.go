@@ -41,7 +41,6 @@ func maximumGap(nums []int) int {
 		if nums[i]-nums[i-1] > res {
 			res = nums[i] - nums[i-1]
 		}
-
 	}
 	return res
 }
@@ -90,7 +89,7 @@ func maximumGap2(nums []int) int {
 		maxMap[i] = math.MinInt64
 		minMap[i] = math.MaxInt64
 	}
-	// 入桶
+	// 入桶,并不是真正的放入桶中,只是记录,这个桶中的最大值,和最小值
 	for _, num := range nums {
 		if num == max || num == min {
 			continue
