@@ -22,9 +22,6 @@ func main() {
  输入: [-2,0,-1]
  输出: 0
  解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
- 来源：力扣（LeetCode）
- 链接：https://leetcode-cn.com/problems/maximum-product-subarray
- 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func maxProduct(nums []int) int {
 	if len(nums) == 0 {

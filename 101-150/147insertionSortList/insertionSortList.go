@@ -40,6 +40,8 @@ func insertionSortList(head *ListNode) *ListNode {
 	return dump.Next
 }
 
+
+// 返回插入节点插入位置的前一个节点
 func search(head, node *ListNode) *ListNode {
 	// 为什么使用head.Next去比较呢，因为head有一个dump结点
 	for head != nil && head.Next != nil && head.Next.Val < node.Val {

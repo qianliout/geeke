@@ -13,6 +13,15 @@ func main() {
 	PrintListNode(res)
 }
 
+/*
+  在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+示例 1:
+输入: 4->2->1->3
+输出: 1->2->3->4
+示例 2:
+输入: -1->5->3->4->0
+输出: -1->0->3->4->5
+*/
 //使用归并排序
 func sortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
@@ -21,11 +30,11 @@ func sortList(head *ListNode) *ListNode {
 
 	// 先分隔
 	slow, fast := head, head.Next
-	// fast.Next!=nil的目的就是为了使fast保存的最后一个结点
+	// fast.Next!=nil的目的就是为了使fast保存最后一个结点
 	for fast != nil && fast.Next != nil {
 		slow, fast = slow.Next, fast.Next.Next
 	}
-	// 保存分隔结果:切开链表
+	// 保存分隔结果:然后切开链表
 	mid := slow.Next
 	slow.Next = nil
 	// 递归左右两边

@@ -70,6 +70,5 @@ func Iter(root *TreeNode, res *[]int) {
 		if first.Left != nil {
 			stack = append(stack, first.Left)
 		}
-
 	}
 }
