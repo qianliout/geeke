@@ -8,12 +8,12 @@ import (
 
 func main() {
 	grid := [][]byte{
-		[]byte("11010"),
-		[]byte("11010"),
-		[]byte("11010"),
-		[]byte("00000"),
+		[]byte("11000"),
+		[]byte("11000"),
+		[]byte("00100"),
+		[]byte("00011"),
 	}
-	res := numIslands(grid)
+	res := numIslands2(grid)
 	fmt.Println("nums is ", res)
 }
 
@@ -69,9 +69,7 @@ func numIslands(grid [][]byte) int {
 			}
 		}
 	}
-
 	// 找有多少个
-
 	return uf.Count
 }
 
@@ -102,6 +100,57 @@ func Islands(i, j int, uf *unionfind.UnionFind, grid [][]byte) bool {
 		if uif == uf.Find(i*row+j+1) {
 			return false
 		}
+	}
+	return true
+}
+
+// 不使用并查集,使用染色法呢
+func numIslands2(grid [][]byte) int {
+	if len(grid) == 0 || len(grid[0]) == 0 {
+		return 0
+	}
+	row := len(grid)
+	col := len(grid[0])
+	mark := make(map[int]map[int]bool)
+	for i := 0; i < row; i++ {
+		mark[i] = make(map[int]bool)
+	}
+	count := 0
+	for i := 0; i < row; i++ {
+		for j := 0; j < col; j++ {
+			if grid[i][j] == '1' && !mark[i][j] {
+				count++
+				dfs(grid, &mark, i, j)
+			}
+		}
+	}
+	return count
+}
+
+func dfs(grid [][]byte, mark *map[int]map[int]bool, i, j int) {
+	// 先标记
+	(*mark)[i][j] = true
+	// 再向四边扩散
+	if inArea(grid, i+1, j) && grid[i+1][j] == '1' && !(*mark)[i+1][j] {
+		dfs(grid, mark, i+1, j)
+	}
+	if inArea(grid, i-1, j) && grid[i-1][j] == '1' && !(*mark)[i-1][j] {
+		dfs(grid, mark, i-1, j)
+	}
+	if inArea(grid, i, j+1) && grid[i][j+1] == '1' && !(*mark)[i][j+1] {
+		dfs(grid, mark, i, j+1)
+	}
+	if inArea(grid, i, j-1) && grid[i][j-1] == '1' && !(*mark)[i][j-1] {
+		dfs(grid, mark, i, j-1)
+	}
+}
+
+func inArea(grid [][]byte, i, j int) bool {
+	row := len(grid)
+	col := len(grid[0])
+
+	if i < 0 || j < 0 || i > row-1 || j > col-1 {
+		return false
 	}
 	return true
 }
