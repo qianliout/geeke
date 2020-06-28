@@ -51,7 +51,7 @@ func findWords(board [][]byte, words []string) []string {
 			dfs(board, &res, "", &tr, j, i, used)
 		}
 	}
-	// 注意res这里去不了重，是为什么呢
+	//注意res这里去不了重，是为什么呢
 	set := make(map[string]interface{})
 	for _, i2 := range res {
 		set[i2] = nil

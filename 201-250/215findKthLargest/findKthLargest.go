@@ -1,10 +1,10 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 	"sort"
-
-	"outback/leetcode/common/commonHeap"
+	. "outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -36,24 +36,18 @@ func findKthLargest(nums []int, k int) int {
 
 // 方法二，小顶堆
 func findKthLargest2(nums []int, k int) int {
-	if len(nums) == 0 || k > len(nums) {
-		return 0
-	}
-	ans := commonHeap.IntMinHeap{}
-	for i := 0; i < len(nums); i++ {
-		if i < k {
-			ans.Push(nums[i])
-			commonHeap.InitMin(&ans)
+	minHeap := make(MinHeap, 0)
+	for _, num := range nums {
+		if len(minHeap) < k {
+			heap.Push(&minHeap, num)
 		} else {
-			commonHeap.InitMin(&ans)
-			fmt.Println("ans is ", ans)
-			if nums[i] > ans.Peek().(int) {
-				ans.PopMini()
-				ans.Push(nums[i])
+			if num > minHeap[0] {
+				heap.Pop(&minHeap)
+				heap.Push(&minHeap, num)
 			}
 		}
 	}
-	return ans.Peek().(int)
+	return minHeap[0]
 }
 
 func findKthLargest3(nums []int, k int) int {

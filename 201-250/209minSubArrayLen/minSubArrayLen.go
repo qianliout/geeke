@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	nums := []int{1, 4, 4}
-	s := 1
-	res := minSubArrayLen2(s, nums)
+	nums := []int{2,3,1,2,4,3}
+	s :=  7
+	res := minSubArrayLen3(s, nums)
 	fmt.Println("res is ", res)
 }
 
@@ -75,3 +75,5 @@ func minSubArrayLen2(s int, nums []int) int {
 	}
 	return ans
 }
+
+

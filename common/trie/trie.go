@@ -25,9 +25,7 @@ func (t *Trie) Insert(word string) {
 // 向以node为根的Trie中添加word[index...end)，递归算法
 func add(node *Node, word string, index int) {
 	if index == len(word) {
-		if !node.IsWord {
-			node.IsWord = true
-		}
+		node.IsWord = true
 		return
 	}
 

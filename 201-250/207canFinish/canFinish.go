@@ -61,7 +61,7 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return numCourses == 0
 }
 
-// dfs
+// dfs 不容易理解
 func canFinish2(numCourses int, prerequisites [][]int) bool {
 	flag := make([]int, numCourses)
 	adjacency := make([][]int, numCourses)
@@ -91,4 +91,40 @@ func dfs(adjacency [][]int, flag []int, i int) bool {
 	}
 	flag[i] = -1
 	return true
+}
+
+func fanFinish3(numCourses int, prerequisites [][]int) bool {
+	inegreeOfTable := make([][]int, numCourses)
+	inegree := make([]int, numCourses)
+	for _, prere := range prerequisites {
+		first := prere[0]
+		second := prere[1]
+		inegree[first]++
+		inegreeOfTable[first] = append(inegreeOfTable[first], second)
+	}
+
+	queue := make([]int, 0)
+	for i, v := range inegree {
+		if v == 0 {
+			queue = append(queue, i)
+		}
+	}
+
+	for len(queue) > 0 {
+		pre := queue[0]
+		queue = queue[1:]
+		numCourses--
+		// 这个循环是很耗时的,可以使用map
+		for _, prere := range prerequisites {
+			first := prere[0]
+			second := prere[1]
+			if second == pre {
+				inegree[first]--
+				if inegree[first] == 0 {
+					queue = append(queue,first)
+				}
+			}
+		}
+	}
+	return numCourses == 0
 }
