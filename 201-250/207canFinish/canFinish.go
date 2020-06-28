@@ -74,8 +74,8 @@ func canFinish2(numCourses int, prerequisites [][]int) bool {
 		}
 	}
 	return true
-
 }
+
 func dfs(adjacency [][]int, flag []int, i int) bool {
 	if flag[i] == 1 {
 		return false

@@ -1,7 +1,12 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"strings"
+)
 
+func main() {
+	isismo2("ab", "aa")
 }
 
 /*
@@ -37,4 +42,55 @@ func isIsomorphic(s string, t string) bool {
 		}
 	}
 	return true
+}
+
+// 方法二,用map用两路比较
+func isIsmo(s, t string) bool {
+	return compareHelper(s, t) && compareHelper(t, s)
+}
+
+func compareHelper(s, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	// 从s到t
+	map1 := make(map[byte]byte)
+	for i := 0; i < len(s); i++ {
+		s1 := s[i]
+		t1 := t[i]
+		v, ok := map1[s1]
+		if !ok {
+			map1[s1] = t1
+		} else {
+			if v != t1 {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func isismo2(s, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	return comHelper(s) == comHelper(t)
+}
+
+func comHelper(s string) string {
+	count := 1
+	exitMap := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		if _, ok := exitMap[s[i]]; !ok {
+			exitMap[s[i]] = count
+			count++
+		}
+	}
+	nums := make([]int, 0)
+	for i := 0; i < len(s); i++ {
+		nums = append(nums, exitMap[s[i]])
+	}
+	res := strings.Replace(strings.Trim(fmt.Sprint(nums), "[]"), " ", "", -1)
+	fmt.Println("res is ",res)
+	return res
 }

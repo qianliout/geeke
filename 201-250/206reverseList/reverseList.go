@@ -49,3 +49,31 @@ func Iteration(head *ListNode) *ListNode {
 	}
 	return pre
 }
+
+// 第二种方法,是把各个node放入stack中,然后pop
+
+func Iter(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+	curr := head
+	var pre *ListNode
+	for curr != nil {
+		nex := curr.Next
+		curr.Next = pre
+		pre = curr
+		curr = nex
+	}
+	return pre
+}
+
+func recu(head *ListNode) *ListNode {
+	if head == nil|| head.Next == nil  {
+		return head
+	}
+	nex := recu(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+
+	return nex
+}

@@ -1,14 +1,17 @@
 package main
 
 import (
+	"fmt"
+	"time"
+
 	. "outback/leetcode/common/listnode"
 )
 
 func main() {
 	head := &ListNode{Val: 1}
-	head.Next = &ListNode{Val: 1}
-	res := removeElements(head, 1)
-	PrintListNode(res)
+	head.Next = &ListNode{Val: 2}
+	removeElements2(head, 1)
+	//PrintListNode(res)
 }
 
 /*
@@ -33,4 +36,30 @@ func removeElements(head *ListNode, val int) *ListNode {
 		}
 	}
 	return dump.Next
+}
+
+func removeElements2(head *ListNode, val int) *ListNode {
+	if head == nil {
+		return head
+	}
+	pre := new(ListNode)
+	cur := head
+	cout := 0
+	// 这里怎么就不对了,怎么就形成环了,要好好理解
+	for cur != nil {
+		fmt.Println("hello ", pre.Val, "word ", cur.Val,"count",cout)
+		time.Sleep(time.Second)
+		if cur.Val == val {
+			pre.Next = cur.Next
+		} else {
+			cur = cur.Next
+		}
+		pre = pre.Next
+		//cur = cur.Next
+		cout++
+		if cout > 10 {
+			break
+		}
+	}
+	return pre.Next
 }
