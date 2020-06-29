@@ -42,11 +42,13 @@ func countNodes2(root *TreeNode) int {
 		return 0
 	}
 
-	leftDept := countNodes(root.Left)
-	rightDept := countNodes(root.Right)
+	leftDept := countDept(root.Left)
+	rightDept := countDept(root.Right)
 	if leftDept == rightDept {
+		// 左右层级一样,说左树一定是满二叉树,左树的节点个数是2^n-1 加上root节点刚好 2^n
 		return countNodes2(root.Right) + (1 << leftDept)
 	} else {
+		// 说明左树可能不满,但是到数第层,也就是右树一定是一个满树
 		return countNodes2(root.Left) + (1 << rightDept)
 	}
 }

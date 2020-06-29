@@ -25,6 +25,7 @@ func main() {
 输出: false
 */
 
+// 桶的思想
 // 这里要防止移出
 func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 	if k <= 0 || t < 0 || len(nums) <= 0 {
@@ -34,9 +35,10 @@ func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 
 	for i := range nums {
 		// 这一步就是这道题的关键
-		nth := int(math.Floor(float64(nums[i]) / float64(t+1)))
+		// 桶的大小设成t+1更加方便
+		nth := int(math.Floor(float64(nums[i]) / float64(t+1))) // 放入那个桶
 		if _, exit := bucket[nth]; exit {
-			return true
+			return true // 如果放入之前桶中已经有了一个了,说明新放入的这个元素加上这个,相差就不会超过t
 		}
 		if _, exit := bucket[nth-1]; exit && int(math.Abs(float64(bucket[nth-1]-nums[i]))) <= t {
 			return true
@@ -46,6 +48,7 @@ func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 		}
 		bucket[nth] = nums[i]
 		//fmt.Println("bucket is ", bucket)
+		// 把距离超过k之后的数据删除,这里删除的目的主要是为了每一个存在的判断,如果不删除,上面就要使用循环 
 		if i >= k {
 			delete(bucket, nums[i-k]/(t+1))
 		}

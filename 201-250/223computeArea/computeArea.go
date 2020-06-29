@@ -36,7 +36,7 @@ func compute(point [][]int) int {
 	maxArea := int(math.Abs(float64((point[0][0] - point[1][0]) * (point[0][1] - point[1][1]))))
 	maxArea += int(math.Abs(float64((point[2][0] - point[3][0]) * (point[2][1] - point[3][1]))))
 
-	//
+	// 计算重叠区间
 	if Max(point[0][0], point[1][0]) <= Min(
 		point[2][0], point[3][0]) || Min(point[0][0], point[1][0]) >= Max(point[2][0], point[3][0]) || Max(
 		point[0][1], point[1][1]) <= Min(

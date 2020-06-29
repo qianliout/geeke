@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	res := calculate2("(1+3-(4+5+2)-3)+(6+8)")
+	res := calculate3("(1+3-(40+543+2)-3)+(6+83)+20")
 	fmt.Println("res is ", res)
 }
 
@@ -116,6 +116,7 @@ func calculate(s string) int {
 }
 
 func calculate2(s string) int {
+	s = strings.ReplaceAll(s, " ", "")
 	res := 0
 	operator := 1
 	stark := make([]int, 0)
@@ -123,7 +124,6 @@ func calculate2(s string) int {
 	if len(s) == 0 {
 		return res
 	}
-	s = strings.ReplaceAll(s, " ", "")
 	for _, ch := range []byte(s) {
 		if string(ch) == "(" {
 			stark = append(stark, res)
@@ -153,4 +153,46 @@ func calculate2(s string) int {
 	}
 	// 要注意的是，最后可能是数字，所以就会存在漏加的情况，1+1 就可以验证
 	return res + operator*num
+}
+
+
+// 这个方法一定要滚瓜烂熟
+func calculate3(s string) int {
+	s = strings.ReplaceAll(s, " ", "")
+	if len(s) == 0 {
+		return 0
+	}
+	res, num, operator := 0, 0, 1
+	numStack := make([]int, 0)
+	ss := []byte(s)
+	for _, ch := range ss {
+		if ch == '(' {
+			res = res + num*operator
+			numStack = append(numStack, res)
+			numStack = append(numStack, operator)
+			operator = 1
+			res = 0
+			num = 0
+		} else if ch == ')' {
+			res += num * operator
+			res = res * numStack[len(numStack)-1]
+			res += numStack[len(numStack)-2]
+			numStack = numStack[:len(numStack)-2]
+			num = 0
+			operator = 1
+		} else if ch == '+' {
+			res += num * operator
+			operator = 1
+			num = 0
+
+		} else if ch == '-' {
+			res += num * operator
+			operator = -1
+			num = 0
+		} else {
+			n, _ := strconv.Atoi(string(ch))
+			num = num*10 + n
+		}
+	}
+	return res + num*operator
 }

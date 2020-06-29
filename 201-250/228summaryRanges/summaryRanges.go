@@ -54,3 +54,37 @@ func summaryRanges(nums []int) []string {
 
 	return res
 }
+
+func summaryRanges2(nums []int) []string {
+	res := make([]string, 0)
+	if len(nums) == 0 {
+		return res
+	}
+	if len(nums) == 1 {
+		res = append(res, strconv.Itoa(nums[0]))
+		return res
+	}
+	start, end := 0, 1
+	for end < len(nums) {
+		if nums[end]-nums[end-1] == 1 {
+			end++
+		} else {
+			// 只有一个数的情况
+			if end-start == 1 {
+				res = append(res, strconv.Itoa(nums[start]))
+			} else {
+				res = append(res, fmt.Sprintf("%d->%d", nums[start], nums[end-1]))
+			}
+			start = end
+			end = start + 1
+		}
+	}
+	// 最后一段数据一直是连续的或者最后还有一个数字
+	if end-start == 1 {
+		res = append(res, strconv.Itoa(nums[start]))
+	} else {
+		res = append(res, fmt.Sprintf("%d->%d", nums[start], nums[end-1]))
+	}
+
+	return res
+}

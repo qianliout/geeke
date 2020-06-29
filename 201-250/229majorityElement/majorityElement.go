@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
-	nums := []int{4, 2, 1, 1}
-	res := majorityElement(nums)
+	nums := []int{2, 2}
+	res := majorityElement2(nums)
 	fmt.Println("res is ", res)
 }
 
@@ -73,6 +74,58 @@ func majorityElement(nums []int) []int {
 	}
 	if count2 > len(nums)/3 {
 		res = append(res, cand2)
+	}
+	return res
+}
+
+// 彻底掌握摩尔投票法
+
+func majorityElement2(nums []int) []int {
+	res := make([]int, 0)
+	if len(nums) == 0 {
+		return res
+	}
+	first, second, f, s := nums[0], nums[0], 0, 0
+	// 抵消阶段
+	for _, nu := range nums {
+		if nu == first {
+			f++
+			continue
+		}
+		if nu == second {
+			s++
+			continue
+		}
+		if f == 0 {
+			first = nu
+			f = 1
+			continue
+		}
+		if s == 0 {
+			second = nu
+			s = 1
+			continue
+		}
+		f--
+		s--
+	}
+	// 计数阶段
+	f, s = 0, 0
+	for _, nu := range nums {
+		if nu == first {
+			f++
+		}
+		if nu == second {
+			s++
+		}
+	}
+
+	if f > int(math.Ceil(float64(len(nums)/3))) {
+		res = append(res, first)
+	}
+
+	if s > int(math.Ceil(float64(len(nums)/3))) && first != second {
+		res = append(res, second)
 	}
 	return res
 }
