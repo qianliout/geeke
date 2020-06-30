@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"math"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
-	res := nthUglyNumber(2)
+	res := nthUglyNumber2(2)
 	fmt.Println("res is ", res)
 }
 
@@ -59,4 +61,32 @@ func minInt(nums ...int) int {
 		}
 	}
 	return res
+}
+
+func nthUglyNumber2(n int) int {
+	if n <= 0 {
+		return 0
+	}
+	dp := make(map[int]int)
+	dp[0] = 1
+	exit := make(map[int]bool)
+	i2, i3, i5 := 0, 0, 0
+	i := 1
+	for i <= n {
+		tem := Min(dp[i2]*2, dp[i3]*3, dp[i5]*5)
+		if !exit[tem] {
+			dp[i] = tem
+			exit[tem] = true
+			i++
+		}
+
+		if tem == dp[i2]*2 {
+			i2++
+		} else if tem == dp[i3]*3 {
+			i3++
+		} else if tem == dp[i5]*5 {
+			i5++
+		}
+	}
+	return dp[n-1]
 }

@@ -25,7 +25,7 @@ func singleNumber(nums []int) []int {
 	for _, num := range nums {
 		first = first ^ num
 	}
-	diff := first & (-first)
+	diff := first & (-first) // 得到正数的最后一个1
 	x := 0
 	for _, num := range nums {
 		// 这里等于0还是不等于0都是一样的，主要是将数分成两组，相同的一定是在一个组内，
