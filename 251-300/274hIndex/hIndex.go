@@ -113,3 +113,14 @@ func Sort(nums []int) []int {
 	}
 	return res
 }
+
+func hIndex4(citations []int) int {
+	sort.Ints(citations)
+	h := len(citations)
+	for _, v := range citations {
+		if v < h {
+			h--
+		}
+	}
+	return h
+}

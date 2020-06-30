@@ -33,3 +33,14 @@ func hIndex(citations []int) int {
 	}
 	return i
 }
+
+
+func hIndex2(citations []int) int {
+	h := len(citations)
+	for _, v := range citations {
+		if v < h {
+			h--
+		}
+	}
+	return h
+}
