@@ -1,12 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 
 	. "outback/leetcode/common/treenode"
 )
 
 func main() {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Left.Left = &TreeNode{Val: 4}
+	root.Left.Right = &TreeNode{Val: 5}
+	res := binaryTreePaths2(root)
+	fmt.Println(res)
 
 }
 
@@ -65,4 +73,34 @@ func dfs(root *TreeNode, used map[*TreeNode]bool, path []int, res *[][]int) {
 		used[root] = false
 		path = path[:len(path)-1]
 	}
+}
+
+func binaryTreePaths2(root *TreeNode) []string {
+	res := make([]string, 0)
+	if root == nil {
+		return res
+	}
+	
+	if root.Left == nil && root.Right == nil {
+		res = append(res, strconv.Itoa(root.Val))
+		return res
+	}
+
+
+	left := binaryTreePaths2(root.Left)
+	right := binaryTreePaths2(root.Right)
+
+	for _, l := range left {
+		if len(l) > 0 {
+			res = append(res, strconv.Itoa(root.Val)+"->"+ l)
+		}
+	}
+
+	for _, r := range right {
+		if len(r) > 0 {
+			res = append(res, strconv.Itoa(root.Val)+"->"+ r)
+		}
+	}
+
+	return res
 }

@@ -41,7 +41,7 @@ func isPalindrome(head *ListNode) bool {
 	return true
 }
 
-// 方法二,使用快慢指针翻转前半部分,然后和后半部分比较
+// 方法二,使用快慢指针翻转前半部分,然后和后半部分比较,这种方法会改变链表的结构
 func recursion(head *ListNode) bool {
 	if head == nil {
 		return true
@@ -75,7 +75,7 @@ func recursion(head *ListNode) bool {
 	return true
 }
 
-// 左侧指针
+// 左侧指针,这种方法是最巧妙的,利用的是递归入栈和出栈的顺序
 var left *ListNode
 
 func isPalindrome2(head *ListNode) bool {
@@ -88,7 +88,7 @@ func traverse(right *ListNode) bool {
 		return true
 	}
 	res := traverse(right.Next)
-	// 后序遍历代码
+	// 后序遍历代码,当递归出来时,right,就是最后一个结点,然后往前了,这种方法也可以用来做链表的后序遍历
 	res = res && (right.Val == left.Val)
 	left = left.Next
 	return res

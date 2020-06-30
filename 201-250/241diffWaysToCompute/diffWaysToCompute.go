@@ -2,6 +2,7 @@ package main
 
 import (
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -65,3 +66,43 @@ func isDigit(input string) bool {
 	}
 	return true
 }
+
+func diffWaysToCompute2(input string) []int {
+	res := make([]int, 0)
+	input = strings.ReplaceAll(input, " ", "")
+	if len(input) <= 0 {
+		return res
+	}
+	return helper([]byte(input))
+}
+
+func helper(input []byte) []int {
+	res := make([]int, 0)
+	if isDigit(string(input)) {
+		n, _ := strconv.Atoi(string(input))
+		res = append(res, n)
+		return res
+	}
+	for i, ch := range input {
+		if ch == '+' || ch == '*' || ch == '-' {
+			left := helper(input[:i])
+			right := helper(input[i+1:])
+			tem := 0
+			for _, l := range left {
+				for _, r := range right {
+					if ch == '+' {
+						tem = l + r
+					} else if ch == '-' {
+						tem = l - r
+					} else if ch == '*' {
+						tem = l * r
+					}
+					res = append(res, tem)
+				}
+			}
+		}
+	}
+	return res
+}
+
+

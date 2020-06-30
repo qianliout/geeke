@@ -33,7 +33,22 @@ func numSquares(n int) int {
 		dp[i] = i
 		for j := 1; i-j*j >= 0; j++ {
 			dp[i] = Min(dp[i], dp[i-j*j]+1)
+		}
+	}
+	return dp[n]
+}
 
+func numSquares2(n int) int {
+	dp := make(map[int]int)
+	dp[1] = 1
+	if n <= 1 {
+		return dp[n]
+	}
+
+	for i := 1; i <= n; i++ {
+		dp[i] = i
+		for j := 1; j*j <= i; j++ {
+			dp[i] = Min(dp[i], dp[i-j*j]+1)
 		}
 	}
 	return dp[n]

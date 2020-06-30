@@ -10,7 +10,7 @@ import (
 func main() {
 	nums := []int{1, 3, -1, -3, 5, 3, 6, 7}
 	k := 3
-	res := maxSlidingWindow(nums, k)
+	res := maxSlidingWindow4(nums, k)
 	fmt.Println("res is ", res)
 }
 
@@ -82,6 +82,7 @@ func maxSlidingWindow2(nums []int, k int) []int {
 	}
 	return res
 }
+
 func maxSlidingWindow3(nums []int, k int) []int {
 	res := make([]int, 0)
 	if len(nums) == 0 {
@@ -101,6 +102,34 @@ func maxSlidingWindow3(nums []int, k int) []int {
 		// 第三步，把结果返回
 		if i >= k-1 {
 			res = append(res, nums[dq[0]])
+		}
+	}
+	return res
+}
+
+// 单调栈的思想
+func maxSlidingWindow4(nums []int, k int) []int {
+	res := make([]int, 0)
+	if len(nums) == 0 {
+		return res
+	}
+	// 注意这里的单调整栈存放的是下标
+	stack := make([]int, 0)
+
+	for i, n := range nums {
+		// 第一步,把超出范围的数据移出(注意这里有等于,因为当等于是,说明刚好有k个元素,再加入i这个元素就多了一个,所以也要移出)
+		if i >= k && len(stack) > 0 && i-stack[0] >= k {
+			stack = stack[1:]
+		}
+		// 为了把这个数加到对应的位(保持单掉递减),把多余的数据去除
+		for len(stack) > 0 && nums[stack[len(stack)-1]] < n {
+			stack = stack[:len(stack)-1]
+		}
+		// 加入值
+		stack = append(stack, i)
+		// 输出值
+		if i >= k-1 {
+			res = append(res, nums[stack[0]])
 		}
 	}
 	return res
