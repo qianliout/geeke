@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	nums := []int{0, 0, 1}
+	move(nums)
+	fmt.Println("nums ", nums)
 }
 
 /*
@@ -31,5 +37,22 @@ func moveZeroes(nums []int) {
 			}
 		}
 		i++
+	}
+}
+
+func move(nums []int) {
+	start, end := 0, len(nums)-1
+	for start <= end { // 这里小于,还是小于等于都是一样的,因为,下面j<end会排除
+		fmt.Println(start, end)
+		if nums[start] == 0 {
+			for j := start; j < end; j++ {
+				nums[j] = nums[j+1]
+			}
+			nums[end] = 0
+			//start++
+			end--
+		} else {
+			start++
+		}
 	}
 }

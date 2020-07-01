@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
 func main() {
-
+	res :=wordPattern("abab", "dog cat cat dog")
+	fmt.Println(res)
 }
 
 /*

@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	num := "105"
-	target := 5
-	res := addOperators(num, target)
+	num := "123"
+	target := 6
+	res := addOperators2(num, target)
 	fmt.Println("res is ", res)
 }
 
@@ -68,4 +68,47 @@ func genNum(nums []byte, start, i int) int {
 		fmt.Println("error ", err.Error())
 	}
 	return v
+}
+
+func addHelper(nums []byte, start, end, target int, res *[]string) map[string]int {
+	opMap := make(map[string]int)
+
+	for i := start + 1; i < end; i++ {
+		n, _ := strconv.Atoi(string(nums[start:i]))
+		n2, _ := strconv.Atoi(string(nums[i:end]))
+		opMap[string(nums[start:i])] = n
+		opMap[string(nums[i:end])] = n2
+
+		left := addHelper(nums, start, i, target, res)
+		fmt.Println("left ",left)
+		right := addHelper(nums, i, end, target, res)
+
+		fmt.Println("right ",right)
+		for i, v1 := range left {
+			for j, v2 := range right {
+				value1 := v1 + v2
+				if value1 == target {
+					*res = append(*res, i+"+"+j)
+				}
+				opMap[i+"+"+j] = value1
+
+				value2 := v1 - v2
+				if value2 == target {
+					*res = append(*res, i+"-"+j)
+				}
+				opMap[i+"-"+j] = value2
+				value3 := v1 * v2
+				if value3 == target {
+					*res = append(*res, i+"*"+j)
+				}
+				opMap[i+"*"+j] = value3
+			}
+		}
+	}
+	return opMap
+}
+func addOperators2(num string, target int) []string {
+	ans := make([]string, 0)
+	addHelper([]byte(num), 0, len(num), target, &ans)
+	return ans
 }
