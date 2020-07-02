@@ -6,10 +6,11 @@ import (
 
 func main() {
 	matrix := [][]int{
-		{1, 5, 9},
-		{10, 11, 13},
-		{12, 13, 15}}
-	res := kthSmallest(matrix, 11)
+		{1, 2},
+		{1, 3},
+		//{12, 13, 15},
+	}
+	res := kthSmallest(matrix, 2)
 	fmt.Println("res is ", res)
 
 }
@@ -28,7 +29,7 @@ k = 8,
 */
 
 // 题目中说是它是排序后的第k小元素，而不是第k个元素,所以可能有重复
-// 这种方法可以找出第k个元素，但无法满足题目中的要求
+// 这种方法可以找出第k个元素，但无法满足题目中的要求,如果没有重复就可以满足
 func kthSmallest(matrix [][]int, k int) int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return -1
@@ -55,3 +56,24 @@ func kthSmallest(matrix [][]int, k int) int {
 
 // 这道题可以使用大顶堆，加map去重的方式
 // 因为可以有重复元素，其实使用二分法其实是不好做的
+
+func kthSmallest2(matrix [][]int, k int) int {
+	if len(matrix) == 0 || len(matrix[0]) == 0 {
+		return -1
+	}
+	rowNum := len(matrix[0])
+	col, row := 0, rowNum-1
+	num := rowNum
+	for col < len(matrix) && row >= 0 {
+		if num == k {
+			return matrix[col][row]
+		} else if num < k {
+			col++
+			num += rowNum
+		} else if num > k {
+			row--
+			num--
+		}
+	}
+	return -1
+}

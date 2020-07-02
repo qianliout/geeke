@@ -27,7 +27,7 @@ func main() {
 链接：https://leetcode-cn.com/problems/wiggle-sort-ii
 */
 
-// 方法一排序，这里面有很久易错点
+// 方法一排序，这里面有很个易错点
 func wiggleSort(nums []int) {
 	sort.Ints(nums)
 	tem := make([]int, len(nums))

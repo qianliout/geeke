@@ -60,6 +60,6 @@ func wiggleMaxLength(nums []int) int {
 			}
 		}
 	}
-	fmt.Println(dp1, dp2)
+	//fmt.Println(dp1, dp2)
 	return Max(dp1[length-1], dp2[length-1])
 }

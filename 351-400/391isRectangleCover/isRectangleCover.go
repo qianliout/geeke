@@ -118,8 +118,6 @@ func Area(s []int) int {
 }
 func Area2(s [][]int) int {
 	x, y := 0, 0
-	
-
 
 }
 

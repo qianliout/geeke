@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
 	res := integerReplacement(7)
 	fmt.Println("res is ", res)
+	fmt.Println(7 & 2)
 }
 
 /*
@@ -48,13 +50,60 @@ func integerReplacement(n int) int {
 			if n == 3 {
 				res++
 				n -= 1
-			} else if n&2 == 0 {
+			} else if n&2 == 0 { //这里用位操作纯粹是炫技,目的就是 让每一步1的数目最少好处大，于是 0bxxx01 采用 -1； 0bxxx11 采用 +1；
 				res++
 				n -= 1
 			} else {
 				res++
 				n += 1
 			}
+		}
+	}
+	return res
+}
+
+// 这道题主要处理3,第二点,就是尽量往4上靠
+func integerReplacement2(n int) int {
+	if n <= 1 {
+		return 0
+	}
+	if n == math.MaxInt32 {
+		return 32
+	}
+	if n <= 3 {
+		return n - 1
+	}
+	if n%2 == 0 {
+		return integerReplacement2(n/2) + 1
+	} else if n%4 == 1 {
+		return integerReplacement2(n-1) + 1
+	} else if n%4 == 3 {
+		return integerReplacement2(n+1) + 1
+	}
+	return 0
+}
+
+func integerReplacement3(n int) int {
+	if n <= 1 {
+		return 0
+	}
+	res := 0
+	for n > 1 {
+		if n <= 3 {
+			res = res + n - 1
+			break
+		}
+		if n%4 == 3 {
+			res++
+			n = n + 1
+		}
+		if n%4 == 1 {
+			res++
+			n = n - 1
+		}
+		if n%2 == 0 {
+			res++
+			n = n / 2
 		}
 	}
 	return res

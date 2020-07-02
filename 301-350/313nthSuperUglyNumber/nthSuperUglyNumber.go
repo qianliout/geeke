@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-
-	. "outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -32,25 +30,7 @@ func main() {
 // 自已在本地不会超出时间限制，但是提交会超出限制
 // 使用小顶堆
 func nthSuperUglyNumber2(n int, primes []int) int {
-	h := new(IntMinHeap)
-	h.Push(1)
-	n--
-	for n > 0 {
-		tem := h.PopMini().(int)
-		n--
-		InitMin(h)
-		// 因为下面可能会加重复元素，所以把相同都Pop出来
-		for h.Len() > 0 && tem == h.Peek().(int) {
-			tem = h.PopMini().(int)
-			InitMin(h)
-		}
-		for _, p := range primes {
-			t := tem * p
-			h.Push(t) // 这里可能加重复元素
-			InitMin(h)
-		}
-	}
-	return h.PopMini().(int)
+	return 0
 }
 
 func nthSuperUglyNumber(n int, primes []int) int {

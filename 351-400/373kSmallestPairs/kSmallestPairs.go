@@ -43,7 +43,6 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 			if len(ans) < k {
 				heap.Push(&ans, Item{v1, v2})
 			} else {
-
 				top := ans[0]
 				//fmt.Println("top is ", top, ans)
 				if v1+v2 >= top[0]+top[1] {
@@ -56,19 +55,19 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
 			}
 		}
 	}
-	fmt.Println(ans)
+	//fmt.Println(ans)
 	answer := make([]Item, 0)
 	for len(ans) > 0 {
 		answer = append(answer, heap.Pop(&ans).(Item))
-		heap.Init(&ans)
+		//heap.Init(&ans) // 因为pop之后会自动重新排列堆,所以不用init操作
 	}
 	answer2 := make([][]int, 0)
 	for i := len(answer) - 1; i >= 0; i-- {
-		answer2 = append(answer2, []int{answer[i][0],answer[i][1]})
+		answer2 = append(answer2, []int{answer[i][0], answer[i][1]})
 	}
 	return answer2
 }
-                         
+
 type Item []int
 
 type MaxHeap []Item

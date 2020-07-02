@@ -65,15 +65,16 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 				queue = append(queue, []int{k, v[0]})
 			}
 		}
-		// 之后再删除indree,不能再循环中删除
 
+		// 之后再删除indree,不能再循环中删除(这里是容易出错的地方,不能在循环中删除会导致循环出错)
 		for _, q := range queue {
+			// 注意这里的理解,这里的first,second和上面是不同的
 			first := q[0]
 			second := q[1]
 
-			//先删除fist
+			//先删除fist(也就是key)
 			delete(inDegree, first)
-			// 再删除second
+			// 再删除second中对应是first
 			gree := inDegree[second]
 			for i, v := range gree {
 				if v == first {

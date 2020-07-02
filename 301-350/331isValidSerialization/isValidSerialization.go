@@ -57,7 +57,6 @@ var i int
 
 // 模拟建树过程, 这个方法在go语言中没有通过,不知道是为什么
 func isValidSerialization2(preorder string) bool {
-	i = 0
 	order := strings.Split(preorder, ",")
 	//构建完整棵树以后，序列化中的所有结点都应被用到，也就是 i == strings.length
 	return canBuid(order) && i == len(order)

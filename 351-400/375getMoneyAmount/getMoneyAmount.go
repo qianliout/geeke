@@ -57,3 +57,7 @@ func getMoneyAmount(n int) int {
 
 	return dp[1][n]
 }
+
+func getMoneyAmount2(n int) int {
+
+}

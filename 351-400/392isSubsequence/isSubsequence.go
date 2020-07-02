@@ -44,8 +44,26 @@ func isSubsequence(s string, t string) bool {
 		}
 	}
 	// 最后这里的判断,容易漏掉
-	if len(queue)>0{
+	if len(queue) > 0 {
 		return false
 	}
 	return true
+}
+
+func isSubsequence2(s string, t string) bool {
+	if len(s) > len(t) {
+		return false
+	}
+	stark := make([]byte, len(s))
+	for i := range s {
+		stark[i] = s[i]
+	}
+	i, j := 0, 0
+	for j < len(stark) && i < len(t) {
+		if stark[j] == t[i] {
+			j++
+		}
+		i++
+	}
+	return j == len(stark)
 }
