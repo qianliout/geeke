@@ -65,7 +65,8 @@ func Constructor(w []int) Solution {
 }
 
 func (this *Solution) PickIndex() int {
-	idx := this.rd.Int63n(this.total) % this.total
+	//idx := this.rd.Int63n(this.total) % this.total
+	idx := this.rd.Int63n(this.total)
 	for i := 0; i < len(this.node); i++ {
 		if this.node[i].start <= idx && this.node[i].end > idx {
 			return i

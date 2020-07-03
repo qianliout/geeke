@@ -61,3 +61,19 @@ func numberOfArithmeticSlices(A []int) int {
 	}
 	return res
 }
+
+func numberOfArithmeticSlices2(A []int) int {
+	// dp[i]表示以下标i结尾的等差数列的个数
+	dp := make(map[int]int)
+	dp[0], dp[1] = 0, 0
+	sum := 0
+	for i := 2; i < len(A); i++ {
+		if A[i]-A[i-1] == A[i-1]-A[i-2] {
+			dp[i] = dp[i-1] + 1 // 这里认真理解
+			sum += dp[i]
+		} else {
+			dp[i] = 0
+		}
+	}
+	return sum
+}

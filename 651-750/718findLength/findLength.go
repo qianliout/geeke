@@ -27,7 +27,7 @@ B: [3,2,1,4,7]
 0 <= A[i], B[i] < 100
 */
 
-// 暴力法,这咱方法没有实现,会超时
+// 暴力法,这种方法没有实现,会超时
 func findLength(A []int, B []int) int {
 	bStart := make(map[int][]int)
 	for i, v := range B {

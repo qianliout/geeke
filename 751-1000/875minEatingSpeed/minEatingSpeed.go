@@ -47,7 +47,7 @@ func minEatingSpeed(piles []int, H int) int {
 	}
 	// fmt.Println("max pile", maxPile)
 	left, right := 1, maxPile
-	// 二分找区间,相当于找左区间
+	// 二分找区间,相当于找左区间(最小的左值)
 	for left < right {
 		mid := left + (right-left+1)/2
 		p := possible(piles, H, mid)
@@ -72,8 +72,15 @@ func possible(piles []int, H, k int) bool {
 	sum := 0
 	for _, p := range piles {
 		// 我们可以推断出珂珂将在 Math.ceil(p / K) = ((p-1) // K) + 1 小时内吃完这一堆，
-		// 我们将每一堆的完成时间加在一起并与 H 。
-		// 向下取整后加1,防止是整数倍的情况
+		// 我们将每一堆的完成时间加在一起并与 H 比较 。
+		// 向下取整后加1,防止是整数倍的情况(是整数倍会有什么问题呢? 加入是11个香蕉,如果每次吃5个,那就是3次,11/5+1,但是如果是10个香蕉,还这么算的法,就出错,所以)
+
+		// 以下这种写法好理解
+		//sum += p / k
+		//if p%k != 0 {
+		//	sum += 1
+		//}
+
 		sum += (p-1)/k + 1
 	}
 	return sum <= H

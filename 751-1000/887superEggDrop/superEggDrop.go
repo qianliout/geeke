@@ -40,7 +40,7 @@ func main() {
 */
 // 这种方法能得到结果,但是会超时
 func superEggDrop(K int, N int) int {
-	// 定义dp
+	// memo[k][n] 当前状态为 k 个鸡蛋，面对 n 层楼 这个状态下最少的扔鸡蛋次数为 m
 	memo := make(map[int]map[int]int)
 	for i := 0; i <= K; i++ {
 		memo[i] = make(map[int]int)

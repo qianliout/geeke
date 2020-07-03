@@ -36,9 +36,8 @@ func canPartition(nums []int) bool {
 	if sum%2 != 0 {
 		return false
 	}
+	// dp[i]sum和我等于i时可以于由数组中的元素二分吗?
 	dp := make(map[int]bool)
-	//
-
 	for _, num := range nums {
 		for i := sum / 2; i >= 0; i-- {
 			if i == num {
@@ -49,5 +48,30 @@ func canPartition(nums []int) bool {
 		}
 	}
 	//fmt.Println(dp)
+	return dp[sum/2]
+}
+
+func canPartition2(nums []int) bool {
+	if len(nums) <= 1 {
+		return false
+	}
+	sum := 0
+	for _, n := range nums {
+		sum += n
+	}
+	if sum%2 != 0 {
+		return false
+	}
+
+	dp := make(map[int]bool)
+	for _, n := range nums {
+		for i := sum / 2; i >= 0; i-- {
+			if i == n {
+				dp[i] = true
+			} else {
+				dp[i] = dp[i] || dp[i-n]
+			}
+		}
+	}
 	return dp[sum/2]
 }

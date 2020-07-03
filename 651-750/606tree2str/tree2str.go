@@ -12,7 +12,7 @@ func main() {
 	root.Left = &TreeNode{Val: 2}
 	root.Left.Left = &TreeNode{Val: 4}
 	root.Right = &TreeNode{Val: 3}
-	str := tree2str(root)
+	str := tree2str2(root)
 	fmt.Println("str is ", str)
 }
 
@@ -42,7 +42,7 @@ func main() {
 除了我们不能省略第一个对括号来中断输入和输出之间的一对一映射关系。
 */
 func tree2str(t *TreeNode) string {
-	if t==nil{
+	if t == nil {
 		return ""
 	}
 	s := dfs(t, "")
@@ -67,3 +67,5 @@ func dfs(root *TreeNode, s string) string {
 	}
 	return s
 }
+
+

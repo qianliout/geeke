@@ -57,7 +57,7 @@ func maxWidthRamp2(A []int) int {
 	}
 
 	dp := make(map[int]int)
-	// dp[i]的定义是指，在A数据组中，选到下标为i是的最大长度（i可能没有选中）
+	// dp[i]的定义是指，在A数据组中，选到下标为i时是的最大的坡,这个坡一定选中选中i
 	max := 0
 	for i := 1; i < len(A); i++ {
 		if A[i] >= A[i-1] {

@@ -21,7 +21,7 @@ func main() {
 
 // 注意,这里算的不是左节点,而不左叶子节点
 func sumOfLeftLeaves(root *TreeNode) int {
-	if root == nil  {
+	if root == nil {
 		return 0
 	}
 
@@ -42,4 +42,16 @@ func sumOfLeftLeaves(root *TreeNode) int {
 		}
 	}
 	return ans
+}
+
+// 递归解法
+func sumof(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil {
+		return root.Left.Val + sumof(root.Right)
+	} else {
+		return sumof(root.Right)+sumof(root.Left)
+	}
 }

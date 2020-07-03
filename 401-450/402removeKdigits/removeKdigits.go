@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	nums := "1234567890"
-	kdigits := removeKdigits(nums, 9)
+	nums := "1432219"
+	kdigits := removeKdigits2(nums, 3)
 
 	fmt.Println("res is ", kdigits)
 }
@@ -32,9 +32,9 @@ func main() {
 */
 
 func removeKdigits(num string, k int) string {
-	n := []byte(num)
+	nums := []byte(num)
 	number := make([]int, 0)
-	for _, a := range n {
+	for _, a := range nums {
 		i, _ := strconv.Atoi(string(a))
 		number = append(number, i)
 	}
@@ -97,4 +97,38 @@ func removeKdigits(num string, k int) string {
 		return "0"
 	}
 	return s
+}
+
+func removeKdigits2(num string, k int) string {
+
+	nums := make([]int, 0)
+	remind := len(num) - k
+	for i := range num {
+		n, _ := strconv.Atoi(string(num[i]))
+		nums = append(nums, n)
+	}
+
+	stack := make([]int, 0)
+	for _, n := range nums {
+		for k > 0 && len(stack) > 0 && stack[len(stack)-1] > n {
+			stack = stack[:len(stack)-1]
+			k--
+		}
+		stack = append(stack, n)
+	}
+	// 输出结果
+	res := ""
+	start := true
+	for j := 0; j < remind; j++ {
+		if start && stack[j] == 0 {
+			continue
+		}
+		start = false
+		res = res + strconv.Itoa(stack[j])
+	}
+	if len(res) <= 0 {
+		return "0"
+	}
+
+	return res
 }
