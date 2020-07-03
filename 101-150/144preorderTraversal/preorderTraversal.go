@@ -60,7 +60,7 @@ func Iter(root *TreeNode, res *[]int) {
 		stack = append(stack, root)
 	}
 	for len(stack) > 0 {
-		first := stack[len(stack)-1]
+		first := stack[len(stack)-1] // 从后从前取,所以先加right,再加left
 		stack = stack[:len(stack)-1]
 		*res = append(*res, first.Val)
 
