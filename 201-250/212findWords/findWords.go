@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync/atomic"
 
 	. "outback/leetcode/common/trie"
 )
@@ -84,4 +85,9 @@ func dfs(board [][]byte, res *[]string, path string, trieNode *Trie, row, col in
 	dfs(board, res, path, trieNode, row, col-1, used)
 	used[v] = false
 	path = string([]byte(path)[:len(path)-1])
+}
+
+
+func bfs(){
+	atomic.CompareAndSwapInt32()
 }

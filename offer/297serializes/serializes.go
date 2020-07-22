@@ -38,7 +38,7 @@ func Constructor() Codec {
 
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
-	return bfsSequenceSerialize(root, this.Fill)
+	return bfsPreSerialize(root, this.Fill)
 }
 
 // Deserializes your encoded data to tree.
@@ -192,6 +192,65 @@ func bfsSequenceDeserialize(ss []string, fill string) *TreeNode {
 				queue = append(queue, right)
 			}
 		}
+	}
+	return root
+}
+
+// bfs 前序序列化
+func bfsPreSerialize(root *TreeNode, fill string) string {
+	strSlice := make([]string, 0)
+	if root == nil {
+		return ""
+	}
+	stark := []*TreeNode{root}
+	for len(stark) > 0 {
+		node := stark[len(stark)-1]
+		stark = stark[:len(stark)-1]
+		if node != nil {
+			strSlice = append(strSlice, strconv.Itoa(node.Val))
+			stark = append(stark, node.Right)
+			stark = append(stark, node.Left)
+		} else {
+			strSlice = append(strSlice, fill)
+		}
+	}
+	return strings.Join(strSlice, ",")
+}
+
+func bfsPreDserialize(ss []string, fill string) *TreeNode {
+	if len(ss) == 0 {
+		return nil
+	}
+	idx := 0
+	n, err := strconv.Atoi(ss[idx])
+	if err != nil {
+		return nil
+	}
+	root := &TreeNode{Val: n}
+	stark := []*TreeNode{root}
+	// 1,2,null,null,3,4,null,null,5,null,null
+	for len(stark) > 0 {
+		idx++
+		node := stark[len(stark)]
+		stark = stark[:len(stark)-1]
+
+		if ss[idx] != fill {
+			if j, e := strconv.Atoi(ss[idx]); e == nil {
+				left := &TreeNode{Val: j}
+				node.Left = left
+				stark = append(stark, left)
+			}
+		}
+		idx++
+
+		if ss[idx] != fill {
+			if j, e := strconv.Atoi(ss[idx]); e == nil {
+				right := &TreeNode{Val: j}
+				node.Right = right
+				queue = append(queue, right)
+			}
+		}
+
 	}
 	return root
 }
