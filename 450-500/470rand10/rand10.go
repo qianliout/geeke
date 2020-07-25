@@ -1,7 +1,20 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	a := 10
+	defer func() {
+		fmt.Println(a)
+	}()
+	a++
+	return
+}
+
+func Print(a int) {
+	fmt.Println(a)
 }
 
 /*

@@ -3,7 +3,6 @@ package reading
 import (
 	"sync"
 	"sync/atomic"
-	"context"
 	"time"
 )
 

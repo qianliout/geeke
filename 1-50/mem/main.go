@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"time"
+	"strconv"
 	"unsafe"
 )
 
@@ -23,13 +24,9 @@ func IsNilOrNot(v interface{}) bool {
 }
 
 func main() {
-	go func() {
-		i := 0
-		for {
-			i++
-		}
-	}()
-
-	time.Sleep(time.Second)
-	fmt.Println("fuck")
+	itoa := strconv.Itoa(123232)
+	a := string(132323)
+	fmt.Printf("a is %T,%T", a, itoa)
+	ctx, cancelFunc := context.WithCancel(context.Background())
+	defer cancelFunc()
 }

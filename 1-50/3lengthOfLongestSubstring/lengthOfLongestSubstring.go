@@ -48,7 +48,16 @@ func lengthOfLongestSubstring(s string) int {
 	return res
 }
 
+func init() {
+
+}
+func init() {
+
+}
+
 func lengthOfLongestSubstring2(s string) int {
+	ch := make(chan int, 0)
+
 	lastOccrued := make(map[rune]int)
 	maxLength, start := 0, 0
 	for i, ch := range []rune(s) {
