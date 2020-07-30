@@ -17,7 +17,7 @@ func Init() {
 
 func InMemSort(in <-chan int) <-chan int {
 	// add buffer
-	out := make(chan int, 1024)
+	out := make(chan int, 0)
 	go func() {
 		// Read
 		a := make([]int, 0)
@@ -58,7 +58,7 @@ func Merge(ch1, ch2 <-chan int) chan int {
 		v1, ok1 := <-ch1
 		v2, ok2 := <-ch2
 		for ok1 || ok2 {
-			if ok1 || (ok2 && v1 <= v2) {
+			if !ok2 || (ok1 && v1 <= v2) {
 				out <- v1
 				v1, ok1 = <-ch1
 			} else {
@@ -67,11 +67,35 @@ func Merge(ch1, ch2 <-chan int) chan int {
 			}
 		}
 		close(out)
+		fmt.Println("Merge done:", time.Now().Sub(startTime))
 	}()
 	return out
+
+	/*
+		// add buffer
+			out := make(chan int, 1024)
+			go func() {
+				v1, ok1 := <-in1
+				v2, ok2 := <-in2
+				for ok1 || ok2 {
+					if !ok2 || (ok1 && v1 <= v2) {
+						out <- v1
+						v1, ok1 = <-in1
+					} else {
+						out <- v2
+						v2, ok2 = <-in2
+					}
+				}
+				close(out)
+				fmt.Println("Merge done:", time.Now().Sub(startTime))
+			}()
+			return out
+
+	*/
 }
 
 func MergeN(inputs ...<-chan int) <-chan int {
+
 	if len(inputs) == 1 {
 		return inputs[0]
 	}
@@ -96,13 +120,14 @@ func ReaderSource(reader io.Reader, chunkCount int) <-chan int {
 		for {
 			buffer := make([]byte, 8)
 			n, err := reader.Read(buffer)
-			if err != nil || (chunkCount != -1 && bytesRead >= chunkCount) {
-				break
-			}
+
 			if n > 0 {
 				bytesRead += n
 				v := int(binary.BigEndian.Uint64(buffer))
 				out <- v
+			}
+			if err != nil || (chunkCount != -1 && bytesRead >= chunkCount) {
+				break
 			}
 		}
 		close(out)

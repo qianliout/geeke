@@ -9,19 +9,19 @@ import (
 )
 
 func ExtMerge() {
-	const filenameIn = "small.in"
-	const fileSize = 512
-	const chunkCount = 4
-	const filenameOut = "small.out"
+	//const filenameIn = "small.in"
+	//const fileSize = 512
+	//const chunkCount = 4
+	//const filenameOut = "small.out"
 
-	//const filenameIn = "large.in"
-	//const fileSize = 80000000
+	const filenameIn = "large.in"
+	const fileSize = 80000000
 	//const chunkCount = 4
 	//const chunkCount = 8
-	//const chunkCount = 100
-	//const filenameOut = "large.out"
+	const chunkCount = 100
+	const filenameOut = "large.out"
 
-	//createRandomSource(filenameIn, fileSize)
+	createRandomSource(filenameIn, fileSize)
 
 	p := createPipeline(filenameIn, fileSize, chunkCount)
 	writeToFile(p, filenameOut)
@@ -54,9 +54,8 @@ func writeToFile(p <-chan int, filename string) {
 	defer file.Close()
 
 	writer := bufio.NewWriter(file)
-	defer writer.Flush()
-
 	pipeline.WriteSink(writer, p)
+	defer writer.Flush()
 }
 
 func printFile(filename string) {
@@ -66,7 +65,7 @@ func printFile(filename string) {
 	}
 	defer file.Close()
 
-	p := pipeline.ReaderSource(file, -1)
+	p := pipeline.ReaderSource(bufio.NewReader(file), -1)
 	count := 0
 	for v := range p {
 		fmt.Println(v)
@@ -84,5 +83,7 @@ func createRandomSource(fineName string, count int) {
 		panic(err)
 	}
 	in := pipeline.RandomSource(count)
-	pipeline.WriteSink(file, in)
+	writer := bufio.NewWriter(file)
+	defer writer.Flush()
+	pipeline.WriteSink(writer, in)
 }
