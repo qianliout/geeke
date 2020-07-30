@@ -70,28 +70,6 @@ func Merge(ch1, ch2 <-chan int) chan int {
 		fmt.Println("Merge done:", time.Now().Sub(startTime))
 	}()
 	return out
-
-	/*
-		// add buffer
-			out := make(chan int, 1024)
-			go func() {
-				v1, ok1 := <-in1
-				v2, ok2 := <-in2
-				for ok1 || ok2 {
-					if !ok2 || (ok1 && v1 <= v2) {
-						out <- v1
-						v1, ok1 = <-in1
-					} else {
-						out <- v2
-						v2, ok2 = <-in2
-					}
-				}
-				close(out)
-				fmt.Println("Merge done:", time.Now().Sub(startTime))
-			}()
-			return out
-
-	*/
 }
 
 func MergeN(inputs ...<-chan int) <-chan int {
