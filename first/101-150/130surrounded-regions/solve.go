@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 
 	"outback/leetcode/common/unionfind"
 )
@@ -78,6 +79,8 @@ func DFS(board *[][]byte, col, row int) {
 	if row < 0 || row >= len((*board)[0]) || col < 0 || col >= len(*board) || (*board)[col][row] == 'X' || (*board)[col][row] == '#' {
 		return
 	}
+
+	runtime.GC()
 	(*board)[col][row] = '#'
 	DFS(board, col+1, row)
 	DFS(board, col-1, row)

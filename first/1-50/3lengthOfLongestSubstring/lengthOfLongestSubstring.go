@@ -56,7 +56,9 @@ func init() {
 }
 
 func lengthOfLongestSubstring2(s string) int {
-	ch := make(chan int, 0)
+	//ch := make(chan int)
+
+	//var ch chan int
 
 	lastOccrued := make(map[rune]int)
 	maxLength, start := 0, 0

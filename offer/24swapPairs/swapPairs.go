@@ -24,14 +24,21 @@ func swapPairs2(head *ListNode) *ListNode {
 		return head
 	}
 	dump := new(ListNode)
+	dump.Next = head
+	pre := dump
 
 	for head != nil && head.Next != nil {
+		first := head
+		second := head.Next
 
+		// 交换
+		pre.Next = second
+		first.Next = second.Next
+		second.Next = first
 
-
-
+		pre = second
+		head = first.Next
 	}
 
-	return cur
-
+	return dump.Next
 }
