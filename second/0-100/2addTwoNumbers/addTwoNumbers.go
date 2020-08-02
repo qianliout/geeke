@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	. "outback/leetcode/common/listnode"
 )
 
@@ -19,5 +21,87 @@ func main() {
 */
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	if l1 == nil {
+		return l2
+	}
+	if l2 == nil {
+		return l1
+	}
 
+	nums1 := make([]int, 0)
+	nums2 := make([]int, 0)
+
+	cur := l1
+	for cur != nil {
+		nums1 = append(nums1, cur.Val)
+		cur = cur.Next
+	}
+	cur = l2
+	for cur != nil {
+		nums2 = append(nums2, cur.Val)
+		cur = cur.Next
+	}
+	dump := new(ListNode)
+	pre := 0
+	curNode := dump
+	for len(nums1) > 0 || len(nums2) > 0 {
+		r := pre
+		if len(nums1) > 0 {
+			r += nums1[0]
+			nums1 = nums1[1:]
+		}
+		if len(nums2) > 0 {
+			r += nums2[0]
+			nums2 = nums2[1:]
+		}
+		if r >= 10 {
+			r = r - 10
+			pre = 1
+		} else {
+			pre = 0
+		}
+		node := ListNode{Val: r}
+		curNode.Next = &node
+		curNode = curNode.Next
+	}
+	if pre != 0 {
+		curNode.Next = &ListNode{Val: pre}
+	}
+
+	return dump.Next
+}
+
+func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
+	if l1 == nil {
+		return l2
+	}
+	if l2 == nil {
+		return l1
+	}
+	dump := new(ListNode)
+	cur := dump
+	pre := 0
+	for l1 != nil || l2 != nil {
+		a := pre
+		if l1 != nil {
+			a += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			a += l2.Val
+			l2 = l2.Next
+		}
+		if a >= 10 {
+			a = a - 10
+			pre = 1
+		} else {
+			pre = 0
+		}
+		cur.Next = &ListNode{Val: a}
+		cur = cur.Next
+	}
+	if pre != 0 {
+		cur.Next = &ListNode{Val: pre}
+	}
+	return dump.Next
 }
