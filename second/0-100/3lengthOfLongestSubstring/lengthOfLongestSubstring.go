@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	s := "aab"
+	s := "aabacd"
+
 	res := lengthOfLongestSubstring(s)
 	fmt.Println("res is ", res)
 }
@@ -36,19 +37,17 @@ func lengthOfLongestSubstring(s string) int {
 	exit := make(map[byte]int)
 	for right < len(s) {
 		exit[s[right]]++
-		right++
-		if exit[s[right-1]] > 1 {
-			for left < right {
+		if exit[s[right]] > 1 {
+			for exit[s[right]] > 1 {
 				exit[s[left]]--
 				left++
 			}
 		}
+		right++
 		if right-left > res {
 			res = right - left
 		}
-	}
-	if right-left > res {
-		res = right - left
+
 	}
 	return res
 }
