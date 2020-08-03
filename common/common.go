@@ -24,6 +24,10 @@ func Max(nums ...int) int {
 	return max
 }
 
+func Abs(n1, n2 int) int {
+	return int(math.Abs(float64(n1 - n2)))
+}
+
 // 二分法,找到插入左边的位置,并插入左边,和python的bitset_left一样
 func FindSmallIdxAndInsert(sorted *[]int, target int) int {
 
