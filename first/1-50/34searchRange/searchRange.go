@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	nums := []int{5,7,7,8,8,10}
+	nums := []int{5, 7, 7, 8, 8, 10}
 	target := 6
 	res := searchRange2(nums, target)
 	fmt.Println("res is ", res)

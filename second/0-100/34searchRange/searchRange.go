@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	nums := []int{5, 7, 7, 8, 8, 10}
+	nums := []int{1, 7, 7, 8, 8, 10}
 	res := searchRange(nums, 8)
 	fmt.Println("res is ", res)
 }
@@ -25,7 +25,7 @@ func main() {
 func searchRange(nums []int, target int) []int {
 	start, end := -1, -1
 	if len(nums) == 0 {
-		return []int{start, end}
+		return []int{-1, -1}
 	}
 	left, right := 0, len(nums)
 
@@ -40,7 +40,12 @@ func searchRange(nums []int, target int) []int {
 			right = mid
 		}
 	}
+
+	if left >= len(nums) || nums[left] != target {
+		return []int{-1, -1}
+	}
 	start = left
+
 	left, right = 0, len(nums)
 	// 寻找右测
 	for left < right {
@@ -50,9 +55,56 @@ func searchRange(nums []int, target int) []int {
 		} else if nums[mid] < target {
 			left = mid + 1
 		} else if nums[mid] == target {
-			right = mid
+			left = mid + 1
 		}
 	}
 
-	return []int{left, right}
+	if left-1 >= len(nums) || nums[left-1] != target {
+		return []int{-1. - 1}
+	}
+	end = left - 1
+	return []int{start, end}
+}
+
+func searchRange2(nums []int, target int) []int {
+	if len(nums) == 0 {
+		return []int{-1, -1}
+	}
+
+	start, end := -1, -1
+	left, right := 0, len(nums)-1
+	// 先找左
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			right = mid - 1
+		} else if nums[mid] > target {
+			right = mid - 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		}
+	}
+	if left >= len(nums) || nums[left] != target {
+		return []int{-1, -1}
+	}
+	start = left
+
+	// 再找右
+	left, right = 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			left = mid + 1
+		} else if nums[mid] > target {
+			right = mid - 1
+		} else if nums[mid] < target {
+			left = mid + 1
+		}
+	}
+	if left-1 >= len(nums) || nums[left-1] != target {
+		return []int{-1, -1}
+	}
+	end = left - 1
+	return []int{start, end}
+
 }
