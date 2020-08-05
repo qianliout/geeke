@@ -43,8 +43,8 @@ func main() {
 //var res int
 
 func maxPathSum(root *TreeNode) int {
-	var res int
-	res = root.Val
+	// 一定要先赋值，可能出现的一种情况是，只有root一个结点，并且值为负，
+	res := root.Val
 	Dfs(root, &res)
 	return res
 }
