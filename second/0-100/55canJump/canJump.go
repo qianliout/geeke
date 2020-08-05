@@ -34,11 +34,26 @@ func canJump(nums []int) bool {
 
 	for i := 0; i < len(nums); i++ {
 		if i > 0 {
-			dp[i] = Max(nums[i]+i, dp[i])
+			if dp[i-1] < i {
+				return false
+			}
+			dp[i] = Max(nums[i]+i, dp[i-1])
 		} else {
 			dp[i] = nums[i] + i
 		}
-		if dp[i]-i <= 0 && i < len(nums)-1 {
+	}
+
+	return true
+}
+
+func canJump2(nums []int) bool {
+	if len(nums) == 0 {
+		return true
+	}
+	step := 0 // 表法还能前进多少步
+	for i := 0; i < len(nums)-1; i++ {
+		step = Max(step-1, nums[i])
+		if step == 0 {
 			return false
 		}
 	}
