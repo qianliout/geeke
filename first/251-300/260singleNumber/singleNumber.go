@@ -8,6 +8,8 @@ func main() {
 	nums := []int{2, 1, 2, 3, 4, 1}
 	res := singleNumber(nums)
 	fmt.Println("res is ", res)
+	fmt.Println(2 ^ -2)
+	fmt.Println(3 ^ -3)
 }
 
 /*

@@ -1,10 +1,11 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 	"sort"
 
-	"outback/leetcode/common/commonHeap"
+	. "outback/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -33,26 +34,25 @@ func main() {
 
 // 大顶推的操作(因为自己的大顶堆有问题，所以使用小顶堆来实现)
 func maxSlidingWindow(nums []int, k int) []int {
-
+	deleteMap := make(map[int]int)
+	maxHeap := make(MaxHeap, 0)
 	res := make([]int, 0)
-	if len(nums) <= 0 {
-		return res
-	}
-
-	preMinHaap := make(commonHeap.IntMinHeap, 0)
-	for i, va := range nums {
-		if i < k {
-			preMinHaap.Push(va)
-		} else {
-			preMinHaap.Pop() // 先移出最后的那个
-			preMinHaap.Push(va)
-		}
-		minHeap := make(commonHeap.IntMinHeap, k)
-		copy(minHeap, preMinHaap)
-		fmt.Println("1,", minHeap)
-		if i >= k-1 {
-			commonHeap.InitMin(&minHeap)
-			res = append(res, minHeap.PeekLast().(int))
+	i := 0
+	for i < len(nums) {
+		heap.Push(&maxHeap, nums[i])
+		i++
+		if i >= k {
+			for {
+				top := maxHeap[0]
+				if deleteMap[top] <= 0 {
+					res = append(res, top)
+					break
+				} else {
+					p := heap.Pop(&maxHeap).(int)
+					deleteMap[p]--
+				}
+			}
+			deleteMap[nums[i-k]]++
 		}
 	}
 	return res

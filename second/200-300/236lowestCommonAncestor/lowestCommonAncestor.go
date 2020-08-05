@@ -25,5 +25,35 @@ func main() {
 */
 
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == p || root == q || root == nil {
+		return root
+	}
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
+	var res *TreeNode
 
+	if left != nil && right == nil {
+		res = left
+	}
+	if right != nil && left == nil {
+		res = right
+	}
+	if left != nil && right != nil {
+		res = right
+	}
+	return res
+}
+
+// 如果是二叉搜索树呢
+func lowestCommonAncestor2(root, p, q *TreeNode) *TreeNode {
+	if root == nil || root == q || root == p {
+		return root
+	}
+	if root.Val > p.Val && root.Val > q.Val {
+		return lowestCommonAncestor2(root.Left, p, q)
+	}
+	if root.Val < p.Val && root.Val < q.Val {
+		return lowestCommonAncestor2(root.Right, p, q)
+	}
+	return root
 }
