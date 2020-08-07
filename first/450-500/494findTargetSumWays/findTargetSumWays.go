@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 func main() {
@@ -85,9 +84,9 @@ func findTargetSumWays0(nums []int, S int) int {
 	for _, num := range nums {
 		sum += num
 	}
-	if sum < int(math.Abs(float64(S))) || (sum+S)%2 != 0 {
-		return 0
-	}
+	//if sum < int(math.Abs(float64(S))) || (sum+S)%2 != 0 {
+	//	return 0
+	//}
 
 	target := (sum + S) / 2
 	dp := make(map[int]int)

@@ -27,6 +27,7 @@ func reverseList(head *ListNode) *ListNode {
 
 // 方法二，一次遍历
 func reverseList2(head *ListNode) *ListNode {
+
 	if head == nil {
 		return head
 	}

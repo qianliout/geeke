@@ -31,7 +31,7 @@ func combinationSum4(nums []int, target int) int {
 		return 0
 	}
 	dp := make(map[int]int)
-	dp[0] = 1
+	//dp[0] = 1
 
 	for i := 0; i <= target; i++ {
 		for _, num := range nums {

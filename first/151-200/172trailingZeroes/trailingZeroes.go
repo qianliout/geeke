@@ -29,13 +29,12 @@ func main() {
 解释: 5! = 120, 尾数中有 1 个零.
 */
 
-
 // 2*5后面有个0,只要有5那么一定就会有一个2,所以只有求出有多少个5就行
 func trailingZeroes(n int) int {
 	count := 0
 	for n > 0 {
 		count += n / 5
-		n = n / 5
+		n = n / 5 // 解决25的这情况，因为25有两个5的因子
 	}
 	return count
 }
