@@ -53,9 +53,9 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 	// 先计算入度表
 	for _, e := range edges {
 		first := e[0]
-		secod := e[1]
-		inDegree[first] = append(inDegree[first], secod)
-		inDegree[secod] = append(inDegree[secod], first)
+		second := e[1]
+		inDegree[first] = append(inDegree[first], second)
+		inDegree[second] = append(inDegree[second], first)
 	}
 
 	for len(inDegree) > 2 {

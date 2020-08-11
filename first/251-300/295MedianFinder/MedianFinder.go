@@ -139,6 +139,3 @@ func (this *MedianFinder) AddNum(num int) {
 		heap.Push(&this.RightData, v)
 	}
 }
-
-
-
