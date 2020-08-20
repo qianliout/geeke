@@ -56,8 +56,7 @@ func nthSuperUglyNumber(n int, primes []int) int {
 		for k := 0; k < len(primes); k++ {
 			tmp := primes[k] * dp[idx[k]]
 			if tmp == min {
-				idx[k]++
-				// idx[k]++ 下次再使用于时就要使用这个增加后的
+				idx[k]++ // 下次再使用于时就要使用这个增加后的
 			}
 		}
 	}
