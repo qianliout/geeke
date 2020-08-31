@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	 h.initF()
+	fmt.Println(len([]rune("脸在那里")))
 }
 
 type Hello struct {
@@ -13,7 +13,6 @@ type Hello struct {
 }
 
 var h Hello
-
 
 func SayHello() int {
 	fmt.Println("heello wordc")

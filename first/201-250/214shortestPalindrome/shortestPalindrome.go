@@ -5,8 +5,9 @@ import (
 )
 
 func main() {
-	next := GetLastNext("abab")
-	fmt.Println("res is ", next)
+	res := shortestPalindrome("aace")
+	fmt.Println("res is ", res)
+	
 }
 
 /*
@@ -20,7 +21,41 @@ func main() {
 */
 
 func shortestPalindrome(s string) string {
-	return ""
+	reversal := ""
+	for i := len(s) - 1; i >= 0; i-- {
+		reversal = reversal + string(s[i])
+	}
+	
+	end := len(reversal) - 1 - findshorted(s)
+	for !isPalind(s) && end >= 0 {
+		s = string(reversal[end]) + s
+		end--
+	}
+	return s
+}
+
+func isPalind(s string) bool {
+	start, end := 0, len(s)-1
+	for start < end {
+		if s[start] != s[end] {
+			return false
+		}
+		start++
+		end--
+	}
+	return true
+}
+
+func findshorted(s string) int {
+	i := len(s)
+	for i <= len(s) {
+		if isPalind(string([]byte(s)[:i])) {
+			return i
+		} else {
+			i--
+		}
+	}
+	return len(s)
 }
 
 /*
