@@ -7,7 +7,7 @@ import (
 
 func main() {
 	nums := "1432219"
-	kdigits := removeKdigits2(nums, 3)
+	kdigits := removeKdigits3(nums, 3)
 
 	fmt.Println("res is ", kdigits)
 }
@@ -63,16 +63,16 @@ func removeKdigits(num string, k int) string {
 			stark = append(stark, i)
 		}
 	}
-	//fmt.Println("deleteIndex", deleteIndex)
-	//fmt.Println("stark", stark, k)
+	// fmt.Println("deleteIndex", deleteIndex)
+	// fmt.Println("stark", stark, k)
 	// 循环结束,k 不为0,且stark不为空
 	for k > 0 && len(stark) > 0 {
 		deleteIndex[stark[len(stark)-1]] = true
 		stark = stark[:len(stark)-1]
 		k--
 	}
-	//fmt.Println("deleteIndex", deleteIndex)
-	//fmt.Println("stark", stark, k)
+	// fmt.Println("deleteIndex", deleteIndex)
+	// fmt.Println("stark", stark, k)
 
 	// 输出结果
 	first := false
@@ -86,7 +86,7 @@ func removeKdigits(num string, k int) string {
 			ans = append(ans, number[i])
 		}
 	}
-	//fmt.Println("ans", ans)
+	// fmt.Println("ans", ans)
 
 	// 把前面的所有0去了
 	s := ""
@@ -131,4 +131,32 @@ func removeKdigits2(num string, k int) string {
 	}
 
 	return res
+}
+
+func removeKdigits3(num string, k int) string {
+	res := make([]byte, 0)
+	nums := []byte(num)
+
+	drop := k
+	for _, n := range nums {
+		for drop > 0 && len(res) > 0 && res[len(res)-1] > n {
+			drop--
+			res = res[:len(res)-1]
+		}
+		res = append(res, n)
+	}
+	// 防止 num=9，k=1
+	res = res[:len(nums)-k]
+	// 去除前面的0,注意，不能转数字，因为可能越界
+	for len(res) > 0 {
+		if res[0] == '0' {
+			res = res[1:]
+		} else {
+			break
+		}
+	}
+	if len(res) == 0 {
+		return "0"
+	}
+	return string(res)
 }

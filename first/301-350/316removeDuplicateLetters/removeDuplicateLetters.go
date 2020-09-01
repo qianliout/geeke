@@ -21,7 +21,7 @@ func main() {
 输出: "acdb"
 链接：https://leetcode-cn.com/problems/remove-duplicate-letters
 */
-//使用stark的方式
+// 使用stark的方式
 func removeDuplicateLetters(s string) string {
 	if len(s) == 0 {
 		return ""
@@ -64,7 +64,7 @@ func removeDuplicateLetters(s string) string {
 	return res
 }
 
-//使用递归，贪心算法
+// 使用递归，贪心算法
 func removeDuplicateLetters2(s string) string {
 	if len(s) == 0 {
 		return ""
