@@ -1,7 +1,13 @@
-﻿package main
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
-	
+	res := getHint("1807", "7810")
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -26,5 +32,24 @@ func main() {
 */
 
 func getHint(secret string, guess string) string {
+	bulls, cows := 0, 0
 
+	numbers := make([]int, 10)
+	for i := range secret {
+		s := int(secret[i] - '0')
+		g := int(guess[i] - '0')
+		if s == g {
+			bulls++
+		} else {
+			if numbers[s] < 0 {
+				cows++
+			}
+			if numbers[g] > 0 {
+				cows++
+			}
+			numbers[g]--
+			numbers[s]++
+		}
+	}
+	return strconv.Itoa(bulls) + "A" + strconv.Itoa(cows) + "B"
 }

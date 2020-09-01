@@ -1,7 +1,18 @@
 package main
 
+import (
+	"fmt"
+	"sort"
+)
+
 func main() {
-	
+	// tickets := [][]string{{"MUC", "LHR"}, {"JFK", "MUC"}, {"SFO", "SJC"}, {"LHR", "SFO"}}
+	tickets := [][]string{{"JFK", "SFO"}, {"JFK", "ATL"}, {"SFO", "ATL"}, {"ATL", "JFK"}, {"ATL", "SFO"}}
+	// tickets := [][]string{{"JFK", "KUL"}, {"JFK", "NRT"}, {"NRT", "JFK"}}
+	// tickets := [][]string{{"EZE", "AXA"}, {"TIA", "ANU"}, {"ANU", "JFK"}, {"JFK", "ANU"}, {"ANU", "EZE"}, {"TIA", "ANU"}, {"AXA", "TIA"}, {"TIA", "JFK"}, {"ANU", "TIA"}, {"JFK", "TIA"}}
+	fmt.Println(len(tickets))
+	res := findItinerary(tickets)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -23,7 +34,66 @@ func main() {
 
 func findItinerary(tickets [][]string) []string {
 
-	
+	// 因为有同样的机票，所以只能用个数判断
+	pre := make(map[string]int, 0)
+	for _, t := range tickets {
+		key := fmt.Sprintf("%s_%s", t[0], t[1])
+		pre[key]++
+	}
+	used := make(map[string]int)
+	res := make([]string, 0)
+	res = append(res, "JFK")
+	path := make([]string, 0)
+	var end bool
+	dfs(tickets, pre, used, path, &res, "JFK", &end)
+	return res
+}
 
+func dfs(tickets [][]string, pre, used map[string]int, path []string, res *[]string, last string, end *bool) {
+	if *end {
+		return
+	}
+	if len(path) == len(tickets) {
+		*res = append(*res, append([]string{}, path...)...)
+		*end = true
+		return
+	}
 
+	newpath := make([]string, 0)
+	for _, t := range tickets {
+		if t[0] == last {
+			newpath = append(newpath, t[1])
+		}
+	}
+
+	sort.Sort(Item(newpath))
+	for _, p := range newpath {
+		key := fmt.Sprintf("%s_%s", last, p)
+		if used[key] < pre[key] {
+			used[key]++
+			path = append(path, p)
+
+			dfs(tickets, pre, used, path, res, p, end)
+
+			used[key]--
+			path = path[:len(path)-1]
+		}
+	}
+}
+
+type Item []string
+
+func (it Item) Len() int {
+	return len(it)
+}
+
+func (it Item) Less(i, j int) bool {
+	if it[i] < it[j] {
+		return true
+	}
+	return false
+}
+
+func (it Item) Swap(i, j int) {
+	it[i], it[j] = it[j], it[i]
 }
