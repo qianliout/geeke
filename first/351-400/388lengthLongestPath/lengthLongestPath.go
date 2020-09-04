@@ -33,5 +33,6 @@ subdir2 包含一个二级子目录 subsubdir2 ，其中包含一个文件 file2
 */
 
 func lengthLongestPath(input string) int {
-
+	
+	return 1
 }
