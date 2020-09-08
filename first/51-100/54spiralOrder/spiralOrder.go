@@ -9,8 +9,8 @@ func main() {
 	matrix := [][]int{
 		{1, 2, 3, 4},
 		{5, 6, 7, 8},
-		{9, 10, 11, 12},
-		{13, 14, 15, 16}}
+		{9, 10, 11, 12}}
+	// {13, 14, 15, 16}}
 	res := spiralOrder(matrix)
 	fmt.Println(res)
 }
@@ -40,56 +40,37 @@ func spiralOrder(matrix [][]int) []int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return res
 	}
-	exitMap := make(map[string]bool)
-	queue := make([][2]int, 0)
-	queue = append(queue, [2]int{0, 0})
-	for len(queue) > 0 {
-		first := queue[0]
-		queue = queue[1:]
-		c := first[0]
-		r := first[1]
-		exitMap[fmt.Sprintf("%d_%d", c, r)] = true
-		res = append(res, matrix[c][r])
-		isTrue, i, j := next(matrix, c, r, &exitMap)
-		if !isTrue {
+	up, below, left, right := 0, len(matrix)-1, 0, len(matrix[0])-1
+	all := len(matrix) * len(matrix[0])
+
+	for {
+		// 向左到最后
+		for i := left; i <= right; i++ {
+			res = append(res, matrix[up][i])
+		}
+		up++
+
+		// 再向下
+		for i := up; i <= below; i++ {
+			res = append(res, matrix[i][right])
+		}
+		right--
+
+		// 再向右
+		for i := right; i >= left; i-- {
+			res = append(res, matrix[below][i])
+		}
+		below--
+
+		// 再向上
+		for i := below; i >= up; i-- {
+			res = append(res, matrix[i][left])
+		}
+		left++
+
+		if len(res) >= all {
 			break
 		}
-		queue = append(queue, [2]int{i, j})
-
 	}
-	return res
-}
-
-func next(matrix [][]int, i, j int, exitMap *map[string]bool) (bool, int, int) {
-	col := len(matrix)
-	row := len(matrix[0])
-
-	// 向上
-	if (j-i < 0 || (*exitMap)[fmt.Sprintf("%d_%d", i, j-1)]) && (i < col) {
-		if !(*exitMap)[fmt.Sprintf("%d_%d", i-1, j)] {
-			return true, i - 1, j
-		} else {
-			return false, 0, 0
-		}
-	}
-
-
-	
-	if i-1 < col && i-1 >= 0 && j < row && !(*exitMap)[fmt.Sprintf("%d_%d", i-1, j)] {
-		return true, i - 1, j
-	}
-
-	if j+1 < row && i < col && !(*exitMap)[fmt.Sprintf("%d_%d", i, j+1)] {
-		return true, i, j + 1
-	}
-
-	if i+1 < col && j < row && !(*exitMap)[fmt.Sprintf("%d_%d", i+1, j)] {
-		return true, i + 1, j
-	}
-
-	if j-1 < row && j-1 >= 0 && i < col && !(*exitMap)[fmt.Sprintf("%d_%d", i, j-1)] {
-		return true, i, j - 1
-	}
-
-	return false, 0, 0
+	return res[:all]
 }

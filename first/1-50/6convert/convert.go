@@ -1,7 +1,12 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	ans := convert("LEETCODEISHIRING", 3)
+	fmt.Println("ans is ", ans)
 }
 
 /*
@@ -26,5 +31,28 @@ E C   I H   N
 T     S     G
 */
 func convert(s string, numRows int) string {
+	if len(s) == 0 || numRows <= 1 {
+		return s
+	}
 
+	index, dir := 0, 1
+	res := make([][]byte, numRows)
+	ss := []byte(s)
+	for i := 0; i < len(ss); i++ {
+		if res[index] == nil {
+			res[index] = make([]byte, 0)
+		}
+		res[index] = append(res[index], ss[i])
+		index += dir
+		if index == numRows-1 || index == 0 {
+			dir = -dir
+		}
+	}
+	// 组装结果
+	ans := make([]byte, 0)
+	for i := 0; i < len(res); i++ {
+		ans = append(ans, res[i]...)
+	}
+
+	return string(ans)
 }
