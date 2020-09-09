@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	nums := []int{-1, 1}
+	res := countRangeSum(nums, 0, 0)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -16,12 +22,21 @@ func main() {
 */
 
 func countRangeSum(nums []int, lower int, upper int) int {
-	res := make([]int, 0)
+	res := 0
 	length := len(nums)
 	if length == 0 || lower > upper {
 		return 0
 	}
-
-	
-
+	for i := 0; i < len(nums); i++ {
+		ans := nums[i]
+		for j := i; j < len(nums); j++ {
+			if i != j {
+				ans += nums[j]
+			}
+			if ans >= lower && ans <= upper {
+				res += 1
+			}
+		}
+	}
+	return res
 }

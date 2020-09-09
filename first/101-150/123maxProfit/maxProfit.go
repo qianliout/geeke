@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	price := []int{3, 3, 5, 0, 0, 3, 1, 4}
+	price := []int{3, 3}
 	res := maxProfit(price)
 	fmt.Println("res is ", res)
 }
@@ -50,11 +50,12 @@ func maxProfit(prices []int) int {
 		dpNo[i][0] = 0               // 不持有股票，不交易，利润为0
 		dpHave[i][0] = math.MinInt64 // 持有股票，但是不交易是不可能的，为负无穷表示
 	}
-	
+	dpHave[0][1] = -prices[0]
+
 	for i := 0; i < len(prices); i++ {
 		if i-1 == -1 {
-			dpNo[-1][k] = 0
-			dpHave[-1][k] = math.MinInt64
+			dpNo[i][k] = 0
+			dpHave[i][k] = math.MinInt64
 		}
 		for j := 1; j <= k; j++ {
 			//  第i天不持有股票，并可以交易j次
