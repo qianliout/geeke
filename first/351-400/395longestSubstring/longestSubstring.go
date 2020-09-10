@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	. "outback/leetcode/common"
 )
 
 func main() {
@@ -22,33 +23,12 @@ s = "aaabb", k = 3
 输入:
 s = "ababbc", k = 2
 输出:
-5   // 怎么感觉这里有问题呢，应该是4，b重复两次就行了啊
+5   // 怎么感觉这里有问题呢，应该是4，b重复两次就行了啊,但是求的是最长子串，所以是5
 最长子串为 "ababb" ，其中 'a' 重复了 2 次， 'b' 重复了 3 次。
 */
 
 func longestSubstring(s string, k int) int {
-	if len(s) < k {
-		return 0
-	}
-	ss := []byte(s)
-	left, cur, min := 0, 0, math.MaxInt64
-	used := make(map[byte]int)
-	for cur < len(s) {
-		c := ss[cur]
-		used[c]++
-		cur++
-		for isTrue(used, k) {
-			if cur-left < min {
-				min = cur - left
-			}
 
-			lc := ss[left]
-			used[lc]--
-			left++
-		}
-
-	}
-	return min
 }
 
 func isTrue(m map[byte]int, k int) bool {

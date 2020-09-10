@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"regexp"
-	"strconv"
 	"strings"
-	. "outback/leetcode/common"
 )
 
 func main() {
@@ -60,73 +59,47 @@ rectangles = [
 ]
 返回 false。因为中间有相交区域，虽然形成了矩形，但不是精确覆盖。
 */
+
+// 思路很简单，满足三个条件就可以
+// 1,最外面的点只能是2个
+// 2,里面的点要么是2个，要么是4个
+// 最外的点所围成的面积和所有的面积之各一致
+// 这道题，题目给的条件就是我们平常学的直角坐标系
 func isRectangleCover(rectangles [][]int) bool {
-	exitMap := make(map[string]int)
+	up, down, left, right := 0, math.MaxInt64, math.MaxInt64, 0
 	area := 0
-	for _, rect := range rectangles {
-		area += Area(rect)
-		fourRes := four(rect)
-		fmt.Println("fourres", fourRes)
-		for _, s := range fourRes {
-			key := fmt.Sprintf("%d_%d", s[0], s[1])
-			if _, exist := exitMap[key]; exist {
-				exitMap[key]--
-			} else {
-				exitMap[key]++
-			}
-			//fmt.Println(exitMap)
-		}
-	}
-	remainder := make([][]int, 0)
+	pointMap := make(map[[2]int]int)
 
-	for key, v := range exitMap {
-		if v != 0 {
-			//fmt.Println("key is ",key)
-			remainder = append(remainder, parse(key))
-		}
-	}
-	fmt.Println("remiaider", remainder, area)
+	for _, rectangle := range rectangles {
+		up = Max(up, rectangle[3])
+		down = Min(down, rectangle[1])
+		left = Min(left, rectangle[0])
+		right = Max(right, rectangle[2])
+		area += (rectangle[3] - rectangle[1]) * (rectangle[2] - rectangle[0])
+		// 这是原来的两个点（左下，和右上）
+		pointMap[[2]int{rectangle[0], rectangle[1]}]++
+		pointMap[[2]int{rectangle[2], rectangle[3]}]++
 
-	if len(remainder) != 4 {
+		// 补下剩下的两个点，左上和右下
+		pointMap[[2]int{rectangle[0], rectangle[3]}]++
+		pointMap[[2]int{rectangle[2], rectangle[1]}]++
+
+	}
+	// 下面进行判断了
+	// fmt.Println("rare is ", area, (up-down)*(right-left))
+	if (up-down)*(right-left) != area {
 		return false
 	}
-	// 计算面积
-	a := 0
+	// 最顶上的四个点只会出现一次，这里加一次，刚好符合下面for循环中的判断
+	pointMap[[2]int{left, down}]++
+	pointMap[[2]int{left, up}]++
+	pointMap[[2]int{right, down}]++
+	pointMap[[2]int{right, up}]++
 
-	for _, rem1 := range remainder {
-		for _, rem2 := range remainder {
-			a += Area2(rem1, rem2)
+	for _, v := range pointMap {
+		if v != 2 && v != 4 {
+			return false
 		}
 	}
-	fmt.Println(a)
-	if a == area {
-		return true
-	}
-	return false
-}
-
-func four(s []int) [][]int {
-	res := make([][]int, 4)
-	res[0] = []int{s[0], s[1]}
-	res[1] = []int{s[0], s[3]}
-	res[2] = []int{s[2], s[1]}
-	res[3] = []int{s[2], s[3]}
-	return res
-}
-func Area(s []int) int {
-	return (s[2] - s[0]) * (s[3] - s[1])
-}
-func Area2(s [][]int) int {
-	x, y := 0, 0
-
-}
-
-func parse(s string) []int {
-	split := strings.Split(s, "_")
-	res := make([]int, 0)
-	for _, sp := range split {
-		i, _ := strconv.Atoi(sp)
-		res = append(res, i)
-	}
-	return res
+	return true
 }

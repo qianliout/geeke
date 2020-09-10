@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
 func main() {
-	input := "dir\\n\\tsubdir1\\n\\t\\tfile1.ext\\n\\t\\tsubsubdir1\\n\\tsubdir2\\n\\t\\tsubsubdir2\\n\\t\\t\\tfile2.ext"
-	lengthLongestPath(input)
+	input := `dir\\n\\tsubdir1\\n\\t\\tfile1.ext\\n\\t\\tsubsubdir1\\n\\tsubdir2\\n\\t\\tsubsubdir2\\n\\t\\t\\tfile2.ext`
+	res := lengthLongestPath(input)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -40,7 +42,8 @@ subdir2 包含一个二级子目录 subsubdir2 ，其中包含一个文件 file2
 func lengthLongestPath(input string) int {
 	// prefix := make([]int, 0)
 	// res := 0
-	for _, s := range strings.Split(input, "\n") {
+	ss := strings.Split(input, "\\n")
+	for _, s := range ss {
 		level := 0
 		for s[level] == '\t' {
 			level++
