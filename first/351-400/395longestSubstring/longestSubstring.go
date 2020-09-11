@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"math"
 	. "outback/leetcode/common"
 )
 
@@ -28,7 +28,30 @@ s = "ababbc", k = 2
 */
 
 func longestSubstring(s string, k int) int {
+	return dfs([]byte(s), k)
+}
 
+func dfs(word []byte, k int) int {
+	if len(word) < k {
+		return 0
+	}
+	wordMap := make(map[byte]int)
+	for _, i := range word {
+		wordMap[i]++
+	}
+
+	for b, v := range wordMap {
+		if v < k {
+			ss := bytes.Split(word, []byte{b})
+			max := 0
+			for _, ssr := range ss {
+				max = Max(max, dfs(ssr, k))
+			}
+			return max
+		}
+	}
+
+	return len(word)
 }
 
 func isTrue(m map[byte]int, k int) bool {
