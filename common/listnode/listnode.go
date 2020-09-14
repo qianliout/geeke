@@ -46,13 +46,13 @@ func (d *DoubleLinkedNode) AddFirst(n *DoubleLinkedNode) *DoubleLinkedNode {
 	d.Pre = n
 	n.Post = d
 	d = n
-	d.Print("AddFirst after " + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
+	// d.Print("AddFirst after " + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
 	return d
 }
 
 // 移出一个节点
 func (d *DoubleLinkedNode) Remove(n *DoubleLinkedNode) *DoubleLinkedNode {
-	d.Print("befor remove:" + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
+	// d.Print("befor remove:" + strconv.Itoa(n.Key) + " " + strconv.Itoa(n.Val))
 	if n == nil {
 		return d
 	}
@@ -61,18 +61,18 @@ func (d *DoubleLinkedNode) Remove(n *DoubleLinkedNode) *DoubleLinkedNode {
 		if d != nil {
 			d.Pre = nil
 		}
-		d.Print("after remove:")
+		// d.Print("after remove:")
 		return d
 	}
 	if n.Post == nil {
 		n.Pre.Post = nil
-		d.Print("after remove:")
+		// d.Print("after remove:")
 		return d
 	}
 	n.Post.Pre = n.Pre
 	n.Pre.Post = n.Post
 
-	d.Print("after remove:")
+	// d.Print("after remove:")
 	return d
 }
 

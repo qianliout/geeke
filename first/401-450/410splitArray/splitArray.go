@@ -1,9 +1,13 @@
 package main
 
-func main() {
-	
-}
+import (
+	. "outback/leetcode/common"
+)
 
+func main() {
+	nums := []int{7, 2, 5, 10, 8}
+	splitArray(nums, 2)
+}
 
 /*
 给定一个非负整数数组和一个整数 m，你需要将这个数组分成 m 个非空的连续子数组。设计一个算法使得这 m 个子数组各自和的最大值最小。
@@ -23,5 +27,48 @@ m = 2
 因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。
 */
 func splitArray(nums []int, m int) int {
+	if len(nums) == 0 || m > len(nums) {
+		return 0
+	}
 
+	max, sum := 0, 0
+	for _, n := range nums {
+		max = Max(max, n)
+		sum += n
+	}
+	if len(nums) == m {
+		return max
+	}
+
+	// 开始二分
+	left, right := max, sum
+
+	for left < right {
+		mid := left + (right-left)/2
+		// 这里一定要注意，当s==m时不能返回，意思就是，比如mid=21,此时也只能分两次，但他不是最小的值，所以还向左走，找最小值
+		s := split(nums, mid)
+		if s > m {
+			// 如果分割数太多，说明「子数组各自的和的最大值」太小，此时需要将「子数组各自的和的最大值」调大
+			// 下一轮搜索的区间是 [mid + 1, right]
+			left = mid + 1
+		} else {
+			// 下一轮搜索的区间是上一轮的反面区间 [left, mid]
+			right = mid
+		}
+	}
+	return left
+}
+
+// 这个函数的意思是：当每个分组的值都不大于maxinter时，最少要分多少个组
+func split(nums []int, maxinter int) int {
+	s := 1
+	curr := 0
+	for _, n := range nums {
+		if curr+n > maxinter {
+			s++
+			curr = 0
+		}
+		curr += n
+	}
+	return s
 }
