@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
 func main() {
-
+	inter := [][]int{{1, 2}, {2, 3}, {0, 1}, {3, 4}}
+	res := findRightInterval(inter)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -32,74 +35,67 @@ func main() {
 对于[2,3]，区间[3,4]有最小的“右”起点。
 */
 
-// fixme 未完成
 func findRightInterval(intervals [][]int) []int {
-	res := make([]int, 0)
+	// 记下起始点的索引
+	ans := make([]int, len(intervals))
 	if len(intervals) == 0 {
-		return res
+		return ans
 	}
-	intervalMap := make(map[int]int)
-	for i, v := range intervals {
-		intervalMap[v[0]] = i
+	if len(intervals) == 0 {
+		ans[0] = -1
+		return ans
 	}
-	sort.Sort(Item(intervals))
-	// 查找
 
-	length := len(intervals)
-	for _, v := range intervals {
-		idx := FindSmallIdx(intervals, v[1])
-		if idx >= length || idx == 0 {
-			res = append(res, -1)
-		} else {
-			i := intervalMap[idx]
-			if idx <= i {
-				res = append(res, -1)
-			} else {
-				res = append(res, i)
+	indexMap := make(map[int]int)
+	for i, v := range intervals {
+		indexMap[v[0]] = i
+	}
+	sort.Sort(MaxHeap(intervals))
+	i := 0
+	for i < len(intervals)-1 {
+		ans[indexMap[intervals[i][0]]] = -1
+		for j := i + 1; j < len(intervals); j++ {
+			if intervals[i][1] <= intervals[j][0] {
+				ans[indexMap[intervals[i][0]]] = indexMap[intervals[j][0]]
+				break
 			}
 		}
+		i++
 	}
-	return res
+	ans[indexMap[intervals[i][0]]] = -1
+	return ans
 }
 
-// 二分法,找到插入左边的位置,并插入左边,和python的bitset_left一样
-func FindSmallIdx(sorted [][]int, target int) int {
+type MaxHeap [][]int
 
-	if len(sorted) == 0 {
-		return 0
-	}
-	start := 0
-	end := len(sorted) - 1
-
-	if sorted[end][0] < target {
-		return end + 1
-	}
-	if sorted[start][0] > target {
-		return 0
-	}
-
-	for start < end {
-		mid := start + (end-start)/2
-		if sorted[mid][0] < target {
-			start = mid + 1
-		} else {
-			end = mid
-		}
-	}
-	return start
-}
-
-type Item [][]int
-
-func (it Item) Len() int {
+func (it MaxHeap) Len() int {
 	return len(it)
 }
 
-func (it Item) Less(i, j int) bool {
+func (it MaxHeap) Less(i, j int) bool {
+	// 你可以假定这些区间都不具有相同的起始点 所以这样就能判断了
 	return it[i][0] < it[j][0]
-
 }
 
-func (it Item) Swap(i, j int) {
+func (it MaxHeap) Swap(i, j int) {
 	it[i], it[j] = it[j], it[i]
+}
+
+func (h *MaxHeap) Push(x interface{}) {
+	*h = append(*h, x.([]int))
+}
+
+func (h *MaxHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+
+func (h *MaxHeap) Peek() []int {
+	if len(*h) > 0 {
+		return (*h)[0]
+	}
+	return []int{}
 }

@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
+func main() {
+	res := originalDigits("owoztneoerfviefuroonetwo")
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -18,39 +25,75 @@ func main() {
 输出: "45" (fourfive)
 */
 
-// 保证输入是合法有
+// 保证输入是合法有效的
 /*
-1:"one"
-
-2:"two"
-
-3:"three"
-
-4:"four"
-
-5："five"
-
-6："six"
-
-7:"seven"
-
-8:"eight"
-
-9:"nine"
-
+规律如下：
+(1)['zero','two','four','six','eight','one','three','five','seven','nine']，观察这十个单词会发现，
+['zero','two','four','six','eight']这五个单词具有唯一字母['z', 'w', 'u', 'x', 'g']，所以可以先筛选出这五个字母根据s的频数统计表可以通过这五个字母的频数计算出所对应的单词数，然后在s的频数统计表中删除这五个单词所有字母的频数；
+(2)接下来可以发现在上一步删除完成后，['one','three','five','seven']这四个单词中['o','r', 'f', 's']成为了唯一字母，于是同上一步操作；
+(3)最后['nine']中的['i']也成为了唯一字母，继续(1)的操作
 */
 
 func originalDigits(s string) string {
-	numMap := map[int]string{
-		1: "one",
-		2: "two",
-		3: "three",
-		4: "four",
-		5: "five",
-		6: "six",
-		7: "seven",
-		8: "eight",
-		9: "nine",
+	byteMap := map[byte]string{
+		'o': "one",
+		'w': "two",
+		'r': "three",
+		'u': "four",
+		'f': "five",
+		'x': "six",
+		's': "seven",
+		'g': "eight",
+		'i': "nine",
+		'z': "zero",
 	}
 
+	numMap := map[byte]int{
+		'o': 1,
+		'w': 2,
+		'r': 3,
+		'u': 4,
+		'f': 5,
+		'x': 6,
+		's': 7,
+		'g': 8,
+		'i': 9,
+		'z': 0,
+	}
+	ansMap := make(map[int]int)
+	if len(s) == 0 {
+		return ""
+	}
+
+	ss := []byte(s)
+	exit := make(map[byte]int)
+	for _, ch := range ss {
+		exit[ch]++
+	}
+	for _, ch := range []byte{'z', 'w', 'u', 'x', 'g'} {
+		zn := exit[ch]
+		for _, i := range []byte(byteMap[ch]) {
+			exit[i] = exit[i] - zn
+		}
+		ansMap[numMap[ch]] = zn
+	}
+	for _, ch := range []byte{'o', 'r', 'f', 's'} {
+		zn := exit[ch]
+		for _, i := range []byte(byteMap[ch]) {
+			exit[i] = exit[i] - zn
+		}
+		ansMap[numMap[ch]] = zn
+	}
+	for _, ch := range []byte{'i'} {
+		zn := exit[ch]
+		for _, i := range []byte(byteMap[ch]) {
+			exit[i] = exit[i] - zn
+		}
+		ansMap[numMap[ch]] = zn
+	}
+	ans := ""
+	for i := 0; i <= 9; i++ {
+		ans = ans + strings.Repeat(strconv.Itoa(i), ansMap[i])
+	}
+	return ans
 }

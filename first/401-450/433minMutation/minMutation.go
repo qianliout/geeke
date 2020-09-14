@@ -1,7 +1,16 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	start := "AAAAAAAA"
+	end := "CCCCCCCC"
+	bank := []string{"AAAAAAAA", "AAAAAAAC", "AAAAAACC", "AAAAACCC", "AAAACCCC", "AACACCCC", "ACCACCCC", "ACCCCCCC", "CCCCCCCA"}
+
+	res := minMutation(start, end, bank)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -32,5 +41,45 @@ bank: ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
 */
 
 func minMutation(start string, end string, bank []string) int {
+	if start == end || start == "" || end == "" || len(bank) == 0 {
+		return 0
+	}
+	bankMap := make(map[string]bool)
+	for _, b := range bank {
+		bankMap[b] = true
+	}
+	if i, ok := bankMap[end]; !ok || !i {
+		return -1
+	}
+	queue := make([]Item, 0)
+	queue = append(queue, Item{dna: start, count: 0})
 
+	for len(queue) > 0 {
+		first := queue[0]
+		queue = queue[1:]
+		// 改
+		for i, ch := range []byte(first.dna) {
+			for _, b := range []byte{'A', 'C', 'G', 'T'} {
+				if ch != b {
+					newDNA := []byte(first.dna)
+					newDNA[i] = b
+					if string(newDNA) == end {
+						return first.count + 1
+					}
+					if bankMap[string(newDNA)] {
+						nitem := Item{dna: string(newDNA), count: first.count + 1}
+						queue = append(queue, nitem)
+						bankMap[nitem.dna] = false
+					}
+
+				}
+			}
+		}
+	}
+	return -1
+}
+
+type Item struct {
+	dna   string
+	count int
 }
