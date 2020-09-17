@@ -2,12 +2,24 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
 
-	fmt.Println('a')
-	fmt.Println('z')
-	fmt.Println('A')
-	fmt.Println('Z')
+	ch := make(chan int)
+	go func() {
+		defer close(ch)
+		ch <- 1
+	}()
+
+	go func() {
+		for {
+			i, open := <-ch
+			fmt.Println(i, open)
+		}
+
+	}()
+	time.Sleep(time.Second)
+
 }
