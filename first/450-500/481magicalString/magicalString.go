@@ -1,7 +1,12 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	res := magicalString(6)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -20,6 +25,34 @@ func main() {
 输出：3
 解释：神奇字符串 S 的前 6 个元素是 “12211”，它包含三个 1，因此返回 3。
 */
-func magicalString(n int) int {
 
+// 神奇字符串可以由自身简单生成，规则如下：
+// 从头开始遍历，如果碰到1，则在字符串末尾添加一个与结尾字符串不同的字符，反之添加两个。
+// 是很明显的快慢指针可以处理的题目。
+func magicalString(n int) int {
+	if n == 0 {
+		return 0
+	}
+	if n <= 3 {
+		return 1
+	}
+	s := []byte("122")
+	ans := 1
+	for i := 2; i < n; i++ {
+		if s[i] == '2' {
+			if s[len(s)-1] == '2' {
+				s = append(s, []byte("11")...)
+			} else {
+				s = append(s, []byte("22")...)
+			}
+		} else {
+			ans++
+			if s[len(s)-1] == '2' {
+				s = append(s, []byte("1")...)
+			} else {
+				s = append(s, []byte("2")...)
+			}
+		}
+	}
+	return ans
 }
