@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	nums := []int{-1, 2, 1, 2}
+
+	res := circularArrayLoop(nums)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -29,6 +36,44 @@ func main() {
 进阶：
 你能写出时间时间复杂度为 O(n) 和额外空间复杂度为 O(1) 的算法吗？
 */
-func circularArrayLoop(nums []int) bool {
 
+// fixme 没有完成
+func circularArrayLoop(nums []int) bool {
+	n := len(nums)
+	nxt := func(x int) int {
+		r := (x + nums[x]) % n
+		if r < 0 {
+			return n + r
+		}
+		return r
+	}
+
+	for i := 0; i < n; i++ {
+		if nums[i] == 0 {
+			continue
+		}
+
+		slow := i
+		fast := nxt(i)
+
+		for nums[slow]*nums[fast] > 0 && nums[fast]*nums[nxt(fast)] > 0 {
+			if slow == fast {
+				if slow == nxt(slow) {
+					break
+				} else {
+					return true
+				}
+			}
+			slow = nxt(slow)
+			fast = nxt(nxt(fast))
+		}
+		// 把slow访问过的置为0
+		val := nums[i]
+		for val*nums[i] > 0 {
+			tem := nxt(i)
+			nums[i] = 0
+			i = tem
+		}
+	}
+	return false
 }
