@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	nums := []int{2147483647, 2147483647, -2147483647, -2147483647, -2147483647, 2147483647}
+	res := reversePairs(nums)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -18,5 +24,23 @@ func main() {
     输入数组中的所有数字都在32位整数的表示范围内。
 */
 func reversePairs(nums []int) int {
+	// return Violence(nums)
+	return Violence(nums)
+}
 
+// 首先暴力法,可以加一下些mem技术，但是当没有重复数据且数据量很大时，仍然会超时
+func Violence(nums []int) int {
+	ans := 0
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] > 2*nums[j] {
+				ans++
+			}
+		}
+	}
+	return ans
+}
+
+func useDP(nums []int) int {
+	return 0
 }
