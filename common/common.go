@@ -92,3 +92,11 @@ func Insert(a *[]int, c int, i int) []int {
 	*a = append((*a)[:i], append([]int{c}, (*a)[i:]...)...)
 	return *a
 }
+
+func Sum(nums ...int) int {
+	sum := 0
+	for _, n := range nums {
+		sum += n
+	}
+	return sum
+}
