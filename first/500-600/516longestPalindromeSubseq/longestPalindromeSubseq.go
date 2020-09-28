@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"math"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
@@ -53,6 +54,7 @@ func longestPalindromeSubseq(s string) int {
 		}
 		dp[i][i] = 1
 	}
+	// 计算顺序很重要
 	for i := len(s) - 1; i >= 0; i-- {
 		for j := i + 1; j < len(s); j++ {
 			if s[i] == s[j] {
@@ -66,12 +68,12 @@ func longestPalindromeSubseq(s string) int {
 	return dp[0][len(s)-1]
 }
 
-func Max(nums ...int) int {
-	max := math.MinInt64
-	for _, num := range nums {
-		if num > max {
-			max = num
-		}
-	}
-	return max
-}
+// func Max(nums ...int) int {
+// 	max := math.MinInt64
+// 	for _, num := range nums {
+// 		if num > max {
+// 			max = num
+// 		}
+// 	}
+// 	return max
+// }

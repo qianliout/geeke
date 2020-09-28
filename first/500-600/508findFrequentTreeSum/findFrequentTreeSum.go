@@ -52,6 +52,7 @@ func findFrequentTreeSum(root *TreeNode) []int {
 	return ans
 }
 
+// 这里可以使用map记录，不然会有太多的重复计算
 func dfs(root *TreeNode, list *[]int) int {
 	if root == nil {
 		return 0

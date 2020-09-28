@@ -58,34 +58,12 @@ func Max(nums ...int) int {
 	return max
 }
 
-func dfs(root *TreeNode, res *[]int) int {
-	if root == nil {
-		return math.MinInt64
-	}
-	if root.Left == nil && root.Right == nil {
-		*res = append(*res, root.Val)
-		return root.Val
-	}
-	max := math.MinInt64
-	left := dfs(root.Left, res)
-	right := dfs(root.Right, res)
-	if left > right {
-		max = left
-	} else {
-		max = right
-	}
-
-	// *res = append(*res, max)
-	return max
-}
-
 // 方法一，层序遍历，然后取值就可以了
 func level(root *TreeNode) [][]int {
 	ans := make([][]int, 0)
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, root)
 	for len(queue) > 0 {
-
 		this := make([]int, 0)
 		thisNode := make([]*TreeNode, 0)
 		for _, last := range queue {
@@ -97,10 +75,8 @@ func level(root *TreeNode) [][]int {
 				thisNode = append(thisNode, last.Right)
 			}
 		}
-
 		ans = append(ans, this)
 		queue = thisNode
-
 	}
 	return ans
 }
