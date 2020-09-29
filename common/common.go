@@ -24,8 +24,14 @@ func Max(nums ...int) int {
 	return max
 }
 
-func Abs(n1, n2 int) int {
+func AbsSub(n1, n2 int) int {
 	return int(math.Abs(float64(n1 - n2)))
+}
+func Abs(n int) int {
+	if n < 0 {
+		return -n
+	}
+	return n
 }
 
 // 二分法,找到插入左边的位置,并插入左边,和python的bitset_left一样

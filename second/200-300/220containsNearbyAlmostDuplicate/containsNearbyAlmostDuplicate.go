@@ -25,7 +25,7 @@ func main() {
 func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 	for i := 0; i < len(nums); i++ {
 		for j := i + 1; j < len(nums); j++ {
-			if Abs(nums[i], nums[j]) <= t && Abs(i, j) <= k {
+			if AbsSub(nums[i], nums[j]) <= t && AbsSub(i, j) <= k {
 				return true
 			}
 		}

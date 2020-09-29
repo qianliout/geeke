@@ -1,11 +1,15 @@
 ﻿package main
 
 import (
+	"fmt"
+	
 	. "outback/leetcode/common"
 )
 
 func main() {
-	
+	nums := []int{1, 0, 5}
+	res := findMinMoves(nums)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -37,8 +41,22 @@ func main() {
 */
 func findMinMoves(machines []int) int {
 	sum := Sum(machines...)
+	single := sum / len(machines)
+	
 	if sum%len(machines) != 0 {
 		return -1
 	}
-	return 0
+	leftSum := 0
+	res := 0
+	for i, n := range machines {
+		left := i*single - leftSum
+		right := (len(machines)-i-1)*single - (sum - leftSum - n)
+		if left > 0 && right > 0 {
+			res = Max(left+right, res)
+		} else {
+			res = Max(Abs(left), Abs(right), res)
+		}
+		leftSum+=n
+	}
+	return res
 }
