@@ -30,6 +30,7 @@ func maxCoins(nums []int) int {
 	newNums := append([]int{1}, nums...)
 	newNums = append(newNums, 1)
 	n := len(nums)
+	// dp[i][j]表法i,j之间气球的值，不包括i,j
 	dp := make(map[int]map[int]int)
 	// 初始化map
 	for i := 0; i < n; i++ {
