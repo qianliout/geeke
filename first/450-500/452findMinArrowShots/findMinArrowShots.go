@@ -24,7 +24,7 @@ Example:
 对于该样例，我们可以在x = 6（射爆[2,8],[1,6]两个气球）和 x = 11（射爆另外两个气球）。
 */
 
-// 这道题本质就是求有多少个不相并的区间
+// 这道题本质就是求有多少个不相交的区间
 func findMinArrowShots(points [][]int) int {
 	return useDP(points)
 }
@@ -55,7 +55,7 @@ func sortByEnd(points [][]int) int {
 		return len(points)
 	}
 
-	sort.Sort(Item1(points))
+	sort.Sort(item2(points))
 	ans := 1
 	end := points[0][1]
 	for i := 1; i < len(points); i++ {
@@ -68,7 +68,6 @@ func sortByEnd(points [][]int) int {
 }
 
 // 第二种方式，使用dp，但是时间复杂度是n2,不能ac
-
 func useDP(points [][]int) int {
 	if len(points) <= 1 {
 		return len(points)

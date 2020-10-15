@@ -14,6 +14,10 @@ import (
 	"github.com/minio/minio-go"
 )
 
+type shell struct {
+	S []string
+}
+
 func main() {
 	// // 源档案（准备压缩的文件或目录）
 	// var src = "log"
@@ -23,14 +27,25 @@ func main() {
 	// buf := Tar(dst, src)
 	// saveToS3(dst, dst, buf)
 
-	downChan := make(chan bool)
-	defer close(downChan)
-	numChan := genNum(10)
-	donw(numChan, downChan)
-	select {
-	case <-downChan:
-	}
-	fmt.Println("down")
+	// downChan := make(chan bool)
+	// defer close(downChan)
+	// numChan := genNum(10)
+	// donw(numChan, downChan)
+	// select {
+	// case <-downChan:
+	// }
+	// fmt.Println("down")
+	s := new(shell)
+	s.S = append(s.S, "fuck")
+	fmt.Println(s.S)
+
+	m := make(map[int]int)
+	m[3] = 6
+	fmt.Printf("%p\n", m)
+	change(&m)
+	fmt.Println(m[3])
+	fmt.Printf("%p", m)
+
 }
 
 func genNum(num int) chan int {
@@ -43,6 +58,10 @@ func genNum(num int) chan int {
 		}
 	}()
 	return out
+}
+
+func change(m *map[int]int) {
+	(*m)[3] = 4
 }
 
 func donw(numChan chan int, downChan chan bool) {
