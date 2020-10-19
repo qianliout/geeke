@@ -18,6 +18,7 @@ func NewUnionFind(totalNodes int) *UnionFind {
 
 func (u *UnionFind) Find(x int) int {
 	if u.Parent[x] != x {
+		// 路径压缩
 		u.Parent[x] = u.Find(u.Parent[x])
 	}
 	return u.Parent[x]

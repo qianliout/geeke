@@ -58,7 +58,7 @@ func findRadius(houses []int, heaters []int) int {
 			// 正好相等
 			if houses[i] == heaters[mid] {
 				left, right = mid, mid
-				// 房子子加热站的右边
+				// 房子在加热站的右边
 			} else if houses[i] > heaters[mid] {
 				left = mid
 			} else {

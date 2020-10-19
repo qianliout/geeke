@@ -1,12 +1,16 @@
 package main
 
 import (
+	"fmt"
+	"math"
+
 	. "outback/leetcode/common"
 )
 
 func main() {
 	nums := []int{7, 2, 5, 10, 8}
-	splitArray(nums, 2)
+	res := splitArrary2(nums, 2)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -71,4 +75,36 @@ func split(nums []int, maxinter int) int {
 		curr += n
 	}
 	return s
+}
+
+func splitArrary2(nums []int, m int) int {
+	if len(nums) == 0 || m > len(nums) {
+		return 0
+	}
+
+	all := 0
+	max := math.MinInt64
+	for _, n := range nums {
+		all += n
+		if n > max {
+			max = n
+		}
+	}
+	left, right := max, all
+
+	// 开始二分
+	for left < right {
+		mid := left + (right-left)/2
+		n := split(nums, mid)
+		if n == m {
+			// 先不着急返回，锁定右边界，再继续找找，看能不能找到更小的
+			fmt.Println("mid is ", mid)
+			right = mid - 1
+		} else if n > m {
+			left = mid + 1
+		} else if n < m {
+			right = mid - 1
+		}
+	}
+	return left + 1
 }

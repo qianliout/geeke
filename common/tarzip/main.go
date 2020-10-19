@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/url"
+	"runtime"
 	"strconv"
 	"time"
 
@@ -35,16 +36,33 @@ func main() {
 	// case <-downChan:
 	// }
 	// fmt.Println("down")
-	s := new(shell)
-	s.S = append(s.S, "fuck")
-	fmt.Println(s.S)
-
-	m := make(map[int]int)
-	m[3] = 6
-	fmt.Printf("%p\n", m)
-	change(&m)
-	fmt.Println(m[3])
-	fmt.Printf("%p", m)
+	// s := new(shell)
+	// s.S = append(s.S, "fuck")
+	// fmt.Println(s.S)
+	//
+	// m := make(map[int]int)
+	// m[3] = 6
+	// fmt.Printf("%p\n", m)
+	// change(m)
+	// fmt.Println(m[3])
+	// fmt.Printf("%p", m)
+	// var m map[string]int
+	// var s []int
+	// fmt.Println(len(m))
+	// fmt.Println(len(s))
+	// s = append(s,3)
+	// fmt.Println(len(s))
+	var i byte
+	go func() {
+		for i = 0; i <= 255; i++ {
+			// fmt.Println("i si ",i)
+		}
+	}()
+	fmt.Println("Dropping mic")
+	// Yield execution to force executing other goroutines
+	runtime.Gosched()
+	runtime.GC()
+	fmt.Println("Done")
 
 }
 
@@ -60,8 +78,10 @@ func genNum(num int) chan int {
 	return out
 }
 
-func change(m *map[int]int) {
-	(*m)[3] = 4
+func change(m map[int]int) {
+	for i := 0; i < 30000; i++ {
+		m[i] = i
+	}
 }
 
 func donw(numChan chan int, downChan chan bool) {

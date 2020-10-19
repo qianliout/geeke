@@ -63,11 +63,11 @@ func find2(nums1, nums2 []int) float64 {
 				right = nums2[bStart]
 				bStart++
 			}
-			//如果nums2已比较完
+			// 如果nums2已比较完
 		} else if aStart < len(nums1) && bStart == len(nums2) {
 			right = nums1[aStart]
 			aStart++
-			//如果nums1已比较完
+			// 如果nums1已比较完
 		} else if aStart == len(nums1) && bStart < len(nums2) {
 			right = nums2[bStart]
 			bStart++
@@ -89,7 +89,7 @@ func find2(nums1, nums2 []int) float64 {
 func find3(nums1, nums2 []int) float64 {
 	left := (len(nums1) + len(nums2) + 1) / 2
 	right := (len(nums1) + len(nums2) + 2) / 2
-	//将偶数和奇数的情况合并，如果是奇数，会求两次同样的 k
+	// 将偶数和奇数的情况合并，如果是奇数，会求两次同样的 k
 	return float64(getK(nums1, 0, len(nums1)-1, nums2, 0, len(nums2)-1, left)+
 		getK(nums1, 0, len(nums1)-1, nums2, 0, len(nums2)-1, right)) * 0.5
 }

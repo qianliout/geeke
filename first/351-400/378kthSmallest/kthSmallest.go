@@ -56,7 +56,6 @@ func kthSmallest(matrix [][]int, k int) int {
 
 // 这道题可以使用大顶堆，加map去重的方式
 // 因为可以有重复元素，其实使用二分法其实是不好做的
-
 func kthSmallest2(matrix [][]int, k int) int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
 		return -1
