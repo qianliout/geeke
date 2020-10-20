@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	. "outback/leetcode/common"
 )
 
 func main() {
 
-	//nums := []int{0, 3, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	// nums := []int{0, 3, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
 	nums := []int{4, 2, 3}
 	res := trap(nums)
 	fmt.Println("rain is ", res)
@@ -34,6 +33,7 @@ func trap(height []int) int {
 	for i := 0; i < n; i++ {
 		// 一定是大于,比栈顶的原素都大,那说明可以计算之前可以接的水了
 		for len(stark) > 1 && height[i] > height[stark[len(stark)-1]] {
+			// 说明这一个加进去之后就会有比之前高的了，就可以装雨水了，所以得计算当前层能装的水
 			pop := stark[len(stark)-1]
 			stark = stark[:len(stark)-1]
 			rain += calculateRain(height, stark[len(stark)-1], i, pop)
@@ -43,6 +43,7 @@ func trap(height []int) int {
 	return rain
 }
 
+// 这里只记算当前层的装水量
 func calculateRain(height []int, left, right, pop int) int {
 	if left == -1 {
 		return 0
@@ -77,5 +78,22 @@ func trap2(height []int) int {
 			rMax = Max(rMax, height[right])
 		}
 	}
+	return ans
+}
+
+func trap3(height []int) int {
+	ans := 0
+	// 单调递减栈，这里要注意的是，存入的是下标
+	stark := make([]int, 0)
+	for i := 0; i < len(height); i++ {
+		for len(stark) > 0 && stark[len(stark)-1] > height[i] {
+			// 在这里就要计算结果值
+			stark = stark[:len(stark)-1]
+		}
+		// 计算结果值
+
+		// push
+	}
+
 	return ans
 }

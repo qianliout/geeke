@@ -6,7 +6,7 @@ import (
 
 func main() {
 	s := "abcabcbb"
-	n := lengthOfLongestSubstring(s)
+	n := lengthOfLongestSubstring3(s)
 	fmt.Println("n is ", n)
 }
 
@@ -48,13 +48,6 @@ func lengthOfLongestSubstring(s string) int {
 	return res
 }
 
-func init() {
-
-}
-func init() {
-
-}
-
 func lengthOfLongestSubstring2(s string) int {
 	lastOccrued := make(map[rune]int)
 	maxLength, start := 0, 0
@@ -69,4 +62,31 @@ func lengthOfLongestSubstring2(s string) int {
 		lastOccrued[ch] = i
 	}
 	return maxLength
+}
+
+func lengthOfLongestSubstring3(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	ss := []byte(s)
+	left, right := 0, 0
+	widow := make(map[byte]int)
+	ans := 0
+	for right < len(ss) {
+		// 扩大窗口
+		cha := ss[right]
+		widow[cha]++
+		right++
+
+		// 缩小窗口
+		for widow[cha] > 1 {
+			widow[ss[left]]--
+			left++
+		}
+		// 获取结果
+		if right-left > ans {
+			ans = right - left
+		}
+	}
+	return ans
 }

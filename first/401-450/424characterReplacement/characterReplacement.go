@@ -1,11 +1,15 @@
 package main
 
 import (
+	"fmt"
+
 	. "outback/leetcode/common"
 )
 
 func main() {
-
+	s := "AABABBA"
+	ans := characterReplacement(s, 1)
+	fmt.Println(ans)
 }
 
 /*
@@ -39,18 +43,53 @@ func characterReplacement(s string, k int) int {
 	ss := []byte(s)
 	frequencyMap := make(map[byte]int)
 	left, right, charMax := 0, 0, 0
+	ans := 0
 	for left < length && right < length {
-		index := ss[right] - 'A'
-		frequencyMap[index]++
-		charMax = Max(charMax, frequencyMap[index])
-		if right-left+1 > charMax+k {
+		cha := ss[right] - 'A'
+		frequencyMap[cha]++
+		charMax = Max(charMax, frequencyMap[cha])
+		right++
+
+		// 缩小windown
+		if right-left > charMax+k {
 			frequencyMap[ss[left]-'A']--
 			left++
 		}
-		right++
+		// 更新结果
+		if right-left > ans {
+			ans = right - left
+		}
 	}
-	return length - left
+	return ans
 }
 
+func characterReplacement2(s string, k int) int {
+	length := len(s)
+	if length <= 0 {
+		return 0
+	}
+	ss := []byte(s)
+	left, right := 0, 0
+	ans := 0
+	widown := make(map[byte]int)
+	for right < length {
+		// 增加窗口
+		chr := ss[right]
+		widown[chr]++
+		if len(widown) > 1 {
+			k = len(widown) - 1
+		}
 
+		fmt.Println("widonw,left riht,lenth", left, right, ans)
+		// 减少窗口
+		for k < 0 && left < length {
+			k += widown[ss[left]]
+			left++
+		}
 
+		if right-left > ans {
+			ans = right - left
+		}
+	}
+	return ans
+}

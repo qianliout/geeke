@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	s := "ABCABBCD"
-	t := "ABCD"
-	res := minWindow(s, t)
+	s := "aa"
+	t := "aa"
+	res := minWindow2(s, t)
 	fmt.Println("window is ", res)
 }
 
@@ -33,7 +33,6 @@ func minWindow(s string, t string) string {
 	needs := make(map[uint8]int)
 	for i := 0; i < len(t); i++ {
 		needs[t[i]]++
-
 	}
 	for right < len(s) {
 		cha := s[right]
@@ -71,6 +70,53 @@ func minWindow(s string, t string) string {
 func isAll(smap, tmap map[uint8]int) bool {
 	for k, v := range smap {
 		if tmap[k] != v {
+			return false
+		}
+	}
+	return true
+}
+
+func minWindow2(s string, t string) string {
+	if len(s) == 0 || len(t) == 0 || len(s) < len(t) {
+		return ""
+	}
+	ss, tt := []byte(s), []byte(t)
+	left, right, ansLength, ans := 0, 0, math.MaxInt64, ""
+	needs := make(map[byte]int)
+	for i := 0; i < len(t); i++ {
+		needs[tt[i]]++
+	}
+
+	smap := make(map[byte]int)
+	for right < len(s) {
+		// 扩大窗口
+		hasAns := false // 表示是否有答案了
+		chr := ss[right]
+		smap[chr]++
+		right++
+
+		// 缩小窗口了
+		for hasAll(smap, needs) && left < right {
+			hasAns = true
+			smap[ss[left]]--
+			left++
+		}
+		// 更新答案了
+		if hasAns {
+			thisAns := string(ss[left-1 : right])
+			if len(thisAns) < ansLength {
+				ans = thisAns
+				ansLength = len(ans)
+			}
+		}
+	}
+
+	return ans
+}
+
+func hasAll(smap, tt map[byte]int) bool {
+	for k, v := range tt {
+		if n, ok := smap[k]; !ok || n < v {
 			return false
 		}
 	}
