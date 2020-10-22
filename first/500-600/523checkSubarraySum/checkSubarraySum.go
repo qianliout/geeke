@@ -6,7 +6,7 @@ import (
 
 func main() {
 	nums := []int{0, 0}
-	res := check(nums, 0)
+	res := check2(nums, 0)
 
 	fmt.Println("res is ", res)
 }
@@ -67,7 +67,7 @@ func checkSubarraySum(nums []int, k int) bool {
 // sum[i:j] = sum[:j] - sum[:i]
 // 可以被k整除的连续数组，只要保证sum[:j]和sum[:i]的对k的余数相等即可。
 func check(nums []int, k int) bool {
-	dp := make(map[int]int) // key是求前缀和的余数，int是index,也就是nums[:i]
+	dp := make(map[int]int) // key是求前缀和的余数，val是index,也就是nums[:i]
 	pre := 0
 	dp[0] = -1 // 主要是为了应付:[0,0],0这种情况
 	for i, n := range nums {
@@ -82,6 +82,28 @@ func check(nums []int, k int) bool {
 			}
 		} else {
 			dp[pre] = i
+		}
+	}
+	return false
+}
+
+func check2(nums []int, k int) bool {
+	preSum := make(map[int]int)
+	preSum[0] = -1
+	pre := 0
+	for i, v := range nums {
+		pre += v
+		if k != 0 {
+			pre = pre % k
+		}
+
+		preInx, ok := preSum[pre]
+		if ok && i-preInx >= 2 {
+			return true
+		}
+		if !ok {
+			// 这里一定要注意，只是不存在时才更新，就是怕有连续0的情况
+			preSum[pre] = i
 		}
 	}
 	return false

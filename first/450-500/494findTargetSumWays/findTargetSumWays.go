@@ -78,15 +78,22 @@ func findTargetSumWays(nums []int, S int) int {
 	return dp[length-1][S]
 }
 
+// 把所有符号为正的数总和设为一个背包的容量，容量为x；把所有符号为负的数总和设为一个背包的容量，容量为y。
+// 在给定的数组中，有多少种选择方法让背包装满。令sum为数组的总和，则x+y = sum。而两个背包的差为S,则x-y=S。
+// 从而求得x=(S+sum)/2。
+// 基于上述分析，题目转换为背包问题：给定一个数组和一个容量为x的背包，求有多少种方式让背包装满。
+
+// 思路就是把整个集合看成两个子集，Q表示整个集合(sum)，P表示正数子集，N表示负数子集， T表示目标和
+// p+n=sum
+// p-n=target
+// 得出结论，p=(sum+taget)/2
+
 func findTargetSumWays0(nums []int, S int) int {
 	sum := 0
 
 	for _, num := range nums {
 		sum += num
 	}
-	//if sum < int(math.Abs(float64(S))) || (sum+S)%2 != 0 {
-	//	return 0
-	//}
 
 	target := (sum + S) / 2
 	dp := make(map[int]int)

@@ -39,7 +39,7 @@ func leastBricks(wall [][]int) int {
 
 	for _, list := range wall {
 		sum := 0
-		// 开如和最后要排除
+		// 开始和最后要排除
 		for i := 0; i < len(list)-1; i++ {
 			sum += list[i]
 			if k, ok := sumMap[sum]; ok {
