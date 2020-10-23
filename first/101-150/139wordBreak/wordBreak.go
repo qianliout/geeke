@@ -1,7 +1,14 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	s := "applepenapple"
+	wordDict := []string{"apple", "pen"}
+	res := wordBreak2(s, wordDict)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -48,4 +55,26 @@ func wordBreak(s string, wordDict []string) bool {
 		}
 	}
 	return dp[length]
+}
+
+func wordBreak2(s string, wordDict []string) bool {
+	worddict := make(map[string]bool)
+	for _, w := range wordDict {
+		worddict[w] = true
+	}
+
+	dp := make(map[int]bool)
+	dp[0] = true
+
+	ss := []byte(s)
+	// 这里的循环顺序很重要
+	for j := 0; j <= len(ss); j++ {
+		for i := 0; i < len(wordDict); i++ {
+			if j >= len(wordDict[i]) {
+				tem := string(ss[j-len(wordDict[i]) : j])
+				dp[j] = dp[j] || (dp[j-len(wordDict[i])] && worddict[tem])
+			}
+		}
+	}
+	return dp[len(s)]
 }

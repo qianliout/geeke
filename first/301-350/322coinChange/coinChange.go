@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
+	"math"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
-	coins := []int{186, 419, 83, 408}
-	res := coinChange(coins, 6249)
+	coins := []int{2}
+	res := coinChange2(coins, 4)
 	fmt.Println("res is ", res)
 }
 
@@ -33,7 +36,7 @@ func coinChange(coins []int, amount int) int {
 		return -1
 	}
 	dp[0] = 0
-	//sort.Ints(coins)
+	// sort.Ints(coins)
 
 	for i := 1; i <= amount; i++ {
 		dp[i] = -1
@@ -47,6 +50,27 @@ func coinChange(coins []int, amount int) int {
 			}
 		}
 	}
-	//fmt.Println(dp)
+	// fmt.Println(dp)
+	return dp[amount]
+}
+
+func coinChange2(coins []int, amount int) int {
+	dp := make(map[int]int)
+	// 这里要赋初值，因为，如果你不赋初值，那么所有的值都不会比0小，下面取最小值时就会出错
+	// 这就是这里最不容易考虑的点
+	for i := 1; i <= amount; i++ {
+		dp[i] = math.MaxInt32 // 表示不能
+	}
+	dp[0] = 0 // 这个也是特殊值
+	for i := 0; i < len(coins); i++ {
+		for j := 0; j <= amount; j++ {
+			if j-coins[i] >= 0 {
+				dp[j] = Min(dp[j], dp[j-coins[i]]+1)
+			}
+		}
+	}
+	if dp[amount] == math.MaxInt32 {
+		return -1
+	}
 	return dp[amount]
 }

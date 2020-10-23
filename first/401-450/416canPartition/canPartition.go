@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	nums := []int{1, 2, 5}
-	res := canPartition(nums)
+	nums := []int{3, 3, 3, 4, 5}
+	res := canPartition3(nums)
 	fmt.Println("res is ", res)
 }
 
@@ -47,7 +47,7 @@ func canPartition(nums []int) bool {
 			}
 		}
 	}
-	//fmt.Println(dp)
+	// fmt.Println(dp)
 	return dp[sum/2]
 }
 
@@ -70,6 +70,30 @@ func canPartition2(nums []int) bool {
 				dp[i] = true
 			} else {
 				dp[i] = dp[i] || dp[i-n]
+			}
+		}
+	}
+	return dp[sum/2]
+}
+
+func canPartition3(nums []int) bool {
+	if len(nums) <= 1 {
+		return false
+	}
+	sum := 0
+	for _, n := range nums {
+		sum += n
+	}
+	if sum%2 != 0 {
+		return false
+	}
+
+	dp := make(map[int]bool)
+	dp[0] = true // 这一步最容易忘
+	for i := 0; i < len(nums); i++ {
+		for j := sum / 2; j >= 0; j-- {
+			if j >= nums[i] {
+				dp[j] = dp[j] || dp[j-nums[i]]
 			}
 		}
 	}
