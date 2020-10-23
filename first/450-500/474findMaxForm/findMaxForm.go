@@ -8,7 +8,7 @@ import (
 
 func main() {
 	array := []string{"10", "0001", "111001", "1", "0"}
-	res := findMaxForm(array, 5, 3)
+	res := findMaxForm2(array, 5, 3)
 	fmt.Println("res is ", res)
 }
 
@@ -60,7 +60,6 @@ func findMaxForm(strs []string, m int, n int) int {
 		zero := word[w][1]
 		for i := m; i >= zero; i-- {
 			for j := n; j >= one; j-- {
-
 				if i-zero >= 0 && j-one >= 0 {
 					dp[i][j] = Max(dp[i][j], dp[i-zero][j-one]+1)
 				}
@@ -68,4 +67,37 @@ func findMaxForm(strs []string, m int, n int) int {
 		}
 	}
 	return dp[m][n]
+}
+
+// 01背包问题
+func findMaxForm2(strs []string, m int, n int) int {
+	// dp[i][j] 表示使用i个0,和j个1,最后能拼出多少
+	// 初始化
+	dp := make(map[int]map[int]int)
+	for i := 0; i <= m; i++ {
+		dp[i] = make(map[int]int)
+	}
+	for i := 0; i < len(strs); i++ {
+		oz := countOZ(strs[i])
+		for j := m; j >= 0; j-- {
+			for k := n; k >= 0; k-- {
+				if j >= oz[1] && k >= oz[0] {
+					dp[j][k] = Max(dp[j][k], dp[j-oz[1]][k-oz[0]]+1)
+				}
+			}
+		}
+	}
+	return dp[m][n]
+}
+
+func countOZ(str string) []int {
+	one, zero := 0, 0
+	for _, ch := range []byte(str) {
+		if ch == '1' {
+			one++
+		} else if ch == '0' {
+			zero++
+		}
+	}
+	return []int{one, zero}
 }

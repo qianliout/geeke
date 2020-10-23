@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
 	nums := []int{1, 1, 1, 1, 1}
-	res := findTargetSumWays(nums, 3)
+	res := findTargetSumWays0(nums, 3)
 	fmt.Println("res is ", res)
 }
 
@@ -99,11 +100,39 @@ func findTargetSumWays0(nums []int, S int) int {
 	dp := make(map[int]int)
 	dp[0] = 1
 
+	if sum < int(math.Abs(float64(S))) || (sum+S)%2 != 0 {
+		return 0
+	}
+
 	for _, num := range nums {
 		for j := target; j >= num; j-- {
 			dp[j] += dp[j-num]
 		}
 	}
 
+	return dp[target]
+}
+
+func findTargetSumWays1(nums []int, S int) int {
+	sum := 0
+	for _, num := range nums {
+		sum += num
+	}
+
+	if sum < int(math.Abs(float64(S))) || (sum+S)%2 != 0 {
+		return 0
+	}
+
+	target := (sum + S) / 2
+	dp := make(map[int]int)
+	dp[0] = 1
+
+	for i := 0; i < len(nums); i++ {
+		for j := target; j >= 0; j-- {
+			if j-nums[i] >= 0 {
+				dp[j] = dp[j] + dp[j-nums[i]]
+			}
+		}
+	}
 	return dp[target]
 }

@@ -1,7 +1,13 @@
 package main
 
-func main() {
+import (
+	"fmt"
+)
 
+func main() {
+	nums := []int{1, 2, 3}
+	res := combinationSum42(nums, 4)
+	fmt.Println("res is ", res)
 }
 
 /*
@@ -31,12 +37,25 @@ func combinationSum4(nums []int, target int) int {
 		return 0
 	}
 	dp := make(map[int]int)
-	//dp[0] = 1
+	// dp[0] = 1
 
 	for i := 0; i <= target; i++ {
 		for _, num := range nums {
 			if i >= num {
 				dp[i] += dp[i-num]
+			}
+		}
+	}
+	return dp[target]
+}
+func combinationSum42(nums []int, target int) int {
+
+	dp := make(map[int]int)
+	dp[0] = 1
+	for j := 0; j <= target; j++ {
+		for i := 0; i < len(nums); i++ {
+			if j-nums[i] >= 0 {
+				dp[j] = dp[j] + dp[j-nums[i]]
 			}
 		}
 	}
