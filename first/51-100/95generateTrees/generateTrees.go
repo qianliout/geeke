@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
+
 	. "outback/leetcode/common/treenode"
 )
 
 func main() {
-
+	res := generateTrees(3)
+	fmt.Println("res is ", len(res))
 }
 
 /*
@@ -33,22 +36,21 @@ func generateTrees(n int) []*TreeNode {
 	if n == 0 {
 		return make([]*TreeNode, 0)
 	}
-	return helper(0, n)
+	return helper(1, n)
 }
 
 func helper(start, end int) []*TreeNode {
 	// n 表示总数，i 表示第i 做根结点
 	res := make([]*TreeNode, 0)
+	// 这个基本条件是怎么判断的呢，为什么要加一个nil呢，要好好理解
+	// 结合下面这一名rightNodes := helper(i+1, end),也就是当每次的i=n时，只是只有左边有数据，
+	// 左边没有子树，那么就应该是一个nil,如果不写这个，那么也就不会循环左边的循环了，
+
 	if start > end {
 		res = append(res, nil)
+		fmt.Println("start end ", start, end, len(res))
 		return res
 	}
-	if start == end {
-		node := TreeNode{Val: start}
-		res = append(res, &node)
-		return res
-	}
-
 	for i := start; i <= end; i++ {
 		leftNodes := helper(start, i-1)
 		rightNodes := helper(i+1, end)

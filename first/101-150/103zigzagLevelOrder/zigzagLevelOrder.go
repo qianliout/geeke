@@ -12,7 +12,7 @@ func main() {
 	root.Right = &TreeNode{Val: 3}
 	root.Left.Left = &TreeNode{Val: 4}
 	root.Right.Right = &TreeNode{Val: 5}
-	res := zigzagLevelOrder(&root)
+	res := zigzagLevelOrder2(&root)
 	fmt.Println("res is ", res)
 }
 
@@ -59,6 +59,43 @@ func zigzagLevelOrder(root *TreeNode) [][]int {
 		left = !left
 		res = append(res, s)
 		curLevel = nextLevel
+	}
+	return res
+}
+
+func zigzagLevelOrder2(root *TreeNode) [][]int {
+	res := make([][]int, 0)
+	if root == nil {
+		return res
+	}
+
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	zig := false
+	for len(queue) > 0 {
+		thislevle := make([]*TreeNode, 0)
+		ans := make([]int, 0)
+		lenght := len(queue)
+		for i := 0; i < lenght; i++ {
+			var first *TreeNode
+			if zig {
+				first = queue[0]
+				queue = queue[1:]
+			} else {
+				first = queue[len(queue)-1]
+				queue = queue[:len(queue)-1]
+			}
+			ans = append(ans, first.Val)
+			if first.Left != nil {
+				thislevle = append(thislevle, first.Left)
+			}
+			if first.Right != nil {
+				thislevle = append(thislevle, first.Right)
+			}
+		}
+		zig = !zig
+		queue = thislevle
+		res = append(res, ans)
 	}
 	return res
 }

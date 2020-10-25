@@ -67,7 +67,7 @@ func wordBreak2(s string, wordDict []string) bool {
 	dp[0] = true
 
 	ss := []byte(s)
-	// 这里的循环顺序很重要
+	// 这里的循环顺序很重要,因为外面的ss是要保证顺序的，所以要放在外层循环
 	for j := 0; j <= len(ss); j++ {
 		for i := 0; i < len(wordDict); i++ {
 			if j >= len(wordDict[i]) {

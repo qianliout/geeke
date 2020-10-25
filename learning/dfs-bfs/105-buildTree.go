@@ -48,7 +48,7 @@ func BuildTreePreAndInHelper(pre []int, preStart, preEnd, inStart int, inPos map
 	rootIndex := inPos[pre[preStart]]
 	leftLen := rootIndex - inStart
 	root.Left = BuildTreePreAndInHelper(pre, preStart+1, preStart+leftLen, inStart, inPos)
-	root.Right = BuildTreePreAndInHelper(pre, preStart+leftLen+1, preEnd, rootIndex+1,inPos)
+	root.Right = BuildTreePreAndInHelper(pre, preStart+leftLen+1, preEnd, rootIndex+1, inPos)
 	return &root
 }
 
@@ -74,9 +74,9 @@ func BuildTree(preorder, inorder []int) *treenode.TreeNode {
 	if len(preorder) == 0 || len(inorder) == 0 {
 		return nil
 	}
-	//前序遍历第一个值为根节点
+	// 前序遍历第一个值为根节点
 	root := treenode.TreeNode{Val: preorder[0]}
-	//因为没有重复元素，所以可以直接根据值来查找根节点在中序遍历中的位置
+	// 因为没有重复元素，所以可以直接根据值来查找根节点在中序遍历中的位置
 	mid := FindIndex(inorder, preorder[0])
 	root.Left = BuildTree(preorder[1:mid+1], inorder[:mid])
 	root.Right = BuildTree(preorder[mid+1:], inorder[mid+1:])

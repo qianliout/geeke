@@ -52,7 +52,7 @@ func Constructor() Codec {
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
 	//return rserialize(root, "")
-	return bfsSerialize(root)
+	return rserialize(root, "")
 }
 
 // Deserializes your encoded data to tree.

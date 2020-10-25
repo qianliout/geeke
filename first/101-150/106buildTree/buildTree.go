@@ -52,3 +52,28 @@ func build(postorder *[]int, leftIndex, rightIndex int, indexMap map[int]int) *T
 	root.Left = build(postorder, leftIndex, index-1, indexMap)
 	return root
 }
+
+// 这才是这道题的正解，也是最好理解的答案
+func BuildTree(inorder []int, postorder []int) *TreeNode {
+
+	if len(postorder) == 0 || len(inorder) == 0 {
+		return nil
+	}
+	// 前序遍历第一个值为根节点
+	root := TreeNode{Val: postorder[len(postorder)-1]}
+	// 因为没有重复元素，所以可以直接根据值来查找根节点在中序遍历中的位置
+	mid := FindIndex(inorder, postorder[len(postorder)-1])
+	r := len(inorder) - mid - 1 // 右边元素的个数，这个数字一定要好好理解
+	root.Right = BuildTree(inorder[mid+1:], postorder[len(postorder)-1-r:len(postorder)-1])
+	root.Left = BuildTree(inorder[:mid], postorder[:len(postorder)-1-r])
+	return &root
+}
+
+func FindIndex(list []int, value int) int {
+	for key, v := range list {
+		if v == value {
+			return key
+		}
+	}
+	return -1
+}

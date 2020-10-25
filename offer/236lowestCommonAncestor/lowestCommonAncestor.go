@@ -23,5 +23,4 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		res = root
 	}
 	return res
-
 }
