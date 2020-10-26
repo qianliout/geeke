@@ -44,7 +44,6 @@ func main() {
 因此，你需要以列表的形式返回上述重复子树的根结点。
 */
 func findDuplicateSubtrees(root *TreeNode) []*TreeNode {
-
 	result := make([]*TreeNode, 0)
 	exit := make(map[string]int)
 	if root == nil {
@@ -58,7 +57,7 @@ func serialize(root *TreeNode, result *[]*TreeNode, exit *map[string]int) string
 	if root == nil {
 		return "null"
 	}
-	// 这里一定要使用前序遍历,使用其他就会出错,因为前后会加Null (这才是这道题的易错点)
+	// 这里一定要使用前序遍历,使用其他就会出错,因为前后会加null (这才是这道题的易错点)
 	s := strconv.Itoa(root.Val) + "," + serialize(root.Left, result, exit) + "," + serialize(root.Right, result, exit)
 
 	(*exit)[s] += 1
@@ -68,5 +67,3 @@ func serialize(root *TreeNode, result *[]*TreeNode, exit *map[string]int) string
 	}
 	return s
 }
-
-

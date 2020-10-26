@@ -11,8 +11,8 @@ func main() {
 	root := TreeNode{Val: 2}
 	root.Left = &TreeNode{Val: 1}
 	root.Right = &TreeNode{Val: 3}
-	//root.Right.Left = &TreeNode{Val: 3}
-	//root.Right.Right = &TreeNode{Val: 6}
+	// root.Right.Left = &TreeNode{Val: 3}
+	// root.Right.Right = &TreeNode{Val: 6}
 	res := isValidBST4(&root)
 	fmt.Println("res is ", res)
 }
@@ -55,7 +55,8 @@ func isValidBST(root *TreeNode) bool {
 	return true
 }
 
-//中序遍历一定是一个升序数组，可以使用这个特性
+// 中序遍历一定是一个升序数组，可以使用这个特性,
+// 我们在中序遍历的时候实时检查当前节点的值是否大于前一个中序遍历到的节点的值即可
 func inorder(root *TreeNode, res *[]int) {
 	if root != nil {
 		inorder(root.Left, res)

@@ -70,9 +70,14 @@ count计算本轮sum在数组sumlist中出现的次数
 */
 
 func pathSum(root *TreeNode, sum int) int {
-	sumList := make([]int, 0)
-	n := dfs(root, &sumList, sum)
-	return n
+	// sumList := make([]int, 0)
+	// n := dfs(root, &sumList, sum)
+	// return n
+
+	prefixSumCount := make(map[int]int)
+	// 初值,前缀和为0时有一种方法，就是什么结点都不选
+	prefixSumCount[0] = 1
+	return recursionPathSum(root, prefixSumCount, sum, 0)
 }
 
 func dfs(root *TreeNode, sumList *[]int, sum int) int {
@@ -96,4 +101,29 @@ func dfs(root *TreeNode, sumList *[]int, sum int) int {
 	count += dfs(root.Right, &nl, sum)
 
 	return count
+}
+
+// 前缀和的思想
+func recursionPathSum(node *TreeNode, prefixSumCount map[int]int, target, currSum int) int {
+	// 1.递归终止条件
+	if node == nil {
+		return 0
+	}
+	// 本层要做的事
+	res := 0
+	// 当前路径上的和
+	currSum += node.Val
+	// 看看root到当前节点这条路上是否存在节点前缀和加target为currSum的路径
+	// 当前节点->root节点反推，有且仅有一条路径，如果此前有和为currSum-target,而当前的和又为currSum,两者的差就肯定为target了
+	// currSum-target相当于找路径的起点，起点的sum+target=currSum，当前点到起点的距离就是target
+	res += prefixSumCount[currSum-target]
+	prefixSumCount[currSum] = prefixSumCount[currSum] + 1
+
+	// 进入下一层
+	res += recursionPathSum(node.Left, prefixSumCount, target, currSum)
+	res += recursionPathSum(node.Right, prefixSumCount, target, currSum)
+
+	// 回到本层把进入下一层的影响消掉
+	prefixSumCount[currSum] = prefixSumCount[currSum] - 1
+	return res
 }
