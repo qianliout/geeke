@@ -77,23 +77,14 @@ func rob(root *TreeNode) int {
 	return this
 }
 
-func Max(nums ...int) int {
-	max := math.MinInt64
-	for _, nus := range nums {
-		if nus > max {
-			max = nus
-		}
-	}
-	return max
-}
-
-func rob2(root *TreeNode) int {
+func rob4(root *TreeNode) int {
 	// 动态规划
 	mermery = make(map[*TreeNode][]int)
 	non, rob := robTree(root)
 
 	return Max(non, rob)
 }
+
 func robTree(root *TreeNode) (int, int) {
 	if root == nil {
 		return 0, 0
@@ -118,12 +109,12 @@ func rob3(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	if mem == nil {
-		mem = make(map[*TreeNode]int)
-	}
-	if v, ok := mem[root]; ok {
-		return v
-	}
+	// if mem == nil {
+	// 	mem = make(map[*TreeNode]int)
+	// }
+	// if v, ok := mem[root]; ok {
+	// 	return v
+	// }
 	// 抢,然后去下下家
 	doIt := root.Val
 	if root.Left != nil {
@@ -135,6 +126,38 @@ func rob3(root *TreeNode) int {
 	// 不抢,去下家
 	notDoit := rob3(root.Left) + rob3(root.Right)
 	res := Max(doIt, notDoit)
+	// mem[root] = res
+	return res
+}
+
+func rob2(root *TreeNode, mem map[*TreeNode]int) int {
+	if root == nil {
+		return 0
+	}
+	if v, ok := mem[root]; ok {
+		return v
+	}
+	// 抢,然后去下下家
+	doIt := root.Val
+	if root.Left != nil {
+		doIt += rob2(root.Left.Left, mem) + rob2(root.Left.Right, mem)
+	}
+	if root.Right != nil {
+		doIt += rob2(root.Right.Left, mem) + rob2(root.Right.Right, mem)
+	}
+	// 不抢,去下家
+	notDoit := rob2(root.Left, mem) + rob2(root.Right, mem)
+	res := Max(doIt, notDoit)
 	mem[root] = res
 	return res
+}
+
+func Max(nums ...int) int {
+	max := math.MinInt64
+	for _, nus := range nums {
+		if nus > max {
+			max = nus
+		}
+	}
+	return max
 }

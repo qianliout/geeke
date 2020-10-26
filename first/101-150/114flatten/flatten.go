@@ -6,12 +6,12 @@ import (
 
 func main() {
 	root := TreeNode{Val: 0}
-	//root.Left = &TreeNode{Val: 2}
-	//root.Left.Left = &TreeNode{Val: 3}
-	//root.Left.Right = &TreeNode{Val: 4}
+	// root.Left = &TreeNode{Val: 2}
+	// root.Left.Left = &TreeNode{Val: 3}
+	// root.Left.Right = &TreeNode{Val: 4}
 	//
-	//root.Right = &TreeNode{Val: 5}
-	//root.Right.Right = &TreeNode{Val: 8}
+	// root.Right = &TreeNode{Val: 5}
+	// root.Right.Right = &TreeNode{Val: 8}
 	flatten3(&root)
 	PreOrderTraversal(&root)
 }
@@ -107,4 +107,27 @@ func flatten3(root *TreeNode) {
 	root.Right = pre
 	root.Left = nil
 	pre = root
+}
+
+func flatten4(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	for root != nil {
+		if root.Left != nil {
+			// 找到左子树的最小面的那个右子树
+			lastRight := root.Left
+			for lastRight.Right != nil {
+				lastRight = lastRight.Right
+			}
+			// 把原来的right接到现在的这个最小面的右子树上
+			lastRight.Right = root.Right
+			// 把原来的left放到root的右边
+			root.Right = root.Left
+			// 左边置空
+			root.Left = nil
+		}
+		// 判断下一个root
+		root = root.Right
+	}
 }

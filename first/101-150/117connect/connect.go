@@ -47,7 +47,7 @@ func connect(root *Node) *Node {
 	if root.Right == nil && root.Left != nil {
 		root.Left.Next = getNextNode(root)
 	}
-	//这里要注意：先递归右子树，否则右子树根节点next关系没建立好，左子树到右子树子节点无法正确挂载
+	// 这里要注意：先递归右子树，否则右子树根节点next关系没建立好，左子树到右子树子节点无法正确挂载
 	root.Right = connect(root.Right)
 	root.Left = connect(root.Left)
 	return root
