@@ -9,10 +9,10 @@ import (
 func main() {
 	root := TreeNode{Val: 1}
 	root.Left = &TreeNode{Val: 2}
-	root.Left.Right = &TreeNode{Val: 3}
 	root.Right = &TreeNode{Val: 2}
+	root.Left.Right = &TreeNode{Val: 3}
 	root.Right.Left = &TreeNode{Val: 3}
-	res := isSymmetric2(&root)
+	res := bfs(&root)
 	fmt.Println("res is ", res)
 }
 
@@ -83,7 +83,7 @@ func check(queue []*TreeNode) bool {
 	return true
 }
 
-//dfs
+// dfs
 func isSymmetric2(root *TreeNode) bool {
 	if root == nil {
 		return true
@@ -102,4 +102,60 @@ func symmetric(left, right *TreeNode) bool {
 		return false
 	}
 	return symmetric(left.Right, right.Left) && symmetric(left.Left, right.Right)
+}
+
+func dfs(left, right *TreeNode) bool {
+	if left == nil && right == nil {
+		return true
+	}
+	// 这一步是一个技巧，因为前面判断了都是nil,这里就不可能都是nil
+	if left == nil || right == nil {
+		return false
+	}
+	if left.Val != right.Val {
+		return false
+	}
+	return dfs(left.Left, right.Right) && dfs(left.Right, right.Left)
+}
+
+func bfs(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		thisLevel := make([]*TreeNode, 0)
+		for _, node := range queue {
+			if node == nil {
+				continue
+			}
+			thisLevel = append(thisLevel, node.Left, node.Right)
+		}
+		if !check2(thisLevel) {
+			return false
+		}
+		queue = thisLevel
+	}
+	return true
+}
+
+func check2(queue []*TreeNode) bool {
+	left, right := 0, len(queue)-1
+	for left < right {
+		if queue[left] == nil && queue[right] == nil {
+			left++
+			right--
+			continue
+		}
+		if queue[left] == nil || queue[right] == nil {
+			return false
+		}
+		if queue[left].Val != queue[right].Val {
+			return false
+		}
+		left++
+		right--
+	}
+	return true
 }

@@ -65,35 +65,6 @@ func inorder(root *TreeNode, res *[]int) {
 	}
 }
 
-// 上面的方法，需要遍历后再次进行遍历，todo 是否可以一次做完
-func isValidBST2(root *TreeNode) bool {
-	return inorder2(root, nil)
-}
-
-// todo 这里把pre定义成全局变量就对，why
-func inorder2(root, pre *TreeNode) bool {
-	fmt.Println(pre, root)
-	if root == nil {
-		return true
-	}
-	if !inorder2(root.Left, pre) { // 这里一定要注意的是，如果左边为真，还不能判定为真，但是左边为假，一定是假
-		return false
-	}
-
-	if pre != nil && pre.Val >= root.Val {
-		return false
-	}
-	pre = root
-	// 为什么这里可以直接返回呢，因为程序走到这里，说明左边为真了。
-	return inorder2(root.Right, pre)
-}
-func isValidBST3(root *TreeNode) bool {
-	if root != nil {
-		return true
-	}
-	return false
-}
-
 func isValidBST4(root *TreeNode) bool {
 	return helper(root, math.MinInt64, math.MaxInt64)
 }
@@ -109,4 +80,19 @@ func helper(root *TreeNode, min, max int) bool {
 		return false
 	}
 	return helper(root.Left, min, root.Val) && helper(root.Right, root.Val, max)
+}
+
+// 递归的方法,记录的是最大最小的结点
+func IsValideByRecusion(root, min, max *TreeNode) bool {
+	// min 记录的是当前最小的那个结点，max记录的当前最大的那个结点，这是关键，不是左结点和右结点
+	if root == nil {
+		return true
+	}
+	if min != nil && root.Val <= min.Val {
+		return false
+	}
+	if max != nil && root.Val >= max.Val {
+		return false
+	}
+	return IsValideByRecusion(root.Left, min, root) && IsValideByRecusion(root.Right, root, max)
 }
