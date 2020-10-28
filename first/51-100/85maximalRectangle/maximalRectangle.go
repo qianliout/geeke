@@ -38,9 +38,9 @@ func maximalRectangle(matrix [][]byte) int {
 	col := len(matrix)
 	maxArea := 0
 	for i := 0; i < col; i++ {
-		//h := CalculatedHeight(matrix, row, i)
+		// h := CalculatedHeight(matrix, row, i)
 		res := largestRectangleArea(CalculatedHeight(matrix, row, i))
-		//fmt.Println("i is ", i, res, h)
+		// fmt.Println("i is ", i, res, h)
 		if res > maxArea {
 			maxArea = res
 		}
@@ -76,7 +76,7 @@ func largestRectangleArea(heights []int) int {
 	for i, _ := range heights {
 		for len(stark) > 1 && heights[i] <= heights[stark[len(stark)-1]] {
 			pop := stark[len(stark)-1]
-			//这里要特别注意,一定是先pop一个出来,再计算宽度,不然就会出错,
+			// 这里要特别注意,一定是先pop一个出来,再计算宽度,不然就会出错,
 			stark = stark[:len(stark)-1]
 			res := heights[pop] * (i - stark[len(stark)-1] - 1)
 			if res > maxArea {
@@ -84,7 +84,7 @@ func largestRectangleArea(heights []int) int {
 			}
 		}
 		stark = append(stark, i)
-		//fmt.Println(stark, maxArea)
+		// fmt.Println(stark, maxArea)
 	}
 
 	for len(stark) > 1 {

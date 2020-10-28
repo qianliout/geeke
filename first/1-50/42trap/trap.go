@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
@@ -28,6 +30,7 @@ func trap(height []int) int {
 	}
 	stark := make([]int, 0)
 
+	// 单调整递减栈表可能接到雨水的柱子
 	stark = append(stark, -1)
 	rain := 0
 	for i := 0; i < n; i++ {
@@ -78,22 +81,5 @@ func trap2(height []int) int {
 			rMax = Max(rMax, height[right])
 		}
 	}
-	return ans
-}
-
-func trap3(height []int) int {
-	ans := 0
-	// 单调递减栈，这里要注意的是，存入的是下标
-	stark := make([]int, 0)
-	for i := 0; i < len(height); i++ {
-		for len(stark) > 0 && stark[len(stark)-1] > height[i] {
-			// 在这里就要计算结果值
-			stark = stark[:len(stark)-1]
-		}
-		// 计算结果值
-
-		// push
-	}
-
 	return ans
 }

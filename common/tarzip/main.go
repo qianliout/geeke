@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/url"
-	"runtime"
 	"strconv"
 	"time"
 
@@ -52,17 +51,19 @@ func main() {
 	// fmt.Println(len(s))
 	// s = append(s,3)
 	// fmt.Println(len(s))
-	var i byte
-	go func() {
-		for i = 0; i <= 255; i++ {
-			// fmt.Println("i si ",i)
-		}
-	}()
-	fmt.Println("Dropping mic")
-	// Yield execution to force executing other goroutines
-	runtime.Gosched()
-	runtime.GC()
-	fmt.Println("Done")
+	// var i byte
+	// go func() {
+	// 	for i = 0; i <= 255; i++ {
+	// 		// fmt.Println("i si ",i)
+	// 	}
+	// }()
+	// fmt.Println("Dropping mic")
+	// // Yield execution to force executing other goroutines
+	// runtime.Gosched()
+	// runtime.GC()
+	// fmt.Println("Done")
+
+	time.Parse("2020-10-28T09:02:44")
 
 }
 
