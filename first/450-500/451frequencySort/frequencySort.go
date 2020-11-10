@@ -49,6 +49,8 @@ func main() {
 此外，"bbaA"也是一个有效的答案，但"Aabb"是不正确的。
 注意'A'和'a'被认为是两种不同的字符。
 */
+
+// 桶排序的思想
 func frequencySort(s string) string {
 	if len(s) <= 1 {
 		return s

@@ -3,8 +3,8 @@ package main
 import (
 	"container/heap"
 	"fmt"
-	"sort"
 	. "outback/leetcode/common/commonHeap"
+	"sort"
 )
 
 func main() {
@@ -58,7 +58,7 @@ func findKthLargest3(nums []int, k int) int {
 	k = len(nums) - k // 转化为第k小的问题
 	low, hight := 0, len(nums)-1
 	for {
-		n := partion(&nums, low, hight)
+		n := partition(&nums, low, hight)
 		if k == n {
 			return nums[k]
 		} else if n < k {
@@ -70,15 +70,15 @@ func findKthLargest3(nums []int, k int) int {
 	}
 }
 
-func partion(nums *[]int, low, hight int) int {
+func partition(nums *[]int, low, high int) int {
 	i := low
-	pivot := (*nums)[hight] // 这里可以随机选一个点做为pivot，会在极端的情况下加快速度（比如，已经是排好序的）
-	for j := i; j < hight; j++ {
+	pivot := (*nums)[high] // 这里可以随机选一个点做为pivot，会在极端的情况下加快速度（比如，已经是排好序的）
+	for j := i; j < high; j++ {
 		if (*nums)[j] < pivot {
 			(*nums)[i], (*nums)[j] = (*nums)[j], (*nums)[i]
 			i++
 		}
 	}
-	(*nums)[i], (*nums)[hight] = (*nums)[hight], (*nums)[i]
+	(*nums)[i], (*nums)[high] = (*nums)[high], (*nums)[i]
 	return i
 }

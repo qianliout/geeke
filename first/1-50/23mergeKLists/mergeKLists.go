@@ -109,7 +109,6 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 func Divide(lists []*ListNode, left, right int) *ListNode {
 	if left == right {
 		return lists[left]
-
 	}
 	mid := left + (right-left)/2
 	l1 := Divide(lists, left, mid)

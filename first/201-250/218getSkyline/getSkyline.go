@@ -134,5 +134,4 @@ func Max(nums ...int) int {
 		}
 	}
 	return res
-
 }

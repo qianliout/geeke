@@ -63,3 +63,27 @@ func nthSuperUglyNumber(n int, primes []int) int {
 	//fmt.Println(dp)
 	return dp[n-1]
 }
+
+func nthSuperUglyNumber3(n int, primes []int) int {
+	idx := make([]int, len(primes))
+	dp := make([]int, n)
+	dp[0] = 1
+	for i := 1; i < n; i++ {
+		min := math.MaxInt32
+		for k := 0; k < len(primes); k++ {
+			tmp := primes[k] * dp[idx[k]]
+			if tmp < min {
+				min = tmp
+			}
+		}
+		dp[i] = min
+		for k := 0; k < len(primes); k++ {
+			tmp := primes[k] * dp[idx[k]]
+			if tmp == min {
+				idx[k]++
+			}
+		}
+	}
+	//fmt.Println(dp)
+	return dp[n-1]
+}

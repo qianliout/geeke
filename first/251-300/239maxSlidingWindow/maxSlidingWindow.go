@@ -117,7 +117,7 @@ func maxSlidingWindow4(nums []int, k int) []int {
 	stack := make([]int, 0)
 
 	for i, n := range nums {
-		// 第一步,把超出范围的数据移出(注意这里有等于,因为当等于是,说明刚好有k个元素,再加入i这个元素就多了一个,所以也要移出)
+		// 第一步,把超出范围的数据移出(注意这里有等于,因为当等于时,说明刚好有k个元素,再加入i这个元素就多了一个,所以也要移出)
 		if i >= k && len(stack) > 0 && i-stack[0] >= k {
 			stack = stack[1:]
 		}
