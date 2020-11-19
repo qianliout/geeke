@@ -79,12 +79,14 @@ func nthUglyNumber2(n int) int {
 			exit[tem] = true
 			i++
 		}
-
+		// 这里使用这种判断还是使用else if 进行判断都是一样的效果
 		if tem == dp[i2]*2 {
 			i2++
-		} else if tem == dp[i3]*3 {
+		}
+		if tem == dp[i3]*3 {
 			i3++
-		} else if tem == dp[i5]*5 {
+		}
+		if tem == dp[i5]*5 {
 			i5++
 		}
 	}

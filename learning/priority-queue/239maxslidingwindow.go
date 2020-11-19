@@ -26,11 +26,11 @@ import (
 */
 
 func MaxSlidingWindow(nums []int, k int) []int {
-	//return MaxSlidingWindowBySortSlice(nums, k)
+	// return MaxSlidingWindowBySortSlice(nums, k)
 	return MaxSlidingWindowByDqueue(nums, k)
 }
 
-//维护已排序的队列,这种方法不可取，因为要用到排序，并且还用到深复制，时间，空间都不好
+// 维护已排序的队列,这种方法不可取，因为要用到排序，并且还用到深复制，时间，空间都不好
 func MaxSlidingWindowBySortSlice(nums []int, k int) []int {
 	if k <= 0 || len(nums) <= 0 {
 		return nil

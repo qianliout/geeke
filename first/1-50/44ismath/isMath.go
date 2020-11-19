@@ -44,8 +44,8 @@ p = "a*c?b"
 */
 
 func main() {
-	//res := isMathisMatch("acdcb", "a*c?b")
-	//res := isMathisMatch("aa", "*")
+	// res := isMathisMatch("acdcb", "a*c?b")
+	// res := isMathisMatch("aa", "*")
 	res := isMathisMatch("adceb", "*a*b")
 	fmt.Println(res)
 }
@@ -81,10 +81,13 @@ func isMathisMatch2(s string, p string) bool {
 	return j == len(pp)
 }
 
+// dp才是正解，上面的贪心算法虽然也能得出答案，但是有点不好理解。
 func isMathisMatch(s, p string) bool {
 	if len(p) == 0 {
 		return len(s) == 0
 	}
+
+	// dp[i][j]表示，s前i个字符对应p的j个字符的结果
 	dp := make(map[int]map[int]bool)
 	for i := 0; i <= len(s); i++ {
 		dp[i] = make(map[int]bool)
