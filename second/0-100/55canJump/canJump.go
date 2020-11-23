@@ -29,7 +29,7 @@ func canJump(nums []int) bool {
 	if len(nums) == 0 {
 		return true
 	}
-	// dp当这个小人走到i这个位置时，还可以最前进多少步
+	// 指针指向i时，dp这个小人走到的位置，如如小i,说明已不能走到i了，
 	dp := make(map[int]int)
 
 	for i := 0; i < len(nums); i++ {
@@ -50,7 +50,7 @@ func canJump2(nums []int) bool {
 	if len(nums) == 0 {
 		return true
 	}
-	step := 0 // 表法还能前进多少步
+	step := 0 // 表示还能前进多少步
 	for i := 0; i < len(nums)-1; i++ {
 		step = Max(step-1, nums[i])
 		if step == 0 {

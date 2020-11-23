@@ -17,9 +17,9 @@ func main() {
 	fmt.Println(obj.FindMedian())
 	obj.AddNum(0)
 	fmt.Println(obj.FindMedian())
-	//obj.AddNum(3)
+	// obj.AddNum(3)
 
-	//fmt.Println(obj.FindMedian())
+	// fmt.Println(obj.FindMedian())
 }
 
 /*
@@ -41,19 +41,19 @@ findMedian() -> 2
     如果数据流中 99% 的整数都在 0 到 100 范围内，你将如何优化你的算法？
 */
 // 使用数组实现，插入排序 fixme 插入排序的代码没有写对，要要自己的模板
-//type MedianFinder struct {
+// type MedianFinder struct {
 //	Data []int
-//}
+// }
 
 /** initialize your data structure here. */
-//func Constructor() MedianFinder {
+// func Constructor() MedianFinder {
 //	m := new(MedianFinder)
 //	m.Data = make([]int, 0)
 //
 //	return *m
-//}
+// }
 //
-//func (this *MedianFinder) AddNum(num int) {
+// func (this *MedianFinder) AddNum(num int) {
 //	n := len(this.Data) - 1
 //	left, right := 0, n
 //	index := 0
@@ -86,9 +86,9 @@ findMedian() -> 2
 //	values = append(values, num)
 //	values = append(values, this.Data[index:]...)
 //	this.Data = values
-//}
+// }
 //
-//func (this *MedianFinder) FindMedian() float64 {
+// func (this *MedianFinder) FindMedian() float64 {
 //	n := len(this.Data)
 //	if n == 0 {
 //		return 0
@@ -99,7 +99,7 @@ findMedian() -> 2
 //		left, right := (n-1)/2, n/2
 //		return float64(this.Data[left]+this.Data[right]) / 2
 //	}
-//}
+// }
 
 // 使用两个堆,这个代码可以优化，因为对于大顶堆index=0是最大值，对于小顶堆index=0就是最小值
 type MedianFinder struct {
@@ -114,6 +114,8 @@ func Constructor() MedianFinder {
 	m.RightData = make(heap2.MinHeap, 0)
 	return *m
 }
+
+// 右边最多比左边多一个
 func (this *MedianFinder) FindMedian() float64 {
 	if len(this.RightData) > len(this.LeftData) {
 		return float64(this.RightData[0])
@@ -123,7 +125,7 @@ func (this *MedianFinder) FindMedian() float64 {
 }
 
 func (this *MedianFinder) AddNum(num int) {
-	// 原则上右比左多一个，所以首先加到右边
+	// 原则上右比左多一个，所以首先加到右边,这是这道题的主要点
 	if len(this.RightData) == 0 || this.RightData[0] <= num {
 		heap.Push(&this.RightData, num)
 	} else {

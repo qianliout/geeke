@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	//nums := []int{1, 3, 2}
-	//nums := []int{2, 3, 1, 4, 4}
+	// nums := []int{1, 3, 2}
+	// nums := []int{2, 3, 1, 4, 4}
 	nums := []int{7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3}
 	res := jump2(nums)
 	fmt.Println("res is ", res)
@@ -29,11 +29,12 @@ func jump(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-	lenght := len(nums)
+	length := len(nums)
+	// dp[i]表示走到下标为i的这个元素的最小步数
 	dp := make(map[int]int)
 	dp[0], dp[1] = 0, 1
 
-	for i := 1; i < lenght; i++ {
+	for i := 1; i < length; i++ {
 		min := math.MaxInt64
 		for j := i - 1; j >= 0; j-- {
 			if i-j <= nums[j] && dp[j] < min {
@@ -42,10 +43,10 @@ func jump(nums []int) int {
 		}
 		dp[i] = min + 1
 	}
-	return dp[lenght-1]
+	return dp[length-1]
 }
 
-//直接跳 （贪心算法，也是双指针法）
+// 直接跳 （贪心算法，也是双指针法）
 func jump2(nums []int) int {
 	if len(nums) <= 1 {
 		return 0
@@ -61,7 +62,6 @@ func jump2(nums []int) int {
 			end = maxpos
 			res++
 		}
-
 	}
 
 	return res

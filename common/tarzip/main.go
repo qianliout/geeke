@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"time"
 )
 
@@ -88,21 +89,30 @@ type Request struct {
 	Asyn          bool   `json:"asyn"`
 }
 
-func main() {
-
-	u := Request{
-		EntID:         1,
-		Start:         "2006-01-02",
-		End:           "2006-01-02",
-		ExportContent: true,
-		ShowClue:      true,
-		MaxRow:        5000,
-		WorkerCount:   1,
-		DataSource:    2,
-		StartEntId:    0,
-		Asyn:          true,
+func MarshalReason(reason []int64) string {
+	res, err := json.Marshal(reason)
+	if err != nil || string(res) == "null" {
+		return "[]"
 	}
-	bytes, _ := json.Marshal(u)
+	return string(res)
+}
 
-	fmt.Println(string(bytes))
+func UnmarshalReason(reason string) []int64 {
+	list := make([]int64, 0)
+
+	err := json.Unmarshal([]byte(reason), &list)
+	if err != nil {
+		return []int64{}
+	}
+	return list
+}
+
+func main() {
+	s := MarshalReason([]int64{})
+	r := UnmarshalReason("null")
+	fmt.Println(s, r)
+	fmt.Println(math.MaxInt64)
+	fmt.Println(math.MinInt32)
+	fmt.Println(math.MaxInt64)
+	fmt.Println(math.MaxInt64)
 }

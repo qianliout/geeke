@@ -36,17 +36,18 @@ func topKFrequent(nums []int, k int) []int {
 	for _, num := range nums {
 		frequency[num] += 1
 	}
-	//fmt.Println(frequency)
+	// fmt.Println(frequency)
 	// 构建优先队列
 	pq := make(PriorityQueue, 0)
 	for i, v := range frequency {
 		heap.Push(&pq, &IntItem{Value: i, Priority: v})
 	}
-	//for _, v := range pq {
+	// for _, v := range pq {
 	//	fmt.Println(v.Key, v.Priority)
-	//}
+	// }
 
 	for i := 0; i < k; i++ {
+		// value:=heap.Pop(&pq).(*IntItem).Value
 		value := heap.Remove(&pq, 0).(*IntItem).Value
 		res = append(res, value)
 	}
