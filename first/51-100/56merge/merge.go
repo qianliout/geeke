@@ -40,7 +40,7 @@ func merge(intervals [][]int) [][]int {
 }
 
 func merge2(intervals [][]int) [][]int {
-	//先排序
+	// 先排序
 	sort.Sort(Tupe(intervals))
 	start := 1
 

@@ -9,7 +9,7 @@ import (
 func main() {
 	nums := []int{15252, 16764, 27963, 7817, 26155, 20757, 3478, 22602, 20404, 6739, 16790, 10588, 16521, 6644, 20880, 15632, 27078, 25463, 20124, 15728, 30042, 16604, 17223, 4388, 23646, 32683, 23688, 12439, 30630, 3895, 7926, 22101, 32406, 21540, 31799, 3768, 26679, 21799, 23740}
 	res := maximumGap(nums)
-	fmt.Println("res is ", res) //2901
+	fmt.Println("res is ", res) // 2901
 }
 
 /*
@@ -45,7 +45,7 @@ func maximumGap(nums []int) int {
 	return res
 }
 
-//这里并不是要实质的全部排序，只是求一个最大差值，所以可以使用桶排序的思想
+// 这里并不是要实质的全部排序，只是求一个最大差值，所以可以使用桶排序的思想
 /*
 划定了箱子范围后，我们其实很容易把数字放到箱子中，通过 (nums[i] - min) / interval 即可得到当前数字应该放到的箱子编号。
 那么最主要的问题其实就是怎么去确定 interval。
@@ -114,12 +114,12 @@ func maximumGap2(nums []int) int {
 		preMax = maxMap[i]
 	}
 
-	//最大值可能处于边界，不在箱子中，需要单独考虑
+	// 最大值可能处于边界，不在箱子中，需要单独考虑
 	if max-preMax > res {
 		res = max - preMax
 	}
-	//fmt.Println(":max ", maxMap)
-	//fmt.Println(":min ", minMap)
+	// fmt.Println(":max ", maxMap)
+	// fmt.Println(":min ", minMap)
 
 	return res
 }

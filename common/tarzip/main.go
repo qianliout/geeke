@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"math"
 	"time"
 )
 
@@ -97,6 +96,36 @@ func MarshalReason(reason []int64) string {
 	return string(res)
 }
 
+// 二级词库表(分类表)
+// nolint:maligned
+type CategoryReq struct {
+	Id              int64   `json:"id"`
+	Ids             []int64 `json:"ids"`
+	Name            string  `json:"name"`             // 词库名
+	FirstCategory   int64   `json:"first_category"`   // 对应的一级词库名
+	FirstCategories []int64 `json:"first_categories"` // 对应的一级词库名
+	Product         string  `kok:"header.Captcha-Needed" json:"product"`
+	Weight          int8    `json:"weight"` // 权重
+
+	PageIndex int `json:"page_index"`
+	PageSize  int `json:"page_size"`
+}
+
+type AuditWordReq struct {
+	Ids             []int64  `json:"ids"`
+	Product         string   `json:"product"`          // 产品线，来鼓还是美洽
+	Names           []string `json:"names"`            // 敏感词
+	Name            string   `json:"name"`             // 敏感词
+	FirstCategory   int64    `json:"first_category"`   // 对应的一级词库名
+	FirstCategories []int64  `json:"first_categories"` // 对应的一级词库名
+	Category        int64    `json:"category"`         // 对应的二级词库名
+	Status          string   `json:"status"`           // 当前状态，是否审批通过
+	AddReason       string   `json:"add_reason"`       // 备注，添加信息
+
+	PageIndex int `json:"page_index"`
+	PageSize  int `json:"page_size"`
+}
+
 func UnmarshalReason(reason string) []int64 {
 	list := make([]int64, 0)
 
@@ -108,11 +137,31 @@ func UnmarshalReason(reason string) []int64 {
 }
 
 func main() {
-	s := MarshalReason([]int64{})
-	r := UnmarshalReason("null")
-	fmt.Println(s, r)
-	fmt.Println(math.MaxInt64)
-	fmt.Println(math.MinInt32)
-	fmt.Println(math.MaxInt64)
-	fmt.Println(math.MaxInt64)
+	c := CategoryReq{
+		Id:              1,
+		Ids:             []int64{1, 2, 3},
+		Name:            "helloword",
+		FirstCategory:   1,
+		FirstCategories: []int64{1, 2, 3},
+		Product:         "meiqia",
+		Weight:          20,
+	}
+
+	w := AuditWordReq{
+		Ids:             []int64{1, 2, 3},
+		Product:         "meiqia",
+		Names:           []string{"hellwword", "jhelloword"},
+		Name:            "你好",
+		FirstCategory:   1,
+		FirstCategories: []int64{1, 2, 3},
+		Category:        4,
+		Status:          "pending",
+		AddReason:       "就是想添加了",
+	}
+
+	cc, _ := json.Marshal(c)
+	ww, _ := json.Marshal(w)
+	fmt.Println(string(cc))
+	fmt.Println(string(ww))
+
 }

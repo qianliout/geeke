@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 /*
@@ -52,4 +53,52 @@ func insert(intervals [][]int, newInterval []int) [][]int {
 		idx++
 	}
 	return output
+}
+
+// 这种方法才是正解
+func insert2(intervals [][]int, newInterval []int) [][]int {
+	intervals = append(intervals, newInterval)
+	return merge(intervals)
+}
+
+type Item [][]int
+
+func (item Item) Len() int {
+	return len(item)
+}
+
+func (item Item) Less(i, j int) bool {
+	if item[i][0] < item[j][0] {
+		return true
+	} else if item[i][0] == item[j][0] {
+		if item[i][1] < item[j][1] {
+			return true
+		}
+	}
+	return false
+}
+
+func (item Item) Swap(i, j int) {
+	item[i], item[j] = item[j], item[i]
+}
+
+func merge(intervals [][]int) [][]int {
+	sort.Sort(Item(intervals))
+
+	res := make([][]int, 0)
+	i := 0
+	for i < len(intervals) {
+		start := intervals[i][0]
+		end := intervals[i][1]
+		i++
+		for i < len(intervals) && end >= intervals[i][0] {
+			if intervals[i][1] > end {
+				end = intervals[i][1]
+			}
+			i++
+		}
+		res = append(res, []int{start, end})
+	}
+
+	return res
 }

@@ -7,8 +7,8 @@ import (
 func main() {
 	gas := []int{3, 3, 4}
 	cost := []int{3, 4, 4}
-	//gas := []int{5, 1, 2, 3, 4}
-	//cost := []int{4, 4, 1, 5, 1}
+	// gas := []int{5, 1, 2, 3, 4}
+	// cost := []int{4, 4, 1, 5, 1}
 	res := canCompleteCircuit(gas, cost)
 	fmt.Println("res is ", res)
 }

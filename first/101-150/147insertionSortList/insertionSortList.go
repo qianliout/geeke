@@ -26,10 +26,8 @@ func insertionSortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-
-	dump := new(ListNode)
+	dump := new(ListNode) // 维护一个已排序的一个List
 	for head != nil {
-
 		curr := head
 		head = head.Next
 		p := search(dump, curr)
@@ -39,7 +37,6 @@ func insertionSortList(head *ListNode) *ListNode {
 	}
 	return dump.Next
 }
-
 
 // 返回插入节点插入位置的前一个节点
 func search(head, node *ListNode) *ListNode {

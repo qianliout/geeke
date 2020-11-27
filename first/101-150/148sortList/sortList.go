@@ -22,7 +22,7 @@ func main() {
 输入: -1->5->3->4->0
 输出: -1->0->3->4->5
 */
-//使用归并排序
+// 使用归并排序
 func sortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -63,7 +63,42 @@ func sortList(head *ListNode) *ListNode {
 	return dump.Next
 }
 
-//归并排序-迭代法
+// 归并排序-迭代法
 func sortList2(head *ListNode) *ListNode {
 	return nil
+}
+
+func sortList3(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	slow, fast := head, head.Next
+	for fast != nil && fast.Next != nil {
+		slow, fast = slow.Next, fast.Next.Next
+	}
+	// 切开链表
+	mid := slow.Next
+	slow.Next = nil
+	left, right := sortList3(head), sortList3(mid)
+	// 然后开始归并
+	dump := new(ListNode)
+	curr := dump
+	for left != nil && right != nil {
+		if left.Val < right.Val {
+			curr.Next = left
+			left = left.Next
+		} else {
+			curr.Next = right
+			right = right.Next
+		}
+		curr = curr.Next
+	}
+	// 把剩下的加进去
+	if left != nil {
+		curr.Next = left
+	}
+	if right != nil {
+		curr.Next = right
+	}
+	return dump.Next
 }
