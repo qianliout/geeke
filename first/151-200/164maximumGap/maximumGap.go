@@ -7,8 +7,9 @@ import (
 )
 
 func main() {
-	nums := []int{15252, 16764, 27963, 7817, 26155, 20757, 3478, 22602, 20404, 6739, 16790, 10588, 16521, 6644, 20880, 15632, 27078, 25463, 20124, 15728, 30042, 16604, 17223, 4388, 23646, 32683, 23688, 12439, 30630, 3895, 7926, 22101, 32406, 21540, 31799, 3768, 26679, 21799, 23740}
-	res := maximumGap(nums)
+	// nums := []int{15252, 16764, 27963, 7817, 26155, 20757, 3478, 22602, 20404, 6739, 16790, 10588, 16521, 6644, 20880, 15632, 27078, 25463, 20124, 15728, 30042, 16604, 17223, 4388, 23646, 32683, 23688, 12439, 30630, 3895, 7926, 22101, 32406, 21540, 31799, 3768, 26679, 21799, 23740}
+	nums := []int{3, 6, 9, 1}
+	res := maximumGap3(nums)
 	fmt.Println("res is ", res) // 2901
 }
 
@@ -120,6 +121,58 @@ func maximumGap2(nums []int) int {
 	}
 	// fmt.Println(":max ", maxMap)
 	// fmt.Println(":min ", minMap)
+
+	return res
+}
+
+// 这种方法，用len(num)+1个桶，在常规情况下可以得到正确的解，但是在一些情况下是得不到解的
+// 1,[1,10000] 2,[1,1,1,1,1,1]
+func maximumGap3(nums []int) int {
+	if len(nums) <= 1 {
+		return 0
+	}
+
+	max, min := math.MinInt64, math.MaxInt64
+	for _, n := range nums {
+		if n > max {
+			max = n
+		}
+		if n < min {
+			min = n
+		}
+	}
+	// 这里设定有len(nums)+1个桶
+
+	gap := int(math.Ceil(float64(max-min) / (float64(len(nums) + 1))))
+	// gap := 2
+	// 不是真正放入桶中，只是记录各个桶中的最大值，最小值
+	maxMap := make(map[int]int)
+	minMap := make(map[int]int)
+	for i := 0; i < len(nums)+1; i++ {
+		maxMap[i] = math.MinInt64
+		minMap[i] = math.MaxInt64
+	}
+
+	for _, n := range nums {
+		index := (n - min) / gap
+		if maxMap[index] < n {
+			maxMap[index] = n
+		}
+		if minMap[index] > n {
+			minMap[index] = n
+		}
+	}
+	// 找到最大的间隔，最大的间隔就在两个桶之间
+	res, pre := 0, min
+	for i := 0; i < len(nums)+1; i++ {
+		if maxMap[i] == math.MinInt64 {
+			continue // 说明这个桶没有值
+		}
+		if minMap[i]-pre > res {
+			res = minMap[i] - pre
+		}
+		pre = maxMap[i]
+	}
 
 	return res
 }

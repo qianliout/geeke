@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	//nums := []int{1, 1, 2, 1, 2, 2, 1}
-	//nums := []int{1, 5, 1, 1, 6, 4}
+	// nums := []int{1, 1, 2, 1, 2, 2, 1}
+	// nums := []int{1, 5, 1, 1, 6, 4}
 	nums := []int{1, 3, 2, 2, 3, 1}
 	wiggleSort2(nums)
 }
@@ -37,7 +37,7 @@ func wiggleSort(nums []int) {
 		mid = (len(nums) - 1) / 2
 	}
 	// 这里是注意点，把数据反过来重新组,因为在极端情况下可能会出错
-	//https://leetcode-cn.com/problems/wiggle-sort-ii/solution/yi-bu-yi-bu-jiang-shi-jian-fu-za-du-cong-onlognjia/
+	// https://leetcode-cn.com/problems/wiggle-sort-ii/solution/yi-bu-yi-bu-jiang-shi-jian-fu-za-du-cong-onlognjia/
 	j := 0
 	n := len(nums)
 	for i := mid; i >= 0; i-- {
@@ -79,7 +79,7 @@ func wiggleSort2(nums []int) {
 		mid = (len(nums) - 1) / 2
 	}
 	// 这里是注意点，把数据反过来重新组,因为在极端情况下可能会出错
-	//https://leetcode-cn.com/problems/wiggle-sort-ii/solution/yi-bu-yi-bu-jiang-shi-jian-fu-za-du-cong-onlognjia/
+	// https://leetcode-cn.com/problems/wiggle-sort-ii/solution/yi-bu-yi-bu-jiang-shi-jian-fu-za-du-cong-onlognjia/
 	j := 0
 	n := len(nums)
 	for i := mid; i >= 0; i-- {

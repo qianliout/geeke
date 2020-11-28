@@ -39,11 +39,11 @@ func intersection(nums1 []int, nums2 []int) []int {
 	for k, _ := range map1 {
 		r := map2[k]
 		if r > 0 {
-			//v := int(math.Min(float64(v), float64(r)))
-			//for i := 1; i <= v; i++ {
+			// v := int(math.Min(float64(v), float64(r)))
+			// for i := 1; i <= v; i++ {
 			res = append(res, k)
 		}
-		//}
+		// }
 	}
 	return res
 }

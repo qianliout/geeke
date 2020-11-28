@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	fmt.Println("ehllo ", "400">"30")
+	fmt.Println("ehllo ", "400" > "30")
 
 	nums := []int{2, 0, 20}
-	//nums := []int{10, 2}
-	//nums := []int{128, 12}
+	// nums := []int{10, 2}
+	// nums := []int{128, 12}
 	res := largestNumber(nums)
 	fmt.Println("res is ", res)
 }
@@ -37,7 +37,7 @@ func largestNumber(nums []int) string {
 		s = append(s, numstr)
 	}
 	sort.Sort(s)
-	//fmt.Println(s)
+	// fmt.Println(s)
 	if s[0] == "0" {
 		return "0"
 	}

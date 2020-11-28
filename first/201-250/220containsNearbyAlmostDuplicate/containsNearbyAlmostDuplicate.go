@@ -47,8 +47,8 @@ func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 			return true
 		}
 		bucket[nth] = nums[i]
-		//fmt.Println("bucket is ", bucket)
-		// 把距离超过k之后的数据删除,这里删除的目的主要是为了每一个存在的判断,如果不删除,上面就要使用循环 
+		// fmt.Println("bucket is ", bucket)
+		// 把距离超过k之后的数据删除,这里删除的目的主要是为了每一个存在的判断,如果不删除,上面就要使用循环
 		if i >= k {
 			delete(bucket, nums[i-k]/(t+1))
 		}
