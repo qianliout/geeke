@@ -22,7 +22,7 @@ func main() {
 链接：https://leetcode-cn.com/problems/majority-element
 */
 func majorityElement(nums []int) int {
-	//return findUseMap(nums)
+	// return findUseMap(nums)
 	return find3(nums)
 }
 func findUseMap(nums []int) int {
@@ -36,7 +36,7 @@ func findUseMap(nums []int) int {
 	return 0
 }
 
-//摩尔投票法思路
+// 摩尔投票法思路
 func find2(nums []int) int {
 	var candidate int
 	var count int = 0
@@ -50,11 +50,13 @@ func find2(nums []int) int {
 			count -= 1
 		}
 	}
+	// 摩尔投票法还有一步是进行检测，这个数是否超过一半，因为题目中说了一定存在，所以就少了这一步检查
 	return candidate
 }
 
 /*
 由于众数数组中出现次数大于n/2 ，那么众数对应的二进制每一个为1的位数出现的次数一定大于n/2，由此可以得出众数
+这个方法可以得到正确的结果，但是不容易想到
 */
 func find3(nums []int) int {
 	result := 0

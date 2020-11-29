@@ -26,7 +26,7 @@ func insertionSortList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	dump := new(ListNode) // 维护一个已排序的一个List
+	dump := new(ListNode) // 维护了一个已排序的一个List
 	for head != nil {
 		curr := head
 		head = head.Next

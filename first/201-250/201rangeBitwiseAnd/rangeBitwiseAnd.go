@@ -25,7 +25,7 @@ func rangeBitwiseAnd(m int, n int) int {
 	return find3(m, n)
 }
 
-//结果正确，但是会超时
+// 结果正确，但是会超时
 func iteration(m, n int) int {
 	res := m
 
@@ -39,7 +39,7 @@ func iteration(m, n int) int {
 	return res
 }
 
-//https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--41/
+// https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--41/
 func find2(m, n int) int {
 	right := 0
 

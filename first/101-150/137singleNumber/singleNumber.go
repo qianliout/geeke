@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	//nums := []int{20, 2, 2, 2, 3, 3, 3}
+	// nums := []int{20, 2, 2, 2, 3, 3, 3}
 	nums := []int{-1, -1, -1, -2}
 	res := singleNumber(nums)
 	fmt.Println("res is ", res)
