@@ -28,7 +28,7 @@ func findMaximumXOR(nums []int) int {
 	return find(nums)
 }
 
-//https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/solution/li-yong-yi-huo-yun-suan-de-xing-zhi-tan-xin-suan-f/
+// https://leetcode-cn.com/problems/maximum-xor-of-two-numbers-in-an-array/solution/li-yong-yi-huo-yun-suan-de-xing-zhi-tan-xin-suan-f/
 func find(nums []int) int {
 	res := 0
 	mask := 0

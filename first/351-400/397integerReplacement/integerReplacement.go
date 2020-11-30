@@ -50,7 +50,7 @@ func integerReplacement(n int) int {
 			if n == 3 {
 				res++
 				n -= 1
-			} else if n&2 == 0 { //这里用位操作纯粹是炫技,目的就是 让每一步1的数目最少好处大，于是 0bxxx01 采用 -1； 0bxxx11 采用 +1；
+			} else if n&2 == 0 { // 这里用位操作纯粹是炫技,目的就是 让每一步1的数目最少好处大，于是 0bxxx01 采用 -1； 0bxxx11 采用 +1；
 				res++
 				n -= 1
 			} else {

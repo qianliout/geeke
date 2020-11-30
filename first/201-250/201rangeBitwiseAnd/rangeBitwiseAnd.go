@@ -40,6 +40,7 @@ func iteration(m, n int) int {
 }
 
 // https://leetcode-cn.com/problems/bitwise-and-of-numbers-range/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by--41/
+// 只要有一个为0，那么他和其他所有的数按位与都是0,所以这道题就变成了求公共的位前缀
 func find2(m, n int) int {
 	right := 0
 

@@ -36,3 +36,11 @@ func missingNumber(nums []int) int {
 	}
 	return diff
 }
+
+func missingNumber2(nums []int) int {
+	res := len(nums)
+	for i, n := range nums {
+		res = res ^ i ^ n
+	}
+	return res
+}

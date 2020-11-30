@@ -51,7 +51,7 @@ func maxProduct(words []string) int {
 
 // 判断是否有公共字母
 // 如果有重合，则返回true
-//最容易想到的办法是hash表，这里使用位操作,
+// 最容易想到的办法是hash表，这里使用位操作,
 func diff1(word1, word2 string) bool {
 	for _, i := range word1 {
 		for _, j := range word2 {

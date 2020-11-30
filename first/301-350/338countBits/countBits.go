@@ -27,11 +27,11 @@ func main() {
 // 首先想到的是循环计算
 // 另一种方法是dp
 func countBits(num int) []int {
-	//return find1(num)
+	// return find1(num)
 	return find3(num)
 }
 
-//dp 在已计算好的数字后面加一个1
+// dp 在已计算好的数字后面加一个1
 // dp[x] = dp[x/2]+ x%2 如果x是偶数，二倍只是在最后面加1，如果是奇数，x/2 则还要在最后面加1
 func find2(num int) []int {
 	res := make([]int, 0)
@@ -45,10 +45,9 @@ func find2(num int) []int {
 }
 
 // dp 通过在高位加1的方法，虽然该方法也可以，但是不直观
-//方法四：动态规划 + 最后设置位【通过】
-//最后设置位是从右到左第一个为1的位。使用 x &= x - 1 将该位设置为0，就可以得到以下状态转移函数：
-//P(x)=P(x&(x−1))+1
-
+// 方法四：动态规划 + 最后设置位【通过】
+// 最后设置位是从右到左第一个为1的位。使用 x &= x - 1 将该位设置为0，就可以得到以下状态转移函数：
+// P(x)=P(x&(x−1))+1
 func find3(num int) []int {
 	res := make([]int, 0)
 	dp := make(map[int]int)
