@@ -76,7 +76,7 @@ func BfsMaxDepth(root *treenode.TreeNode) int {
 	queue = append(queue, root)
 	max := 0
 	for len(queue) > 0 {
-		lenth := len(queue)
+		length := len(queue)
 		max += 1
 		for _, node := range queue {
 			if node.Left != nil {
@@ -86,7 +86,7 @@ func BfsMaxDepth(root *treenode.TreeNode) int {
 				queue = append(queue, node.Right)
 			}
 		}
-		queue = queue[lenth:]
+		queue = queue[length:]
 	}
 	return max
 }
@@ -99,7 +99,7 @@ func BfsMinDepth(root *treenode.TreeNode) int {
 	queue := make([]*treenode.TreeNode, 0)
 	queue = append(queue, root)
 	for len(queue) > 0 {
-		lenth := len(queue)
+		length := len(queue)
 		min += 1
 		for _, node := range queue {
 			if node.Right == nil && node.Left == nil {
@@ -112,11 +112,12 @@ func BfsMinDepth(root *treenode.TreeNode) int {
 				queue = append(queue, node.Right)
 			}
 		}
-		queue = queue[lenth:]
+		queue = queue[length:]
 	}
 	return min
 }
 
+// 最小深度，是根结点到节子结点，所以，一定不能像最大深度那样进行判断
 func DfsMinDepth(root *treenode.TreeNode) int {
 	if root == nil {
 		return 0

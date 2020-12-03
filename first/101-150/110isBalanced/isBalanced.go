@@ -13,8 +13,8 @@ func main() {
 	root.Left.Left = &TreeNode{Val: 3}
 	root.Left.Right = &TreeNode{Val: 4}
 
-	//root.Right = &TreeNode{Val: 5}
-	//root.Right.Right = &TreeNode{Val: 8}
+	// root.Right = &TreeNode{Val: 5}
+	// root.Right.Right = &TreeNode{Val: 8}
 
 	res := dept(&root, 0)
 	fmt.Println("res is ", res)
