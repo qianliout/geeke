@@ -7,8 +7,8 @@ import (
 func main() {
 	wordList := []string{"hot", "cog", "dot", "dog", "hit", "lot", "log"}
 	res := ladderLength("hit", "cog", wordList)
-	//wordList := []string{"peale", "wilts", "place", "fetch", "purer", "pooch", "peace", "poach", "berra", "teach", "rheum", "peach"}
-	//res := ladderLength("teach", "place", wordList)
+	// wordList := []string{"peale", "wilts", "place", "fetch", "purer", "pooch", "peace", "poach", "berra", "teach", "rheum", "peach"}
+	// res := ladderLength("teach", "place", wordList)
 	fmt.Println("res is ", res)
 }
 
@@ -71,7 +71,7 @@ func ladderLength2(beginWord string, endWord string, wordList []string) int {
 							return count + 1
 						}
 						if wordSet[string(firstS)] && !visited[string(firstS)] {
-							//fmt.Println("fisrtS is ", first, string(firstS))
+							// fmt.Println("fisrtS is ", first, string(firstS))
 							visited[string(firstS)] = true
 							temQueue = append(temQueue, string(firstS))
 						}
@@ -79,7 +79,7 @@ func ladderLength2(beginWord string, endWord string, wordList []string) int {
 				}
 			}
 		}
-		//fmt.Println("tem queue", temQueue)
+		// fmt.Println("tem queue", temQueue)
 		queue = temQueue
 		temQueue = make([]string, 0)
 		count++
@@ -87,7 +87,7 @@ func ladderLength2(beginWord string, endWord string, wordList []string) int {
 	return 0
 }
 
-// 方法二,双边dfs
+// 方法二,双边bfs
 func ladderLength(beginWord string, endWord string, wordList []string) int {
 	if len(wordList) == 0 {
 		return 0
@@ -125,7 +125,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 							return count + 1
 						}
 						if wordSet[string(firstS)] && !visited[string(firstS)] {
-							//fmt.Println("fisrtS is ", first, string(firstS))
+							// fmt.Println("fisrtS is ", first, string(firstS))
 							visited[string(firstS)] = true
 							temSet[string(firstS)] = true
 						}
@@ -133,7 +133,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 				}
 			}
 		}
-		//fmt.Println("tem queue", temSet)
+		// fmt.Println("tem queue", temSet)
 		beginSet = temSet
 		temSet = make(map[string]bool)
 		count++

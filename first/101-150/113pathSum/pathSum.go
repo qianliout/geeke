@@ -63,10 +63,10 @@ func help(root *TreeNode, used map[*TreeNode]bool, path []int, res *[][]int, n i
 	if !used[root] {
 		used[root] = true
 		path = append(path, root.Val)
-		//fmt.Println("path is ", path)
+		// fmt.Println("path is ", path)
 		if n-root.Val == 0 && (root.Left == nil && root.Right == nil) {
 			*res = append(*res, append([]int{}, path...))
-			return
+			return // 这个return可写可以不写，不影响
 		}
 		help(root.Left, used, path, res, n-root.Val)
 		help(root.Right, used, path, res, n-root.Val)

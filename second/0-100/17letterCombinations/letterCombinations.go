@@ -83,13 +83,13 @@ func usequeu(digits string) []string {
 	queue[0] = []byte{}
 	for i := 0; i < len(digits); i++ {
 		second := make([][]byte, 0)
-		leght := len(queue)
-		for j := 0; j < leght; j++ {
+		length := len(queue)
+		for j := 0; j < length; j++ {
 			q := queue[0]
 			queue = queue[1:]
 			for _, t := range digitsMap[digits[i]] {
 				s := append(q, t)
-				// 下面这一步是最容易出错的,因为，如果q,没有扩容的话，s用的是q的地址
+				// 下面这一步是最容易出错的,因为，如果q没有扩容的话，s用的是q的地址
 				second = append(second, append([]byte{}, s...))
 			}
 		}

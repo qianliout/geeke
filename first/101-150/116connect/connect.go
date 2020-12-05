@@ -35,6 +35,7 @@ func connect(root *Node) *Node {
 	return root
 }
 
+// 因为是完美二叉树
 func dfs(root, next *Node) {
 	if root != nil {
 		root.Next = next
@@ -48,16 +49,34 @@ func dfs(root, next *Node) {
 }
 
 func connect2(root *Node) *Node {
-	if root == nil {
+	if root == nil || (root.Left == nil && root.Right == nil) {
 		return root
 	}
-	if root.Left != nil {
+	if root.Left != nil && root.Right != nil {
 		root.Left.Next = root.Right
+		root.Right.Next = getNextNode(root)
 	}
-	if root.Next != nil {
-		root.Right.Next = root.Next.Right
+	if root.Left == nil && root.Right != nil {
+		root.Right.Next = getNextNode(root)
 	}
-	connect2(root.Left)
-	connect2(root.Right)
+	if root.Right == nil && root.Left != nil {
+		root.Left.Next = getNextNode(root)
+	}
+	// 这里要注意：先递归右子树，否则右子树根节点next关系没建立好，左子树到右子树子节点无法正确挂载
+	root.Right = connect2(root.Right)
+	root.Left = connect2(root.Left)
 	return root
+}
+
+func getNextNode(root *Node) *Node {
+	for root.Next != nil {
+		if root.Next.Left != nil {
+			return root.Next.Left
+		}
+		if root.Next.Right != nil {
+			return root.Next.Right
+		}
+		root = root.Next
+	}
+	return nil
 }

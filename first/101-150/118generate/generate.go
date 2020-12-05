@@ -45,13 +45,13 @@ func helper(src []int) []int {
 	}
 	n := len(src)
 	for i := 0; i <= n; i++ {
-		if i-1 < 0 {
+		if i == 0 {
 			res = append(res, src[i])
 		}
 		if i == n {
 			res = append(res, src[i-1])
 		}
-		if i-1 >= 0 && i != n {
+		if i > 0 && i < n {
 			res = append(res, src[i-1]+src[i])
 		}
 	}
