@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 
 	"outback/leetcode/common/unionfind"
 )
@@ -47,8 +46,8 @@ func solve(board [][]byte) {
 	n := len(board[0])
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {
+			// 从边界开始找
 			isEnd := i == 0 || i == m-1 || j == 0 || j == n-1
-
 			if isEnd && board[i][j] == 'O' {
 				DFS(&board, i, j)
 			}
@@ -71,7 +70,7 @@ func solve(board [][]byte) {
 	for _, nums := range board {
 		fmt.Println(string(nums))
 	}
-	//fmt.Println("res is ", board)
+	// fmt.Println("res is ", board)
 
 }
 
@@ -79,8 +78,6 @@ func DFS(board *[][]byte, col, row int) {
 	if row < 0 || row >= len((*board)[0]) || col < 0 || col >= len(*board) || (*board)[col][row] == 'X' || (*board)[col][row] == '#' {
 		return
 	}
-
-	runtime.GC()
 	(*board)[col][row] = '#'
 	DFS(board, col+1, row)
 	DFS(board, col-1, row)
@@ -88,8 +85,8 @@ func DFS(board *[][]byte, col, row int) {
 	DFS(board, col, row-1)
 }
 
-// 本题也可以使用迭代的方式，便是就没有递归代码容易理解
-
+// 本题也可以使用迭代的方式，但是就没有递归代码容易理解
+// 也就是并查集的解法
 func solve2(board [][]byte) {
 	if len(board) <= 1 || len(board[0]) <= 1 {
 		return
@@ -98,7 +95,7 @@ func solve2(board [][]byte) {
 	n := len(board[0])
 	uf := unionfind.NewUnionFind(m*n + 1) // 这里加一的目的是增加一个dump node
 	dummyNode := m * n
-	fmt.Println(uf)
+	// fmt.Println(uf)
 
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {
@@ -123,8 +120,8 @@ func solve2(board [][]byte) {
 			}
 		}
 	}
-	//fmt.Println(uf.Parent)
-	//fmt.Println(uf.Rank)
+	// fmt.Println(uf.Parent)
+	// fmt.Println(uf.Rank)
 
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {

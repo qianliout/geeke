@@ -32,7 +32,7 @@ type BSTIterator struct {
 func Constructor(root *TreeNode) BSTIterator {
 	stack := make([]int, 0)
 	inorder(root, &stack)
-	//sort.Ints(stack)
+	// sort.Ints(stack)
 	return BSTIterator{root: root, stack: stack}
 }
 

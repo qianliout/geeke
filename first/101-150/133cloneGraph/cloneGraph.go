@@ -24,10 +24,10 @@ class Node {
 
 func cloneGraph(node *Node) *Node {
 	lookup := make(map[*Node]*Node)
-
 	return dfs(node, &lookup)
 }
 
+//  dfs 返回node的深拷贝
 func dfs(node *Node, lookup *map[*Node]*Node) *Node {
 	if node == nil {
 		return nil
@@ -45,5 +45,4 @@ func dfs(node *Node, lookup *map[*Node]*Node) *Node {
 		nowNode.Neighbors = append(nowNode.Neighbors, dfs(n, lookup))
 	}
 	return nowNode
-
 }

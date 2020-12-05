@@ -15,7 +15,6 @@ func main() {
 	root.Left.Right = &TreeNode{Val: 5}
 	res := binaryTreePaths2(root)
 	fmt.Println(res)
-
 }
 
 /*
@@ -57,7 +56,7 @@ func binaryTreePaths(root *TreeNode) []string {
 
 func dfs(root *TreeNode, used map[*TreeNode]bool, path []int, res *[][]int) {
 	if root == nil {
-		//*res = append(*res, append([]int{}, path...))
+		// *res = append(*res, append([]int{}, path...))
 		return
 	}
 	if root.Left == nil && root.Right == nil {
@@ -80,25 +79,24 @@ func binaryTreePaths2(root *TreeNode) []string {
 	if root == nil {
 		return res
 	}
-	
+
 	if root.Left == nil && root.Right == nil {
 		res = append(res, strconv.Itoa(root.Val))
 		return res
 	}
-
 
 	left := binaryTreePaths2(root.Left)
 	right := binaryTreePaths2(root.Right)
 
 	for _, l := range left {
 		if len(l) > 0 {
-			res = append(res, strconv.Itoa(root.Val)+"->"+ l)
+			res = append(res, strconv.Itoa(root.Val)+"->"+l)
 		}
 	}
 
 	for _, r := range right {
 		if len(r) > 0 {
-			res = append(res, strconv.Itoa(root.Val)+"->"+ r)
+			res = append(res, strconv.Itoa(root.Val)+"->"+r)
 		}
 	}
 

@@ -8,10 +8,10 @@ import (
 
 func main() {
 	root := &TreeNode{Val: 1}
-	//root.Left = &TreeNode{Val: 2}
-	//root.Left.Right = &TreeNode{Val: 5}
-	//root.Right = &TreeNode{Val: 3}
-	//root.Right.Right = &TreeNode{Val: 4}
+	// root.Left = &TreeNode{Val: 2}
+	// root.Left.Right = &TreeNode{Val: 5}
+	// root.Right = &TreeNode{Val: 3}
+	// root.Right.Right = &TreeNode{Val: 4}
 	res := rightSideView2(root)
 	fmt.Println("res is ", res)
 }
@@ -30,7 +30,7 @@ func main() {
 链接：https://leetcode-cn.com/problems/binary-tree-right-side-view
 */
 
-//bfs
+// bfs
 func rightSideView(root *TreeNode) []int {
 	res := make([]int, 0)
 	if root == nil {

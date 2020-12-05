@@ -55,11 +55,9 @@ func numIslands(grid [][]byte) int {
 				if i > 0 && grid[i-1][j] == '1' {
 					uf.Union(i*row+j, (i-1)*row+j)
 				}
-
 				if i < col-1 && grid[i+1][j] == '1' {
 					uf.Union(i*row+j, (i+1)*row+j)
 				}
-
 				if j > 0 && grid[i][j-1] == '1' {
 					uf.Union(i*row+j, i*row+j-1)
 				}

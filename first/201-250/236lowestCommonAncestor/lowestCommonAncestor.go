@@ -45,3 +45,25 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 	return result
 }
+
+// 这种写法更直观
+func lowestCommonAncestor1(root, p, q *TreeNode) *TreeNode {
+	if root == nil || root == p || root == q {
+		return root
+	}
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
+	// 如果左边找不到，右边找到了，返回右边
+	if left == nil && right != nil {
+		return right
+	}
+	// 如果右边找不到，左边找到了，返回左边
+	if left != nil && right == nil {
+		return left
+	}
+	// 如果两边都找到了，那就返回root
+	if left != nil && right != nil {
+		return root
+	}
+	return nil
+}
