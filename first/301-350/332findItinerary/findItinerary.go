@@ -33,7 +33,6 @@ func main() {
 */
 
 func findItinerary(tickets [][]string) []string {
-
 	// 因为有同样的机票，所以只能用个数判断
 	pre := make(map[string]int, 0)
 	for _, t := range tickets {
@@ -59,15 +58,15 @@ func dfs(tickets [][]string, pre, used map[string]int, path []string, res *[]str
 		return
 	}
 
-	newpath := make([]string, 0)
+	newPath := make([]string, 0)
 	for _, t := range tickets {
 		if t[0] == last {
-			newpath = append(newpath, t[1])
+			newPath = append(newPath, t[1])
 		}
 	}
 
-	sort.Sort(Item(newpath))
-	for _, p := range newpath {
+	sort.Sort(Item(newPath))
+	for _, p := range newPath {
 		key := fmt.Sprintf("%s_%s", last, p)
 		if used[key] < pre[key] {
 			used[key]++

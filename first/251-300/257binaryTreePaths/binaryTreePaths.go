@@ -29,7 +29,6 @@ func main() {
   5
 输出: ["1->2->5", "1->3"]
 解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
-来源：力扣（LeetCode）
 */
 func binaryTreePaths(root *TreeNode) []string {
 	res := make([][]int, 0)

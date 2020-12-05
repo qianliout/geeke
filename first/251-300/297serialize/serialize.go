@@ -51,18 +51,16 @@ func Constructor() Codec {
 // 这道题,最后的几个Null可以不用去除,这样会好的多,这个就是一个完全二叉树,反序列化时就会好的很多,而且,也不用加前后的[ ]
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
-	//return rserialize(root, "")
+	// return rserialize(root, "")
 	return rserialize(root, "")
 }
 
 // Deserializes your encoded data to tree.
 func (this *Codec) deserialize(data string) *TreeNode {
 	// 先生成数组
-	//data = strings.Replace(data, "[", "", 1)
-	//data = strings.Replace(data, "]", "", 1)
 	queue := strings.Split(data, ",")
 	// bfs
-	//root := rdeserialize(&queue)
+	// root := rdeserialize(&queue)
 	root := bfsDeserialize(&queue)
 	return root
 }

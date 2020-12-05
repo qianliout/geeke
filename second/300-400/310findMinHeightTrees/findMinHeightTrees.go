@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -64,6 +65,7 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 			gre := inDegree[second]
 			for i, k := range gre {
 				if k == first {
+					// 这里使用到深复制
 					inDegree[second] = append(gre[:i], gre[i+1:]...)
 				}
 			}
@@ -75,4 +77,43 @@ func findMinHeightTrees(n int, edges [][]int) []int {
 		res = append(res, k)
 	}
 	return res
+}
+
+// 如果是返回任意一个的话，这种方法就可以
+func findMinHeightTrees2(n int, edges [][]int) []int {
+	ingree := make(map[int][]int)
+	for _, n := range edges {
+		ingree[n[0]] = append(ingree[n[0]], n[1])
+		ingree[n[1]] = append(ingree[n[1]], n[0])
+	}
+	// 再去个重排个序不就得了吗
+	number := make(map[int]int)
+	max := math.MinInt64
+	for n, m := range ingree {
+		ans := dup(m)
+		ingree[n] = ans
+		number[n] = len(ans)
+		if len(ans) > max {
+			max = len(ans)
+		}
+	}
+	ans := make([]int, 0)
+	for k, v := range number {
+		if v == max {
+			ans = append(ans, k)
+		}
+	}
+	return ans
+}
+
+func dup(pre []int) []int {
+	ans := make([]int, 0)
+	m := make(map[int]bool)
+	for _, n := range pre {
+		if !m[n] {
+			ans = append(ans, n)
+			m[n] = true
+		}
+	}
+	return ans
 }

@@ -1,8 +1,8 @@
-﻿package main
+package main
 
 import (
 	"fmt"
-	"math"
+	. "outback/leetcode/common"
 )
 
 func main() {
@@ -12,9 +12,9 @@ func main() {
 		{6, 6, 8},
 		{2, 1, 1},
 	}
-	
+
 	res := longestIncreasingPath(nums)
-	
+
 	fmt.Println("res is ", res)
 }
 
@@ -48,36 +48,37 @@ func longestIncreasingPath(matrix [][]int) int {
 	col := len(matrix)
 	// maxPath 表示i,j这个点所到到的最大长度，记忆化
 	maxPath := make(map[int]map[int]int)
-	
+
 	max := 1
 	for c := 0; c < col; c++ {
 		for r := 0; r < len(matrix[c]); r++ {
-			dfs(matrix, &maxPath, c, r, &max)
+			dfs(matrix, maxPath, c, r, &max)
 		}
 	}
 	return max
 }
 
-func dfs(matrix [][]int, maxPath *map[int]map[int]int, c, r int, max *int) int {
+func dfs(matrix [][]int, used map[int]map[int]int, c, r int, max *int) int {
 	dir := [][2]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
-	
-	if (*maxPath)[c] == nil {
-		(*maxPath)[c] = make(map[int]int)
+
+	if used[c] == nil {
+		used[c] = make(map[int]int)
 	}
-	if (*maxPath)[c][r] > 0 {
-		return (*maxPath)[c][r]
+	// 这一步,一是记录值，二是保证不重复
+	if used[c][r] > 0 {
+		return used[c][r]
 	}
-	(*maxPath)[c][r] = 1
+	used[c][r] = 1
 	for i := 0; i < 4; i++ {
 		newC := c + dir[i][0]
 		newR := r + dir[i][1]
-		
+
 		if inRange(matrix, newC, newR) && matrix[newC][newR] > matrix[c][r] {
-			(*maxPath)[c][r] = Max((*maxPath)[c][r], dfs(matrix, maxPath, newC, newR, max)+1)
+			used[c][r] = Max(used[c][r], dfs(matrix, used, newC, newR, max)+1)
 		}
 	}
-	*max = Max(*max, (*maxPath)[c][r])
-	return (*maxPath)[c][r]
+	*max = Max(*max, used[c][r])
+	return used[c][r]
 }
 
 func inRange(matric [][]int, c, r int) bool {
@@ -85,13 +86,4 @@ func inRange(matric [][]int, c, r int) bool {
 		return false
 	}
 	return true
-}
-func Max(nums ...int) int {
-	max := math.MinInt64
-	for _, num := range nums {
-		if num > max {
-			max = num
-		}
-	}
-	return max
 }
