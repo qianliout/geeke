@@ -39,28 +39,26 @@ func letterCombinations(digits string) []string {
 		used[i] = map[byte]bool{}
 	}
 
-	dfs(digits, 0, digitsMap, &used, []byte{}, &res)
+	dfs(digits, 0, digitsMap, used, []byte{}, &res)
 	return res
 }
 
-func dfs(digits string, n int, digitsMap map[byte][]byte, used *map[int]map[byte]bool, path []byte, res *[]string) {
+func dfs(digits string, n int, digitsMap map[byte][]byte, used map[int]map[byte]bool, path []byte, res *[]string) {
 	if len(path) == len(digits) && n >= len(digits) {
 		*res = append(*res, string(path))
 		return
 	}
 	for _, c := range digitsMap[digits[n]] {
-		if !(*used)[n][c] {
+		if !used[n][c] {
 			path = append(path, c)
-			(*used)[n][c] = true
+			used[n][c] = true
 			dfs(digits, n+1, digitsMap, used, path, res)
 			path = path[:len(path)-1]
-			(*used)[n][c] = false
+			used[n][c] = false
 		}
 	}
 }
 
-// 使用队列
-// 队列的方法
 // 我们也可以使用队列，先将输入的 digits 中第一个数字对应的每一个字母入队，
 // 然后将出队的元素与第二个数字对应的每一个字母组合后入队...直到遍历到 digits
 // 的结尾。最后队列中的元素就是所求结果。

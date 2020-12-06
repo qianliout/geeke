@@ -55,7 +55,6 @@ func build(postorder *[]int, leftIndex, rightIndex int, indexMap map[int]int) *T
 
 // 这才是这道题的正解，也是最好理解的答案
 func BuildTree(inorder []int, postorder []int) *TreeNode {
-
 	if len(postorder) == 0 || len(inorder) == 0 {
 		return nil
 	}

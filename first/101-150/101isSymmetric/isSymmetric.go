@@ -42,7 +42,6 @@ func isSymmetric(root *TreeNode) bool {
 	for len(queue) > 0 {
 		thisLeve := make([]*TreeNode, 0)
 		for _, n := range queue {
-
 			if n == nil {
 				continue
 			}

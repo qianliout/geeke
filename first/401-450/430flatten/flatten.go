@@ -50,6 +50,7 @@ func traverse(root *Node) []int {
 }
 
 // 用数组转成双向链表
+// 把数组转为双向链表的考法
 func construction(num []int) *Node {
 
 	dump := new(Node)

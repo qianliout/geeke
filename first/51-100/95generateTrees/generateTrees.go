@@ -64,3 +64,24 @@ func helper(start, end int) []*TreeNode {
 	}
 	return res
 }
+
+func dfs(start, end int) []*TreeNode {
+	var res []*TreeNode
+	if start > end {
+		res = append(res, nil)
+		return res
+	}
+	for i := start; i <= end; i++ {
+		left := dfs(start, i-1)
+		right := dfs(i+1, end)
+		for _, l := range left {
+			for _, r := range right {
+				node := TreeNode{Val: i}
+				node.Left = l
+				node.Right = r
+				res = append(res, &node)
+			}
+		}
+	}
+	return res
+}
