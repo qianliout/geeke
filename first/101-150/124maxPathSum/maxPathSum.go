@@ -9,11 +9,11 @@ import (
 
 func main() {
 
-	//root := &TreeNode{Val: -10}
-	//root.Left = &TreeNode{Val: 9}
-	//root.Right = &TreeNode{Val: 20}
-	//root.Right.Left = &TreeNode{Val: 15}
-	//root.Right.Right = &TreeNode{Val: 7}
+	// root := &TreeNode{Val: -10}
+	// root.Left = &TreeNode{Val: 9}
+	// root.Right = &TreeNode{Val: 20}
+	// root.Right.Left = &TreeNode{Val: 15}
+	// root.Right.Right = &TreeNode{Val: 7}
 
 	root := &TreeNode{Val: 1}
 	root.Left = &TreeNode{Val: -1}
@@ -40,7 +40,7 @@ func main() {
    15   7
 输出: 42
 */
-//var res int
+// var res int
 
 func maxPathSum(root *TreeNode) int {
 	// 一定要先赋值，可能出现的一种情况是，只有root一个结点，并且值为负，
@@ -49,6 +49,7 @@ func maxPathSum(root *TreeNode) int {
 	return res
 }
 
+// Dfs 的返回值表示走到root这个节点并选中root这个节点的最大值
 func Dfs(root *TreeNode, res *int) int {
 	if root == nil {
 		return 0

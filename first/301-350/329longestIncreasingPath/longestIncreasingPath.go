@@ -46,7 +46,7 @@ func longestIncreasingPath(matrix [][]int) int {
 		return 0
 	}
 	col := len(matrix)
-	// maxPath 表示i,j这个点所到到的最大长度，记忆化
+	// maxPath 表示i,j这个点所得到的最大长度，记忆化
 	maxPath := make(map[int]map[int]int)
 
 	max := 1
@@ -58,6 +58,7 @@ func longestIncreasingPath(matrix [][]int) int {
 	return max
 }
 
+// dfs函数表示大c,r这个点开始，所能得到的最大值，这道题和 [124. 二叉树中的最大路径和]解法是一样的
 func dfs(matrix [][]int, used map[int]map[int]int, c, r int, max *int) int {
 	dir := [][2]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
 
@@ -81,8 +82,8 @@ func dfs(matrix [][]int, used map[int]map[int]int, c, r int, max *int) int {
 	return used[c][r]
 }
 
-func inRange(matric [][]int, c, r int) bool {
-	if c < 0 || r < 0 || c >= len(matric) || r >= len(matric[0]) {
+func inRange(matrix [][]int, c, r int) bool {
+	if c < 0 || r < 0 || c >= len(matrix) || r >= len(matrix[0]) {
 		return false
 	}
 	return true
