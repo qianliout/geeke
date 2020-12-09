@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	//nums := []int{1, 2, 0, 1}
+	// nums := []int{1, 2, 0, 1}
 	nums := []int{100, 4, 200, 1, 3, 2}
 	res := longestConsecutive3(nums)
 	fmt.Println("res is ", res)
@@ -24,7 +24,7 @@ func main() {
 解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
 链接：https://leetcode-cn.com/problems/longest-consecutive-sequence
 */
-//方法一，排序会超过时间限制
+// 方法一，排序会超过时间限制
 func longestConsecutive(nums []int) int {
 
 	sort.Ints(nums)
@@ -88,8 +88,17 @@ func longestConsecutive3(nums []int) int {
 
 	m := make(map[int]int)
 
+	max := math.MinInt64
+	min := math.MaxInt64
+
 	for _, num := range nums {
 		m[num]++
+		if num > max {
+			max = num
+		}
+		if num < min {
+			min = num
+		}
 	}
 	ans := 0
 

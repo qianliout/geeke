@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
+	"math"
+	"sort"
 	"strconv"
 )
 
 func main() {
-
+	fmt.Println(nextGreaterElement(1999999999))
 }
 
 /*
@@ -27,28 +30,48 @@ func main() {
 依次出栈，并将栈顶元素的索引保存下来，从而找到低位比当前元素大的最小值所在的位置idx，将两个元素交换。然后从i+ 1开始，进行从小到大排序。即可得到答案。
 */
 func nextGreaterElement(n int) int {
-	nums := make([]int, 0)
-	s := []byte(strconv.Itoa(n))
-	for i := range s {
-		nums = append(nums, int(s[i]-'0'))
-	}
+	ss := []byte(strconv.Itoa(n))
 	stark := make([]int, 0)
-	i := len(nums) - 1
+	// 找到要交换的第一个
+	i, idx := len(ss)-1, 0
 	for i >= 0 {
-		if len(stark) == 0 {
-			stark = append(stark, i)
-		} else {
-			if nums[i] >= stark[len(stark)] {
-				stark = append(stark, i)
-			} else {
-				break
-			}
+		for len(stark) > 0 && ss[i] < ss[stark[len(stark)-1]] {
+			idx = stark[len(stark)-1]
+			stark = stark[:len(stark)-1]
 		}
+		// 如果前面有比后面小的数，就交换了
+		if idx > 0 {
+			ss[i], ss[idx] = ss[idx], ss[i]
+			break
+		}
+		stark = append(stark, i)
 		i--
 	}
-	if i == 0 {
+	// 再排序后面的
+	if idx == 0 {
 		return -1
 	}
-	//
+	// fmt.Println("ss ", string(ss), i, idx)
+	sort.Sort(item(ss[i+1:]))
+	// fmt.Println("ss ", string(ss), i, idx)
+	n, err := strconv.Atoi(string(ss))
+	if err != nil || n > math.MaxInt32 {
+		return -1
+	}
+	return n
+}
 
+type item []byte
+
+func (it item) Len() int {
+	return len(it)
+
+}
+
+func (it item) Less(i, j int) bool {
+	return it[i] < it[j]
+}
+
+func (it item) Swap(i, j int) {
+	it[i], it[j] = it[j], it[i]
 }
