@@ -50,11 +50,11 @@ func help(root *TreeNode, ans *int) int {
 	if root.Left != nil && root.Left.Val == root.Val && root.Right != nil && root.Right.Val == root.Val {
 		*ans = Max(*ans, left+right+2)
 	}
-	// 左边相等，右边不等
+	// 左边相等,就先计算左边
 	if root.Left != nil && root.Left.Val == root.Val {
 		res = left + 1
 	}
-	// 右边相等，左边不等
+	// 右边相等，再看右边
 	if root.Right != nil && root.Right.Val == root.Val {
 		res = Max(res, right+1)
 	}

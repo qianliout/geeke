@@ -22,7 +22,7 @@ func validPalindrome(s string) bool {
 	ss := []byte(s)
 	for i := 0; i <= len(s)/2; i++ {
 		if ss[i] != ss[len(ss)-1-i] {
-			fmt.Println(i, string(ss[:i])+string(ss[i+1:]), string(ss[:len(ss)-1-i])+string(ss[len(ss)-1-i+1:]))
+			// fmt.Println(i, string(ss[:i])+string(ss[i+1:]), string(ss[:len(ss)-1-i])+string(ss[len(ss)-1-i+1:]))
 			return valid(string(ss[:i])+string(ss[i+1:])) ||
 				valid(string(ss[:len(ss)-1-i])+string(ss[len(ss)-1-i+1:]))
 		}

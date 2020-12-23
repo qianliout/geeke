@@ -18,9 +18,9 @@ func findNumberOfLIS(nums []int) int {
 	if len(nums) <= 1 {
 		return len(nums)
 	}
-	// dp[i]表示以ii位置结尾，即nums[i]nums[i]值结尾的，最长连续递增序列的长度
+	// dp[i]表示以i位置结尾，即nums[i]nums[i]值结尾的，最长连续递增序列的长度
 	dp := make([]int, len(nums))
-	// counter[i]表示以ii位置结尾的最长连续递增序列的个数
+	// counter[i]表示以i位置结尾的最长连续递增序列的个数
 	counter := make([]int, len(nums))
 	for i := 0; i < len(nums); i++ {
 		dp[i] = 1
