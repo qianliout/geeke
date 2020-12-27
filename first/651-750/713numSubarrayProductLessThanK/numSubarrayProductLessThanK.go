@@ -70,7 +70,7 @@ func window(nums []int, k int) int {
 	res, left, right, sum := 0, 0, 0, 1
 	for right < len(nums) {
 		sum *= nums[right]
-		// 这里有没有left<=right这个条件都行，是为什么呢?
+		// 这里有没有left<=right这个条件都行，是为什么呢?,因为当left>right时，sum>=k这个条件一定不成立了
 		for sum >= k && left <= right {
 			sum /= nums[left]
 			left++
