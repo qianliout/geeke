@@ -34,7 +34,7 @@ func Constructor() MyCalendar {
 func (this *MyCalendar) Book(start int, end int) bool {
 	// 查看是否有相交
 	for _, bk := range this.timer {
-		if bk[0] >= end || bk[1] < start {
+		if bk[0] >= end || bk[1] <= start {
 			continue
 		} else {
 			return false
