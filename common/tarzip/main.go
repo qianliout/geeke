@@ -1,22 +1,16 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
 )
 
 func main() {
-	s := ResrictResource{
-		Id:         3,
-		EntId:      34,
-		Value:      "hellowrod",
-		SourceType: 12,
-		Product:    "meiqia",
-	}
-	bytes, _ := json.Marshal(s)
-
-	fmt.Println(string(bytes))
+	a := []int{2, 3}
+	b := make([]int, 2)
+	copy(b, a)
+	b[1] = 5
+	fmt.Println(a, b)
 }
 
 // 限制资源

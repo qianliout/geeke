@@ -1,7 +1,12 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
-	
+	fligs := [][]int{{1, 2, 10}, {2, 0, 7}, {1, 3, 8}, {4, 0, 10}, {3, 4, 2}, {4, 2, 10}, {0, 3, 3}, {3, 1, 6}, {2, 4, 5}}
+	fmt.Println(findCheapestPrice(5, fligs, 0, 4, 1))
 }
 
 /*
@@ -31,5 +36,34 @@ k 范围是 [0, n - 1]
 航班没有重复，且不存在自环
 */
 func findCheapestPrice(n int, flights [][]int, src int, dst int, K int) int {
+	//  dist保存src到各个节点的花费
+	dist := make([]int, n)
+	inf := 2 * n * 10000
+	for i := range dist {
+		dist[i] = inf
+	}
 
+	for _, f := range flights {
+		if f[0] == src {
+			dist[f[1]] = f[2]
+		}
+	}
+	for i := 0; i < K; i++ {
+		dp := make([]int, n)
+		// 这里为什么在用到copy呢
+		copy(dp, dist)
+		for _, f := range flights {
+			u, v, w := f[0], f[1], f[2]
+			// 为什么要在上面赋一个最大值呢，比如从0到4，需要经过0->3->4,0是可以到3的，但是
+			// dist[u]+w < dp[v] 这上步会报错，因为dp[3]等于0，所以这里应该赋一下最大值
+			if dist[u] != inf && dist[u]+w < dp[v] {
+				dp[v] = dist[u] + w
+			}
+		}
+		dist = dp
+	}
+	if dist[dst] == inf {
+		return -1
+	}
+	return dist[dst]
 }
