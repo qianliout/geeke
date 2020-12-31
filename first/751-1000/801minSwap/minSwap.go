@@ -1,5 +1,9 @@
 package main
 
+import (
+	. "outback/leetcode/common"
+)
+
 func main() {
 
 }
@@ -21,5 +25,25 @@ A, B 两个数组的长度总是相等的，且长度的范围为 [1, 1000]。
 A[i], B[i] 均为 [0, 2000]区间内的整数。
 */
 func minSwap(A []int, B []int) int {
+	dp1 := make(map[int]int) // 不交换
+	dp2 := make(map[int]int) // 交换
 
+	dp1[0] = 0
+	dp2[0] = 1
+	for i := 1; i < len(A); i++ {
+		if A[i-1] < A[i] && B[i-1] < B[i] {
+			// 任意交换或者不交换，取最优值
+			if A[i-1] < B[i] && B[i-1] < A[i] {
+				dp1[i] = Min(dp1[i-1], dp2[i-1])     // 不交换
+				dp2[i] = Min(dp1[i-1], dp2[i-1]) + 1 // 交换
+			} else {
+				dp1[i] = dp1[i-1]     // 不交换，则上个位置也不能交换
+				dp2[i] = dp2[i-1] + 1 // 交换，则上个位置也必须交换
+			}
+		} else {
+			dp1[i] = dp2[i-1]     // 不交换，则上个位置必须交换
+			dp2[i] = dp1[i-1] + 1 //  交换，则上个位置不能交换
+		}
+	}
+	return Min(dp2[len(A)-1], dp1[len(B)-1])
 }
