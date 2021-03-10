@@ -1,0 +1,56 @@
+{
+  "total": 1,
+  "data": [
+    {
+      "id": 1,
+      "ent_id": 2,
+      "agent_id": 2,
+      "call_uuid": "1123232",
+      // 通话唯一标识ID
+      "start_stamp": "2019-10-10T15:19:41Z",
+      // 开始呼叫时间
+      "a_answer_stamp": "2019-10-10T15:19:41Z",
+      // 主叫接听时间（接口外呼时有值）
+      "answer_stamp": "2019-10-10T15:19:41Z",
+      // 被叫接听时间
+      "end_stamp": "2019-10-10T15:19:41Z",
+      // 通话结束时间
+      "duration": 14,
+      // 总时长（秒）
+      "billsec": 14,
+      // 被叫通话时长（秒）
+      "user_time": 14,
+      // 主叫通话时长（秒）
+      "caller_id_number": "123",
+      // 主叫号码
+      "callee_id_number": "123",
+      // 被叫号码
+      "direction": "123",
+      "call_type": "inout",
+      "outside_call": "来电",
+      // 通话类型: 外呼、来电
+      "states": "123",
+      // 通话状态:外呼状态：主叫未接、被叫未接、接听(双方接听),来电状态：ivr、队列放弃、振铃未接、接听
+      "record_session": "123",
+      // 录音文件名
+      "hangup_cause": "123",
+      //  挂断原因（
+      "app_id": "123",
+      // 应用ID
+      "caller_attribution": "四川/成都",
+      // 主叫号码归属地
+      "called_attribution": "四川/成都",
+      // 被叫号码归属地
+      "customer_phone": "123",
+      // 顾客号码
+      "customer_attribution": "四川/成都",
+      // 顾客归属地
+      "customer_duration": 14,
+      // 顾客通话时间
+      "phone_source": 0,
+      // 通话线路来源，自建线路还是卓越线路
+      "created_at": "2021-02-25T08:32:56.378Z",
+      "updated_at": "2021-02-25T08:47:12.548Z"
+    }
+  ]
+}
