@@ -93,7 +93,7 @@ func splitArrary2(nums []int, m int) int {
 	left, right := max, all
 
 	// 开始二分
-	for left < right {
+	for left <= right {
 		mid := left + (right-left)/2
 		n := split(nums, mid)
 		if n == m {
@@ -106,5 +106,5 @@ func splitArrary2(nums []int, m int) int {
 			right = mid - 1
 		}
 	}
-	return left + 1
+	return left
 }

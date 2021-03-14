@@ -44,3 +44,13 @@ func help(root *TreeNode, max *int) int {
 	// return Max(root.Val, root.Val+left, root.Val+right,root+right+left)
 	return Max(root.Val, root.Val+left, root.Val+right)
 }
+
+func help2(root *TreeNode, max *int) int {
+	if root == nil {
+		return 0
+	}
+	left := help2(root.Left, max)
+	ritght := help2(root.Right, max)
+	*max = Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght, root.Val+left+ritght)
+	return Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght)
+}

@@ -27,10 +27,10 @@ func searchRange(nums []int, target int) []int {
 	if len(nums) == 0 {
 		return []int{-1, -1}
 	}
-	left, right := 0, len(nums)
+	left, right := 0, len(nums)-1
 
 	// 寻找左测
-	for left < right {
+	for left <= right {
 		mid := left + (right-left)/2
 		if nums[mid] > target {
 			right = mid
