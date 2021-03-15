@@ -47,7 +47,6 @@ func eraseOverlapIntervals(intervals [][]int) int {
 		}
 		dp[i] = Max(dp[i], dp[i-1])
 		ans = Max(ans, dp[i])
-
 	}
 	return len(intervals) - ans
 }
