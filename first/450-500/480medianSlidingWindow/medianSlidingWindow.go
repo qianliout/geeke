@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	//nums := []int{1, 3, -1, -3, 5, 3, 6, 7}
-	//nums := []int{1, 2, 3, 4, 2, 3, 1, 4, 2}
-	nums := []int{1, 3, -1, -3, 5, 3, 6, 7}          //[1.0,-1.0,-1.0,3.0,5.0,6.0]
+	// nums := []int{1, 3, -1, -3, 5, 3, 6, 7}
+	// nums := []int{1, 2, 3, 4, 2, 3, 1, 4, 2}
+	nums := []int{1, 3, -1, -3, 5, 3, 6, 7} // [1.0,-1.0,-1.0,3.0,5.0,6.0]
 	window := medianSlidingWindow(nums, 3)
 	fmt.Println("res is ", window)
 }
@@ -44,7 +44,7 @@ func medianSlidingWindow(nums []int, k int) []float64 {
 	if len(nums) < k {
 		return res
 	}
-	//先构建初始堆
+	// 先构建初始堆
 	rightHeap := make(MinHeap, 0)
 	leftHeap := make(MaxHeap, 0)
 	length := len(nums)
@@ -63,7 +63,7 @@ func medianSlidingWindow(nums []int, k int) []float64 {
 		heap.Push(&leftHeap, min)
 		leftNodeNum++
 	}
-	//fmt.Println("init",leftHeap, rightHeap)
+	// fmt.Println("init",leftHeap, rightHeap)
 	for i := k; i < length; i++ {
 		// 先把中位数放在结果集中,因为这里是先加结果,所以在最后一次循环是,还有一组结果没有加,所以要加上
 		if k%2 == 0 {
@@ -90,7 +90,7 @@ func medianSlidingWindow(nums []int, k int) []float64 {
 			rightNodeNum++
 		}
 		// 加入元素后重新平衡
-		//fmt.Println("111111", nums[i], leftHeap, rightHeap, leftNodeNum, rightNodeNum)
+		// fmt.Println("111111", nums[i], leftHeap, rightHeap, leftNodeNum, rightNodeNum)
 		// 因为我的设定是,如果是奇数,左边比右边多一个,所以右边是不能多于左边的
 		if rightNodeNum > leftNodeNum {
 			heap.Push(&leftHeap, heap.Pop(&rightHeap).(int))
@@ -103,7 +103,7 @@ func medianSlidingWindow(nums []int, k int) []float64 {
 			rightNodeNum++
 			leftNodeNum--
 		}
-		//fmt.Println("2222222", leftHeap, rightHeap)
+		// fmt.Println("2222222", leftHeap, rightHeap)
 		// 延迟删除
 		for len(leftHeap) > 0 {
 			if deleteMap[leftHeap[0]] > 0 {

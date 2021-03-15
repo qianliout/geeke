@@ -61,3 +61,27 @@ func longestOnes(A []int, K int) int {
 	}
 	return ans
 }
+
+func longestOnes2(A []int, K int) int {
+	ans, left, right := 0, 0, 0
+	for right < len(A) {
+		num := A[right]
+		right++
+		if num != 1 {
+			K--
+		}
+		// 缩小窗口
+		for K < 0 {
+			if A[left] != 1 {
+				K++
+			}
+			left++
+		}
+		// 结算结果了
+		if right-left > ans {
+			ans = right - left
+		}
+	}
+
+	return ans
+}

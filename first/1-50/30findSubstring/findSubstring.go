@@ -5,11 +5,11 @@ import (
 )
 
 func main() {
-	//defer profile.Start().Stop()
+	// defer profile.Start().Stop()
 	words := []string{"fooo", "barr", "wing", "ding", "wing"}
-	//words := []string{"a"}
+	// words := []string{"a"}
 	res := findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", words)
-	//res := findSubstring("a", words)
+	// res := findSubstring("a", words)
 	fmt.Println("res is ", res)
 }
 
@@ -45,9 +45,9 @@ func findSubstring(s string, words []string) []int {
 	byteSlice := []byte(s)
 	for i := 0; i < len(s)-wordNum*n+1; i++ {
 		cur := i
-		//curWordsMap := make(map[string]int) // 性能杀手
-		//bytes, _ := json.Marshal(wordsMap)
-		//json.Unmarshal(bytes, &curWordsMap)
+		// curWordsMap := make(map[string]int) // 性能杀手
+		// bytes, _ := json.Marshal(wordsMap)
+		// json.Unmarshal(bytes, &curWordsMap)
 		curWordsMap := make(map[string]int)
 		matched := 0
 		for cur < len(byteSlice) {
