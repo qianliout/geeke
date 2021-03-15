@@ -1,8 +1,9 @@
 package main
 
 import (
-	. "outback/leetcode/common"
 	"sort"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
