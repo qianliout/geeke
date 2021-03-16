@@ -10,3 +10,4 @@ dump.rdb
 *.exe~
 .idea/
 .vscode
+!/offer/164maximumGap/maximumGap.go

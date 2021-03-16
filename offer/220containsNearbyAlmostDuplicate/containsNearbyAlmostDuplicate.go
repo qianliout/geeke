@@ -2,13 +2,21 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"sort"
-	"time"
+	"math"
+
+	. "outback/leetcode/common"
 )
 
 func main() {
+	// [2147483647,-1,2147483647]
+	// 1
+	// 2147483647
 
+	res := containsNearbyAlmostDuplicate([]int{2147483647, -1, 2147483647}, 1, 2147483647)
+	fmt.Println(res)
+
+	fmt.Println(-1 / float64(2147483648))
+	fmt.Println(math.Floor(-1 / float64(2147483648)))
 }
 
 /*
@@ -22,27 +30,26 @@ func main() {
 
 // 桶排序的思想,桶的大小，有多少个桶，这个还不太会,要复习
 func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
+	bucket := make(map[int]int)
+	for i := range nums {
+		con1 := int(math.Floor(float64(nums[i]) / float64(t+1)))
+		fmt.Println("conn1 ", con1, nums[i], float64(t+1))
+		con := nums[i] / (t + 1)
+		fmt.Println("conn2 ", con, nums[i], t+1)
 
-}
-
-func partition(a []int, lo, hi int) int {
-	pivot := a[hi]
-	i := lo - 1
-	for j := lo; j < hi; j++ {
-		if a[j] < pivot {
-			i++
-			a[j], a[i] = a[i], a[j]
+		if _, ok := bucket[con]; ok {
+			return true
+		}
+		if _, ok := bucket[con-1]; ok && AbsSub(bucket[con-1], nums[i]) <= t {
+			return true
+		}
+		if _, ok := bucket[con+1]; ok && AbsSub(bucket[con+1], nums[i]) <= t {
+			return true
+		}
+		bucket[con] = nums[i]
+		if i >= k {
+			delete(bucket, nums[i-k]/(t+1))
 		}
 	}
-	a[i+1], a[hi] = a[hi], a[i+1]
-	return i + 1
-}
-
-func quickSort(a []int, lo, hi int) {
-	if lo >= hi {
-		return
-	}
-	p := partition(a, lo, hi)
-	quickSort(a, lo, p-1)
-	quickSort(a, p+1, hi)
+	return false
 }
