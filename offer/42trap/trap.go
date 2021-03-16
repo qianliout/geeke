@@ -17,31 +17,13 @@ func main() {
   解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
 */
 
-// func trap(height []int) int {
-// 	// 单调递减栈,存储的下标
-// 	stark := make([]int, 0)
-// 	ans := 0
-// 	for i, v := range height {
-// 		if len(stark) > 0 && height[stark[len(stark)-1]] < v {
-// 			var pop int
-// 			for len(stark) > 0 && height[stark[len(stark)-1]] >= v {
-// 				ans += (height[stark[len(stark)-1]] - pop) * (i - stark[len(stark)-1] - 1) // 只结算这一层
-// 				pop = height[stark[len(stark)-1]]
-// 				stark = stark[:len(stark)-1]
-// 			}
-// 		} else {
-// 			stark = append(stark, i)
-// 		}
-// 	}
-// 	return ans
-// }
 func trap(height []int) int {
 	n := len(height)
 	if n == 0 {
 		return 0
 	}
 	stark := make([]int, 0)
-	
+
 	stark = append(stark, -1)
 	rain := 0
 	for i := 0; i < n; i++ {
@@ -69,6 +51,5 @@ func calculateRain(height []int, left, right, pop int) int {
 	if height[right] < min {
 		min = height[right]
 	}
-	
 	return (right - left - 1) * (min - height[pop])
 }

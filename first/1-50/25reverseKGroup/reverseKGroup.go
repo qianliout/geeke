@@ -42,7 +42,6 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	// 递归反转后面的
 	a.Next = reverseKGroup(b, k)
 	return newHead
-
 }
 
 // 反转以 a 为头结点的链表

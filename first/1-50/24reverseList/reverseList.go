@@ -42,8 +42,8 @@ func reverseList2(head *ListNode) *ListNode {
 	return curr
 }
 
-//这个递归解法一定要理解
-//https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao/
+// 这个递归解法一定要理解
+// https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao/
 func reverseList3(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
