@@ -51,7 +51,7 @@ func Iteration(head *ListNode) *ListNode {
 		firstNode := head
 		secondNode := head.Next
 
-		//swap
+		// swap
 		prevNode.Next = secondNode
 		firstNode.Next = secondNode.Next
 		secondNode.Next = firstNode
@@ -67,7 +67,7 @@ func SwapLinkedList(head *ListNode) *ListNode {
 	list := &ListNode{Next: head}
 	for prev, node := list, list.Next; node != nil; node = node.Next {
 		if node.Next != nil {
-			//prev.Next, treenode.Next, treenode.Next.Next = treenode.Next, treenode.Next.Next, treenode
+			// prev.Next, treenode.Next, treenode.Next.Next = treenode.Next, treenode.Next.Next, treenode
 			swapNode(prev, node, node.Next)
 			prev = node
 		}
@@ -79,4 +79,64 @@ func swapNode(prev, node, next *ListNode) {
 	prev.Next = next
 	node.Next = next.Next
 	next.Next = node
+}
+
+func Iteration2(head *ListNode) *ListNode {
+	dummy := new(ListNode)
+	dummy.Next = head
+	pre := dummy
+
+	for head != nil && head.Next != nil {
+		first := head
+		nxt := head.Next
+		third := head.Next.Next
+
+		pre.Next = nxt
+		first.Next = third
+		nxt.Next = first
+
+		pre = head
+		head = first.Next
+	}
+	return dummy.Next
+
+	/*
+		dummy := new(ListNode)
+		dummy.Next = head
+		prevNode := dummy
+		for head != nil && head.Next != nil {
+
+			firstNode := head
+			secondNode := head.Next
+
+			// swap
+			prevNode.Next = secondNode
+			firstNode.Next = secondNode.Next
+			secondNode.Next = firstNode
+
+			prevNode = firstNode
+			head = firstNode.Next
+		}
+		return dummy.Next
+	*/
+}
+
+// 这种解法是错的，但是没有找到错的原因
+func swapPairs3(head *ListNode) *ListNode {
+	dummy := new(ListNode)
+	dummy.Next = head
+	pre := dummy
+
+	for head != nil && head.Next != nil {
+		nxt := head.Next
+		third := head.Next.Next
+
+		pre.Next = nxt
+		nxt.Next = head
+		head.Next = nxt.Next
+
+		head = third
+		pre = head
+	}
+	return dummy.Next
 }

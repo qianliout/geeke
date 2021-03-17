@@ -27,19 +27,15 @@ func reverseList(head *ListNode) *ListNode {
 
 // 方法二，一次遍历
 func reverseList2(head *ListNode) *ListNode {
-
-	if head == nil {
-		return head
+	var pre *ListNode
+	cur := head
+	for cur != nil {
+		nex := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = nex
 	}
-	var curr *ListNode
-	pre := head
-	for pre != nil {
-		t := pre.Next
-		pre.Next = curr
-		curr = pre
-		pre = t
-	}
-	return curr
+	return pre
 }
 
 // 这个递归解法一定要理解
