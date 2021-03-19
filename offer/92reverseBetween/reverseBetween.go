@@ -18,10 +18,4 @@ func main() {
 */
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 
-	dump := new(ListNode)
-	dump.Next = head
-	for head != nil {
-
-	}
-	return dump.Next
 }

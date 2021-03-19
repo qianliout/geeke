@@ -22,7 +22,7 @@ func main() {
 输出: "bb"
 */
 
-//使用动态规划
+// 使用动态规划
 func longestPalindrome(s string) string {
 	var maxLenght int = math.MinInt64
 	min, max := 0, 0

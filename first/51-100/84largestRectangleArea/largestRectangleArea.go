@@ -50,32 +50,3 @@ func largestRectangleArea(heights []int) int {
 	}
 	return maxArea
 }
-
-func largere(heights []int) int {
-	stark := make([]int, 0)
-	stark = append(stark, -1)
-	maxArea := 0
-	for i, _ := range heights {
-		for len(stark) > 1 && heights[i] <= heights[stark[len(stark)-1]] {
-			pop := stark[len(stark)-1]
-			// 这里要特别注意,一定是先pop一个出来,再计算宽度,不然就会出错,
-			stark = stark[:len(stark)-1]
-			res := heights[pop] * (i - stark[len(stark)-1] - 1)
-			if res > maxArea {
-				maxArea = res
-			}
-		}
-		stark = append(stark, i)
-		// fmt.Println(stark, maxArea)
-	}
-
-	for len(stark) > 1 {
-		pop := stark[len(stark)-1]
-		stark = stark[:len(stark)-1]
-		res := heights[pop] * (len(heights) - stark[len(stark)-1] - 1)
-		if res > maxArea {
-			maxArea = res
-		}
-	}
-	return maxArea
-}

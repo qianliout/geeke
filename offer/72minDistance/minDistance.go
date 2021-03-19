@@ -61,7 +61,6 @@ func minDistance(word1 string, word2 string) int {
 		dp[0][j] = dp[0][j-1] + 1
 	}
 
-
 	// 状态转移方程
 	for i := 1; i <= len1; i++ {
 		for j := 1; j <= len2; j++ {
@@ -73,4 +72,35 @@ func minDistance(word1 string, word2 string) int {
 		}
 	}
 	return dp[len1][len2]
+}
+
+func minDistance2(word1 string, word2 string) int {
+	if len(word1) == 0 {
+		return len(word2)
+	}
+	if len(word2) == 0 {
+		return len(word1)
+	}
+
+	dp := make(map[int]map[int]int)
+	for i := 0; i <= len(word1); i++ {
+		dp[i] = make(map[int]int)
+		dp[i][0] = i
+	}
+	for i := 0; i <= len(word2); i++ {
+		dp[0][i] = i
+	}
+
+	// 状态转移
+	for i := 1; i <= len(word1); i++ {
+		for j := 1; j < len(word2); j++ {
+			if word1[i] == word2[j] {
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				// dp[i-1][j-1] 表示替换操作，dp[i-1][j] 表示删除操作，dp[i][j-1] 表示插入操作
+				dp[i][j] = Min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+			}
+		}
+	}
+	return dp[len(word1)][len(word2)]
 }
