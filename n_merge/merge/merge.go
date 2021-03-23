@@ -4,8 +4,8 @@ import (
 	"sort"
 )
 
-// 内存排序
-func InmSort(in <-chan int64) <-chan int64 {
+// 内存排序  MemoryOrdering
+func MemorySort(in <-chan int64) <-chan int64 {
 
 	out := make(chan int64, 0)
 	go func() {

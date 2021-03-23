@@ -3,6 +3,7 @@ package pipeline
 import (
 	"encoding/binary"
 	"io"
+	"log"
 	"math/rand"
 )
 
@@ -26,14 +27,16 @@ func ReaderSource(reader io.Reader, chunkSize int) <-chan int64 {
 	}()
 
 	return out
-
 }
 
+// 这里应该用到buf
 func WriterSink(writer io.Writer, in <-chan int64) {
 	for n := range in {
 		buf := make([]byte, 8)
 		binary.BigEndian.PutUint64(buf, uint64(n))
-		writer.Write(buf)
+		if _, err := writer.Write(buf); err != nil {
+			log.Println(err.Error())
+		}
 	}
 }
 
