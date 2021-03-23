@@ -1,6 +1,17 @@
 package main
 
+import (
+	"fmt"
+	"unsafe"
+)
+
 func main() {
+	i := int64(1)
+	fmt.Println(unsafe.Sizeof(i)) // 4
+	j := 1
+	fmt.Println(unsafe.Sizeof(j)) // 4
+	u := uint(1)
+	fmt.Println(unsafe.Sizeof(u)) // 4
 
 }
 

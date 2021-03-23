@@ -32,10 +32,10 @@ func createInfile(filename string, count int) {
 	pipeline.WriterSink(file, in)
 }
 
-func createPipeline(filename string, size, chunt int) <-chan int64 {
-	chunkSize := size / chunt
+func createPipeline(filename string, size, count int) <-chan int64 {
+	chunkSize := size / count
 	outs := make([]<-chan int64, 0)
-	for i := 0; i < chunt; i++ {
+	for i := 0; i < count; i++ {
 		file, err := os.Open(filename)
 		if err != nil {
 			panic(err)

@@ -24,7 +24,7 @@ func InmSort(in <-chan int64) <-chan int64 {
 	return out
 }
 
-// 双路归并
+// 两路归并
 func MergeTwo(ch1, ch2 <-chan int64) <-chan int64 {
 	out := make(chan int64, 0)
 

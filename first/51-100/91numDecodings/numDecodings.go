@@ -5,8 +5,9 @@ import (
 )
 
 func main() {
-	res := numDecodings("226")
+	res := numDecodings("2243432")
 	fmt.Println("res is ", res)
+	fmt.Println(1 << 2)
 }
 
 /*
@@ -36,7 +37,7 @@ func numDecodings(s string) int {
 	for _, i2 := range bs {
 		nums = append(nums, int(i2)-48)
 	}
-	return numdecode(nums)
+	return numDecodings2(nums)
 }
 
 func numdecode(nums []int) int {
@@ -64,6 +65,21 @@ func numdecode(nums []int) int {
 			dp[i] = dp[i-1]
 		}
 	}
-	//fmt.Println(dp)
+	// fmt.Println(dp)
 	return dp[len(nums)-1]
+}
+
+func numDecodings2(ss []int) int {
+	dp := make(map[int]int)
+	if len(ss) == 0 {
+		return 1 // 空串
+	}
+	dp[0] = 1
+	for i := 0; i < len(ss); i++ {
+		dp[i] = dp[i-1] + 1
+		if i-1 >= 0 && (ss[i-1] <= 1 && (ss[i-1] == 2 && ss[i] <= 6)) {
+			dp[i] += dp[i-2]
+		}
+	}
+	return dp[len(ss)-1]
 }
