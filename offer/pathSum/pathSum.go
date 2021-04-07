@@ -11,7 +11,7 @@ func main() {
 /*
 给定一个二叉树，它的每个结点都存放一个整数值。
 找出路径和等于给定数值的路径总数。
-路径不需要从根节点开始，也需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+路径不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
 二叉树不超过1000个节点，且节点数值范围是 [-1000000,1000000] 的整数。
 示例：
 root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
@@ -36,6 +36,14 @@ root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
 // 	helper(root, sum, 0, &res, visit)
 // 	return res
 // }
+
+func pathSum2(root *TreeNode, sum int) int {
+	var res int
+	visit := make(map[*TreeNode]bool)
+	helper(root, sum, 0, &res, visit)
+
+	return res
+}
 
 func helper(root *TreeNode, sum, path int, res *int, visit map[*TreeNode]bool) {
 	if root == nil {
@@ -86,4 +94,27 @@ func recursionPathSum(node *TreeNode, prefixSumCount map[int]int, target, currSu
 	// 回到本层把进入下一层的影响消掉
 	prefixSumCount[currSum] -= 1
 	return res
+}
+
+func dfs(root *TreeNode, sumList *[]int, sum int) int {
+	if root == nil {
+		return 0
+	}
+	// 这里一定要进行赋值操作，不然就不能得到正确的结果
+	nl := append([]int{}, *sumList...)
+
+	for i, n := range nl {
+		nl[i] = n + root.Val
+	}
+	nl = append(nl, root.Val)
+	count := 0
+	for _, n := range nl {
+		if n == sum {
+			count++
+		}
+	}
+	count += dfs(root.Left, &nl, sum)
+	count += dfs(root.Right, &nl, sum)
+
+	return count
 }

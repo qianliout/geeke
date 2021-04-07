@@ -33,7 +33,6 @@ func numDistinct(s string, t string) int {
 		dp[0][j] = 1
 	}
 	// 状态转移
-
 	for i := 0; i <= len(t); i++ {
 		for j := 0; j <= len(s); j++ {
 			if t[i] == s[j] {

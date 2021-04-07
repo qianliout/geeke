@@ -29,7 +29,7 @@ func ReaderSource(reader io.Reader, chunkSize int) <-chan int64 {
 	return out
 }
 
-// 这里应该用到buf
+// 写数据
 func WriterSink(writer io.Writer, in <-chan int64) {
 	for n := range in {
 		buf := make([]byte, 8)

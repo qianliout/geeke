@@ -53,3 +53,7 @@ func MergeN(chs ...<-chan int64) <-chan int64 {
 	mid := len(chs) / 2
 	return MergeTwo(MergeN(chs[:mid]...), MergeN(chs[mid:]...))
 }
+
+func NoSort(in <-chan int64) <-chan int64 {
+	return in
+}

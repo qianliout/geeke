@@ -1,5 +1,9 @@
 package main
 
+import (
+	"sync"
+)
+
 func main() {
 
 }
@@ -14,6 +18,9 @@ type Trie struct {
 }
 
 func NewNode() *Node {
+	m := sync.Map{}
+	m.Store()
+
 	return &Node{Next: make(map[string]*Node)}
 }
 

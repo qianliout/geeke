@@ -29,8 +29,7 @@ func minEatingSpeed(piles []int, h int) int {
 	for _, n := range piles {
 		sum += n
 	}
-	// 开如二分了
-
+	// 开始二分了
 	left, right := 1, sum
 	for left <= right {
 		mid := left + (right-left)/2
