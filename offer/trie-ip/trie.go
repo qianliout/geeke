@@ -35,7 +35,8 @@ func main() {
 type Node struct {
 	IsEnd bool
 	Lock  sync.RWMutex
-	Next  map[uint8]*Node
+	// 因为这里只会有两种值，所以可使用数组的方式进行存储，也是一种优化的方式
+	Next map[uint8]*Node
 }
 
 type Trie struct {

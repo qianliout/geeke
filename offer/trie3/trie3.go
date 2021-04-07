@@ -36,7 +36,7 @@ type Node struct {
 	IsEnd bool
 	Lock  sync.RWMutex
 	// 因为这里只会有两种值，所以可使用数组的方式进行存储，也是一种优化的方式
-	Next map[uint8]*Node
+	Next *[2]*Node
 }
 
 type Trie struct {
@@ -45,7 +45,7 @@ type Trie struct {
 }
 
 func NewNode() *Node {
-	return &Node{Next: make(map[uint8]*Node)}
+	return &Node{Next: new([2]*Node)}
 }
 
 /** Initialize your data structure here. */
