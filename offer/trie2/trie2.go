@@ -9,12 +9,12 @@ import (
 func main() {
 	tr := Constructor()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 5; i++ {
 		go func(i uint8) {
 			tr.Insert([]uint8{1, 0, 0, 1, 0, uint8(i), 1, 0})
 		}(uint8(i))
 	}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 5; i++ {
 		go func(i uint8) {
 			tr.Delete([]uint8{1, 0, 0, 1, 0, 1, 1, uint8(i)})
 		}(uint8(i))
@@ -105,6 +105,8 @@ func (this *Trie) Delete(word []uint8) {
 // 对于ip掩码来说，并发量大，且更新频繁，所以这里最好不直接删除节点，只是把节点的值改了，这样可以避免map频繁的等量扩容(rehash)
 func deleteWord(root *Node, word []uint8, index int) {
 	if len(word) == index {
+		root.Lock.RLock()
+		defer root.Lock.Unlock()
 		root.IsEnd = false
 		return
 	}
@@ -115,7 +117,6 @@ func deleteWord(root *Node, word []uint8, index int) {
 	}
 
 	if next, ok := load.(*Node); ok {
-
 		deleteWord(next, word, index+1)
 	} else {
 		panic("删除trie出错")
