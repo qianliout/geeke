@@ -11,25 +11,25 @@ func main() {
 
 	for i := 0; i < 200; i++ {
 		go func(i uint8) {
-			tr.Insert([]uint8{1, 0, 0, 1, 0, uint8(i), 1, 0, 1})
+			tr.Insert([]uint8{1, 0, 0, 1, 0, 0, 1, 0, 1})
 			// fmt.Println("insert执行完成")
 		}(uint8(i))
 	}
-	for i := 0; i < 500; i++ {
-		go func(i uint8) {
-			tr.Delete([]uint8{1, 0, 0, 1, 0, 1, 1, uint8(i), uint8(i + 3)})
-			// fmt.Println("Delete执行完成")
-		}(uint8(i))
-	}
+	// for i := 0; i < 500; i++ {
+	// 	go func(i uint8) {
+	// 		tr.Delete([]uint8{1, 0, 0, 1, 0, 1, 1, 0, 1})
+	// 		// fmt.Println("Delete执行完成")
+	// 	}(uint8(i))
+	// }
 
 	for i := 0; i < 20; i++ {
 		go func(i uint8) {
-			search := tr.Search([]uint8{1, 0, 0, 1, 0, uint8(i), 1, 0, 1})
+			search := tr.Search([]uint8{1, 0, 0, 1, 0, 0, 1, 0, 1})
 			// fmt.Println("Search执行完成")
 			fmt.Println(search)
 		}(uint8(i))
 	}
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 }
 
 type Node struct {
@@ -50,7 +50,12 @@ func NewNode() *Node {
 
 /** Initialize your data structure here. */
 func Constructor() Trie {
-	return Trie{Root: NewNode(), Look: sync.RWMutex{}}
+
+	root := NewNode()
+	constructor(root, 28)
+
+	fmt.Println("完成")
+	return Trie{Root: root, Look: sync.RWMutex{}}
 }
 
 /** Inserts a word into the trie. */
@@ -58,7 +63,6 @@ func (this *Trie) Insert(word []uint8) {
 	this.Look.Lock()
 	defer this.Look.Unlock()
 	add(this.Root, word, 0)
-
 }
 
 func add(root *Node, word []uint8, index int) {
@@ -68,10 +72,10 @@ func add(root *Node, word []uint8, index int) {
 	}
 	c := word[index]
 	nex := root.Next[c]
-	if nex == nil {
-		nex = NewNode()
-		root.Next[c] = nex
-	}
+	// if nex == nil {
+	// 	nex = NewNode()
+	// 	root.Next[c] = nex
+	// }
 	add(nex, word, index+1)
 }
 
@@ -114,4 +118,17 @@ func deleteWord(root *Node, word []uint8, index int) {
 	}
 	nex := root.Next[c]
 	deleteWord(nex, word, index+1)
+}
+
+func constructor(root *Node, index int) {
+	if index <= 0 {
+		return
+	}
+	if root.Next == nil {
+		root.Next = new([2]*Node)
+	}
+	root.Next[0] = new(Node)
+	root.Next[1] = new(Node)
+	constructor(root.Next[0], index-1)
+	constructor(root.Next[1], index-1)
 }

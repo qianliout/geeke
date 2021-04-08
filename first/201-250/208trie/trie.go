@@ -1,9 +1,5 @@
 package main
 
-import (
-	"sync"
-)
-
 func main() {
 
 }
@@ -18,9 +14,6 @@ type Trie struct {
 }
 
 func NewNode() *Node {
-	m := sync.Map{}
-	m.Store()
-
 	return &Node{Next: make(map[string]*Node)}
 }
 
@@ -82,6 +75,6 @@ func findPrefix(root *Node, word string, index int) bool {
  * Your Trie object will be instantiated and called as such:
  * obj := Constructor();
  * obj.Insert(word);
- * param_2 := obj.Search(word);
+ * param_2 := obj.Query(word);
  * param_3 := obj.StartsWith(prefix);
  */

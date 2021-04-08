@@ -12,7 +12,7 @@ package main
 //	obj.AddWord("mad")
 //	//fmt.Println(int(byte('b')))
 //
-//	fmt.Println(obj.Search(".ad"))
+//	fmt.Println(obj.Query(".ad"))
 //}
 //
 ///*
@@ -78,7 +78,7 @@ package main
 //Returns if the word is in the data structure. A word could contain the dot character
 //'.' to represent any one letter.
 //*/
-//func (this *WordDictionary) Search(word string) bool {
+//func (this *WordDictionary) Query(word string) bool {
 //	return find(this.root, word, 0)
 //}
 //
@@ -119,7 +119,7 @@ package main
 // * Your WordDictionary object will be instantiated and called as such:
 // * obj := Constructor();
 // * obj.AddWord(word);
-// * param_2 := obj.Search(word);
+// * param_2 := obj.Query(word);
 // */
 
 /*
@@ -200,7 +200,7 @@ func find(node *Node, word []byte, index int) bool {
 		return false
 	}
 	// 这里是易错点,这里不能在通佩服前面判断
-	if node.Next[c] == nil{
+	if node.Next[c] == nil {
 		return false
 	}
 	return find(node.Next[c], word, index+1)

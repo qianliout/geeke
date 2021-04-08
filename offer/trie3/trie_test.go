@@ -2,7 +2,6 @@ package main
 
 import (
 	"math/rand"
-	"sync"
 	"testing"
 	"time"
 )
@@ -40,54 +39,54 @@ func gen(rd *rand.Rand, n int) [][]uint8 {
 	return res
 }
 
-func BenchmarkTrieConcurrent(b *testing.B) {
-	tr := Constructor()
-	all := b.N
-	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
-	res := gen(rd, all)
-	b.ResetTimer()
-
-	var wg sync.WaitGroup
-	for i := 0; i < 10000; i++ {
-		wg.Add(1)
-		go func() {
-			insert_test(&tr, &wg, res)
-		}()
-	}
-
-	for i := 0; i < 10000; i++ {
-		wg.Add(1)
-		go func() {
-			delete_test(&tr, &wg, res)
-		}()
-	}
-
-	for i := 0; i < 10000; i++ {
-		wg.Add(1)
-		go func() {
-			search_test(&tr, &wg, res)
-		}()
-	}
-	wg.Wait()
-}
-
-func insert_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
-	for n := 0; n < len(ips); n++ {
-		tr.Insert(ips[n])
-	}
-	wg.Done()
-}
-
-func delete_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
-	for n := 0; n < len(ips); n++ {
-		tr.Delete(ips[n])
-	}
-	wg.Done()
-}
-
-func search_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
-	for n := 0; n < len(ips); n++ {
-		tr.Search(ips[n])
-	}
-	wg.Done()
-}
+// func BenchmarkTrieConcurrent(b *testing.B) {
+// 	tr := Constructor()
+// 	all := b.N
+// 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
+// 	res := gen(rd, all)
+// 	b.ResetTimer()
+//
+// 	var wg sync.WaitGroup
+// 	for i := 0; i < 10000; i++ {
+// 		wg.Add(1)
+// 		go func() {
+// 			insert_test(&tr, &wg, res)
+// 		}()
+// 	}
+//
+// 	for i := 0; i < 10000; i++ {
+// 		wg.Add(1)
+// 		go func() {
+// 			delete_test(&tr, &wg, res)
+// 		}()
+// 	}
+//
+// 	for i := 0; i < 10000; i++ {
+// 		wg.Add(1)
+// 		go func() {
+// 			search_test(&tr, &wg, res)
+// 		}()
+// 	}
+// 	wg.Wait()
+// }
+//
+// func insert_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
+// 	for n := 0; n < len(ips); n++ {
+// 		tr.Insert(ips[n])
+// 	}
+// 	wg.Done()
+// }
+//
+// func delete_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
+// 	for n := 0; n < len(ips); n++ {
+// 		tr.Delete(ips[n])
+// 	}
+// 	wg.Done()
+// }
+//
+// func search_test(tr *Trie, wg *sync.WaitGroup, ips [][]uint8) {
+// 	for n := 0; n < len(ips); n++ {
+// 		tr.Query(ips[n])
+// 	}
+// 	wg.Done()
+// }
