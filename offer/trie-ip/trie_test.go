@@ -10,32 +10,33 @@ import (
 	"time"
 )
 
-// func BenchmarkTrie(b *testing.B) {
-// 	tr := Constructor()
-// 	all := b.N
-// 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
-// 	res := genIP(rd, all)
-// 	// fmt.Println("res length", len(res), all)
-// 	b.ResetTimer()
-//
-// 	// 这里验证正确性也很有必要，验证过程如下
-// 	// 1,先插入数据，再去查看数据，如果有没有查到的就说明程序不正确
-// 	// 2,先插入数据，再删除部分数据，再去查找已删除数据，如果查到了就说明程序不正确
-// 	for n := 0; n < len(res); n++ {
-// 		tr.Insert(res[n])
-// 	}
-//
-// 	for n := 0; n < len(res); n += 2 {
-// 		tr.Delete(res[n])
-// 	}
-//
-// 	for n := 0; n < len(res); n += 2 {
-// 		if query, err := tr.Query(res[n]); err == nil && query {
-// 			fmt.Println(query, err)
-// 		}
-// 	}
-// }
+func BenchmarkTrie(b *testing.B) {
+	tr := Constructor()
+	all := b.N
+	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
+	res := genIP(rd, all)
+	// fmt.Println("res length", len(res), all)
+	b.ResetTimer()
 
+	// 这里验证正确性也很有必要，验证过程如下
+	// 1,先插入数据，再去查看数据，如果有没有查到的就说明程序不正确
+	// 2,先插入数据，再删除部分数据，再去查找已删除数据，如果查到了就说明程序不正确
+	for n := 0; n < len(res); n++ {
+		tr.Insert(res[n])
+	}
+
+	for n := 0; n < len(res); n += 2 {
+		tr.Delete(res[n])
+	}
+
+	for n := 0; n < len(res); n += 2 {
+		if query, err := tr.Query(res[n]); err == nil && query {
+			fmt.Println(query, err)
+		}
+	}
+}
+
+// 模拟并发
 func BenchmarkTrieConcurrent(b *testing.B) {
 	tr := Constructor()
 	all := b.N
