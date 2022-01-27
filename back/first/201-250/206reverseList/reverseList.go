@@ -68,7 +68,7 @@ func Iter(head *listnode.ListNode) *listnode.ListNode {
 }
 
 func recu(head *listnode.ListNode) *listnode.ListNode {
-	if head == nil|| head.Next == nil  {
+	if head == nil || head.Next == nil {
 		return head
 	}
 	nex := recu(head.Next)

@@ -1,7 +1,7 @@
 package array
 
 import (
-	array2 "outback/leetcode/back/common/array"
+	array2 "qianliout/leetcode/back/common/array"
 )
 
 /*

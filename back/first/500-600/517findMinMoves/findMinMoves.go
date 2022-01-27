@@ -1,9 +1,9 @@
-﻿package main
+package main
 
 import (
 	"fmt"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 func findMinMoves(machines []int) int {
 	sum := common.Sum(machines...)
 	single := sum / len(machines)
-	
+
 	if sum%len(machines) != 0 {
 		return -1
 	}
@@ -56,7 +56,7 @@ func findMinMoves(machines []int) int {
 		} else {
 			res = common.Max(common.Abs(left), common.Abs(right), res)
 		}
-		leftSum+=n
+		leftSum += n
 	}
 	return res
 }

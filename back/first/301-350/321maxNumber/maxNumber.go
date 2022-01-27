@@ -45,7 +45,7 @@ k = 3
 
 func maxNumber(nums1 []int, nums2 []int, k int) []int {
 	res := make([]int, 0)
-	
+
 	for i := 0; i <= k; i++ {
 		if i <= len(nums1) && k-i <= len(nums2) {
 			r := merge(pixMax(nums1, i), pixMax(nums2, k-i))

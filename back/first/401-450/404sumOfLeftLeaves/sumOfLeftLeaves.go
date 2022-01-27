@@ -1,7 +1,7 @@
 package main
 
 import (
-	"outback/leetcode/back/common/treenode"
+	"qianliout/leetcode/back/common/treenode"
 )
 
 func main() {
@@ -52,6 +52,6 @@ func sumof(root *treenode.TreeNode) int {
 	if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil {
 		return root.Left.Val + sumof(root.Right)
 	} else {
-		return sumof(root.Right)+sumof(root.Left)
+		return sumof(root.Right) + sumof(root.Left)
 	}
 }

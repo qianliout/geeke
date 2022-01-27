@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"outback/leetcode/back/common/treenode"
+	"qianliout/leetcode/back/common/treenode"
 )
 
 func main() {
@@ -67,5 +67,3 @@ func dfs(root *treenode.TreeNode, s string) string {
 	}
 	return s
 }
-
-

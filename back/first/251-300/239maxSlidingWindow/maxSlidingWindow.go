@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sort"
 
-	"outback/leetcode/back/common/commonHeap"
+	"qianliout/leetcode/back/common/commonHeap"
 )
 
 func main() {

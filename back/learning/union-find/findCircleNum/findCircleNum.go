@@ -1,7 +1,7 @@
 package main
 
 import (
-	unionfind2 "outback/leetcode/back/learning/union-find"
+	unionfind2 "qianliout/leetcode/back/learning/union-find"
 )
 
 /*

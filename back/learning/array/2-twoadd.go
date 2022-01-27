@@ -1,7 +1,7 @@
 package array
 
 import (
-	"outback/leetcode/back/common/listnode"
+	"qianliout/leetcode/back/common/listnode"
 )
 
 func addTwoNumbers1(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {

@@ -47,7 +47,7 @@ func removeElements2(head *listnode.ListNode, val int) *listnode.ListNode {
 	cout := 0
 	// 这里怎么就不对了,怎么就形成环了,要好好理解
 	for cur != nil {
-		fmt.Println("hello ", pre.Val, "word ", cur.Val,"count",cout)
+		fmt.Println("hello ", pre.Val, "word ", cur.Val, "count", cout)
 		time.Sleep(time.Second)
 		if cur.Val == val {
 			pre.Next = cur.Next

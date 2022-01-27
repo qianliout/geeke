@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	unionfind2 "outback/leetcode/back/common/unionfind"
+	unionfind2 "qianliout/leetcode/back/common/unionfind"
 )
 
 func main() {

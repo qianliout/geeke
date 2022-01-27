@@ -17,7 +17,7 @@ func main() {
 	listnode.PrintListNode(root)
 	start := time.Now().Unix()
 	time.Sleep(time.Second)
-	fmt.Println("hello wrod",time.Now().Unix() - start)
+	fmt.Println("hello wrod", time.Now().Unix()-start)
 }
 
 /*

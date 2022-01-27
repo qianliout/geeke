@@ -39,6 +39,6 @@ func reorderList(head *listnode.ListNode) {
 	// 这三步的顺序不可以变的,这里有个小技巧,1,置为空的,放在最后,2,先处理后面的,再处理前面的,从前到后
 	tailPre.Next.Next = head.Next
 	head.Next = tailPre.Next
-	tailPre.Next=nil
+	tailPre.Next = nil
 	reorderList(head.Next.Next)
 }

@@ -87,7 +87,6 @@ func dfs(board [][]byte, res *[]string, path string, trieNode *trie.Trie, row, c
 	path = string([]byte(path)[:len(path)-1])
 }
 
-
-func bfs(){
+func bfs() {
 	atomic.CompareAndSwapInt32()
 }

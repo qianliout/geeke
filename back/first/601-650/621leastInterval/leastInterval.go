@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 /*

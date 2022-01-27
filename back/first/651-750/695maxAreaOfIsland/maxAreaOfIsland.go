@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	. "outback/leetcode/common/unionfind"
+	. "qianliout/leetcode/common/unionfind"
 )
 
 func main() {
@@ -122,5 +122,3 @@ func bfs(grid [][]int) int {
 	}
 	return num
 }
-
-

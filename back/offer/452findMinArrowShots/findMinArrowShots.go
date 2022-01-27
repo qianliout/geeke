@@ -3,7 +3,7 @@ package main
 import (
 	"sort"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {

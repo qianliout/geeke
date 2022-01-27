@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {

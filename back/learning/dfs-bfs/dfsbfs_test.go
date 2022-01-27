@@ -3,7 +3,7 @@ package dfsbfs
 import (
 	"testing"
 
-	treenode2 "outback/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/back/common/treenode"
 )
 
 func TestBuildTree(t *testing.T) {

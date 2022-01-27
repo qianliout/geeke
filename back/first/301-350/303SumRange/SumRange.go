@@ -38,7 +38,7 @@ func Constructor(nums []int) NumArray {
 }
 
 func (this *NumArray) SumRange(i int, j int) int {
-	if i >j {
+	if i > j {
 		return 0
 	}
 	key := fmt.Sprintf(this.format, i, j)

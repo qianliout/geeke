@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {
-	nums := []int{2, 3, 0, 4,-2,-3}
+	nums := []int{2, 3, 0, 4, -2, -3}
 	res := maxProduct(nums)
 	fmt.Println("res is ", res)
 }

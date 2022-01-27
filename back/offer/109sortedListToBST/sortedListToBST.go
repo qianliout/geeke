@@ -1,8 +1,8 @@
 package main
 
 import (
-	"outback/leetcode/back/common/listnode"
-	"outback/leetcode/back/common/treenode"
+	"qianliout/leetcode/back/common/listnode"
+	"qianliout/leetcode/back/common/treenode"
 )
 
 func main() {

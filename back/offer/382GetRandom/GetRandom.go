@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"outback/leetcode/back/common/listnode"
+	"qianliout/leetcode/back/common/listnode"
 )
 
 func main() {

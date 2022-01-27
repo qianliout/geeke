@@ -4,7 +4,7 @@ import (
 	"container/heap"
 	"fmt"
 
-	"outback/leetcode/back/common/commonHeap"
+	"qianliout/leetcode/back/common/commonHeap"
 )
 
 func main() {

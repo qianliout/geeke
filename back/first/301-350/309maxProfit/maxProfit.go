@@ -40,7 +40,7 @@ func maxProfit(prices []int) int {
 		// 今天不持股,昨天不持股,今天继续,昨天持股,今天买出
 		saleDp[i] = common.Max(saleDp[i-1], buyDp[i-1]+prices[i])
 		// 今天冷冻期
-		dp3[i] = common.Max(saleDp[i-1],dp3[i-1])
+		dp3[i] = common.Max(saleDp[i-1], dp3[i-1])
 	}
 	return saleDp[length-1]
 }

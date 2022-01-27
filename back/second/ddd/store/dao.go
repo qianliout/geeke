@@ -1,7 +1,7 @@
 package store
 
 import (
-	log2 "outback/leetcode/back/second/ddd/log"
+	log2 "qianliout/leetcode/back/second/ddd/log"
 
 	"gorm.io/gorm"
 )

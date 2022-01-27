@@ -5,7 +5,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	data2 "outback/leetcode/back/second/pprof/data"
+	data2 "qianliout/leetcode/back/second/pprof/data"
 )
 
 func main() {

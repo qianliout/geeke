@@ -1,7 +1,7 @@
 package tree
 
 import (
-	treenode2 "outback/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/back/common/treenode"
 )
 
 /*
@@ -26,6 +26,7 @@ func BuildTree105(preorder []int, inorder []int) *treenode2.TreeNode {
 	length := len(preorder) - 1
 	return BuildTreeHelper105(preorder, inorder, inpos, 0, length, 0, length)
 }
+
 // not finished 没有完成呢
 func BuildTreeHelper105(preorder, inorder []int, inps map[int]int, pStart, pEnd, IStart, Iend int) *treenode2.TreeNode {
 	if pStart == pEnd {

@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {
@@ -44,7 +44,6 @@ func maxProfit(k int, prices []int) int {
 	if k > len(prices) {
 		k = len(prices)
 	}
-
 
 	// dp[i][j][0] 表示第j天,在交易j次时,在未持有股票的情况下,最大利润
 	// dp[i][j][1] 表示第j天,在交易j次时,在持有股票的情况下,最大利润

@@ -36,7 +36,7 @@ func rob(nums []int) int {
 	}
 	p1 := rob2(nums[1:])
 	p2 := rob2(nums[:len(nums)-1])
-	return common.Max(p1,p2)
+	return common.Max(p1, p2)
 }
 
 func rob2(nums []int) int {

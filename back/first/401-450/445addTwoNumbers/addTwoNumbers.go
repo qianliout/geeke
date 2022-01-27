@@ -1,13 +1,13 @@
-﻿package main
+package main
 
 import (
 	"fmt"
 
-	"outback/leetcode/back/common/listnode"
+	"qianliout/leetcode/back/common/listnode"
 )
 
 func main() {
-	
+
 }
 
 /*
@@ -23,7 +23,7 @@ func main() {
 func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {
 	s := UseSlice(l1, l2)
 	fmt.Println("s is ", s)
-	
+
 	return makeNode(UseSlice(l1, l2))
 }
 
@@ -37,9 +37,9 @@ func UseSlice(l1, l2 *listnode.ListNode) []int {
 		cur = cur.Next
 	}
 	// fmt.Println("list1 is ", list1)
-	
+
 	cur = l2
-	
+
 	for cur != nil {
 		list2 = append(list2, cur.Val)
 		cur = cur.Next
@@ -50,7 +50,7 @@ func UseSlice(l1, l2 *listnode.ListNode) []int {
 		list2, list1 = list1, list2
 	}
 	res := make([]int, len(list1)+1)
-	
+
 	i := 0
 	for i < len(list2) {
 		v := pre + list2[len(list2)-i-1] + list1[len(list1)-i-1]
@@ -86,7 +86,7 @@ func makeNode(nums []int) *listnode.ListNode {
 	if len(nums) == 0 {
 		return dum.Next
 	}
-	
+
 	cur := dum
 	for _, v := range nums {
 		no := &listnode.ListNode{Val: v}
@@ -97,5 +97,3 @@ func makeNode(nums []int) *listnode.ListNode {
 }
 
 // 另外一种方法，反转两个链表，然后想加
-
-

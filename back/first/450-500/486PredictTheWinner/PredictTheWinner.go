@@ -1,11 +1,11 @@
-﻿package main
+package main
 
 import (
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {
-	
+
 }
 
 /*
@@ -52,13 +52,13 @@ func PredictTheWinner(nums []int) bool {
 	// 		dp[i][j] = Max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
 	// 	}
 	// }
-	
+
 	// dp的题，计算顺序很重要
 	for i := len(nums) - 2; i >= 0; i-- {
 		for j := i + 1; j < len(nums); j++ {
 			dp[i][j] = common.Max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
 		}
 	}
-	
+
 	return dp[0][len(nums)-1] >= 0
 }

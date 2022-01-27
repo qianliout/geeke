@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	merge2 "outback/leetcode/back/n_merge/merge"
-	pipeline2 "outback/leetcode/back/n_merge/pipeline"
+	merge2 "qianliout/leetcode/back/n_merge/merge"
+	pipeline2 "qianliout/leetcode/back/n_merge/pipeline"
 )
 
 func main() {

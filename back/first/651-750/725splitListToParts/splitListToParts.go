@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"outback/leetcode/back/common/listnode"
+	"qianliout/leetcode/back/common/listnode"
 )
 
 func main() {

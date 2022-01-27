@@ -4,11 +4,11 @@ import (
 	"strconv"
 	"strings"
 
-	"outback/leetcode/back/common/treenode"
+	"qianliout/leetcode/back/common/treenode"
 )
 
 func main() {
-	
+
 }
 
 // dfs序列化
@@ -45,7 +45,7 @@ func dfsdh(ss *[]string) *treenode.TreeNode {
 func bfss(root *treenode.TreeNode) string {
 	stark := make([]*treenode.TreeNode, 0)
 	stark = append(stark, root)
-	
+
 	ans := ""
 	for len(stark) > 0 {
 		first := stark[0]
@@ -71,15 +71,15 @@ func bfsds(s string) *treenode.TreeNode {
 	if err != nil {
 		return nil
 	}
-	
+
 	root := treenode.TreeNode{Val: ati}
 	idx++
 	queue := []*treenode.TreeNode{&root}
-	
+
 	for len(queue) > 0 {
 		nod := queue[0]
 		queue = queue[1:]
-		
+
 		if ss[idx] != "null" {
 			if j, e := strconv.Atoi(ss[idx]); e == nil {
 				left := &treenode.TreeNode{Val: j}

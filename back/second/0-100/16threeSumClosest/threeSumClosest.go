@@ -5,7 +5,7 @@ import (
 	"math"
 	"sort"
 
-	"outback/leetcode/back/common"
+	"qianliout/leetcode/back/common"
 )
 
 func main() {

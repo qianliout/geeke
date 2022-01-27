@@ -3,7 +3,7 @@ package array
 import (
 	"testing"
 
-	array2 "outback/leetcode/back/common/array"
+	array2 "qianliout/leetcode/back/common/array"
 )
 
 func TestReverseLinkedList(t *testing.T) {
