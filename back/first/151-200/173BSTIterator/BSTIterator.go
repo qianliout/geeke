@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -25,11 +25,11 @@ iterator.hasNext(); // 返回 false
 链接：https://leetcode-cn.com/problems/binary-search-tree-iterator
 */
 type BSTIterator struct {
-	root  *treenode.TreeNode
+	root  *treenode2.TreeNode
 	stack []int
 }
 
-func Constructor(root *treenode.TreeNode) BSTIterator {
+func Constructor(root *treenode2.TreeNode) BSTIterator {
 	stack := make([]int, 0)
 	inorder(root, &stack)
 	// sort.Ints(stack)
@@ -37,7 +37,7 @@ func Constructor(root *treenode.TreeNode) BSTIterator {
 }
 
 // 递归解法.因为是二叉搜索树迭代器，所以使用中序遍历最好
-func inorder(root *treenode.TreeNode, res *[]int) {
+func inorder(root *treenode2.TreeNode, res *[]int) {
 	if root == nil {
 		return
 	}

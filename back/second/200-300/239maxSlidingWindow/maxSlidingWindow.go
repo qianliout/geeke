@@ -4,7 +4,7 @@ import (
 	"container/heap"
 	"fmt"
 
-	"qianliout/leetcode/back/common/commonHeap"
+	commonHeap2 "qianliout/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -39,13 +39,13 @@ func main() {
 
 // 单调栈
 func maxSlidingWindow(nums []int, k int) []int {
-	return commonHeap.MaxHeap{}
+	return commonHeap2.MaxHeap{}
 }
 
 // 使用堆
 func maxSlidingWindow2(nums []int, k int) []int {
 	deleteMap := make(map[int]int)
-	maxHeap := make(commonHeap.MaxHeap, 0)
+	maxHeap := make(commonHeap2.MaxHeap, 0)
 	res := make([]int, 0)
 	i := 0
 	for i < len(nums) {

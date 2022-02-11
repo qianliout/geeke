@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 	for i := 0; i < len(nums); i++ {
 		for j := i + 1; j < len(nums); j++ {
-			if common.AbsSub(nums[i], nums[j]) <= t && common.AbsSub(i, j) <= k {
+			if common2.AbsSub(nums[i], nums[j]) <= t && common2.AbsSub(i, j) <= k {
 				return true
 			}
 		}

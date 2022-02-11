@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -17,9 +17,9 @@ func main() {
 输入: 1->1->1->2->3
 输出: 2->3
 */
-func deleteDuplicates(head *listnode.ListNode) *listnode.ListNode {
+func deleteDuplicates(head *listnode2.ListNode) *listnode2.ListNode {
 	exitMap := make(map[int]int)
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	dumpCruu := dump
 	cur := head
 	for cur != nil && cur.Next != nil {

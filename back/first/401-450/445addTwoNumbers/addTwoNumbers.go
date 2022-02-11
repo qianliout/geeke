@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 输出：7 -> 8 -> 0 -> 7
 */
 
-func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {
+func addTwoNumbers(l1 *listnode2.ListNode, l2 *listnode2.ListNode) *listnode2.ListNode {
 	s := UseSlice(l1, l2)
 	fmt.Println("s is ", s)
 
@@ -28,7 +28,7 @@ func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListN
 }
 
 // use slice ,stark最好
-func UseSlice(l1, l2 *listnode.ListNode) []int {
+func UseSlice(l1, l2 *listnode2.ListNode) []int {
 	list1 := make([]int, 0)
 	list2 := make([]int, 0)
 	cur := l1
@@ -81,15 +81,15 @@ func UseSlice(l1, l2 *listnode.ListNode) []int {
 	return res[1:]
 }
 
-func makeNode(nums []int) *listnode.ListNode {
-	dum := new(listnode.ListNode)
+func makeNode(nums []int) *listnode2.ListNode {
+	dum := new(listnode2.ListNode)
 	if len(nums) == 0 {
 		return dum.Next
 	}
 
 	cur := dum
 	for _, v := range nums {
-		no := &listnode.ListNode{Val: v}
+		no := &listnode2.ListNode{Val: v}
 		cur.Next = no
 		cur = cur.Next
 	}

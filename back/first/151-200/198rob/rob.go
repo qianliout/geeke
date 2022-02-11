@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -40,8 +40,8 @@ func rob(nums []int) int {
 	dp0[0] = 0
 	dp1[0] = nums[0]
 	for i := 1; i < len(nums); i++ {
-		dp0[i] = common.Max(dp0[i-1], dp1[i-1])
+		dp0[i] = common2.Max(dp0[i-1], dp1[i-1])
 		dp1[i] = dp0[i-1] + nums[i]
 	}
-	return common.Max(dp0[len(nums)-1], dp1[len(nums)-1])
+	return common2.Max(dp0[len(nums)-1], dp1[len(nums)-1])
 }

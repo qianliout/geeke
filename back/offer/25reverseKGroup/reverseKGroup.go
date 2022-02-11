@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -16,7 +16,7 @@ k 是一个正整数，它的值小于或等于链表的长度。
 你可以设计一个只使用常数额外空间的算法来解决此问题吗？
 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
 */
-func reverseKGroup(head *listnode.ListNode, k int) *listnode.ListNode {
+func reverseKGroup(head *listnode2.ListNode, k int) *listnode2.ListNode {
 	start, nexStart := head, head
 	for i := 0; i < k; i++ {
 		if nexStart == nil {
@@ -31,11 +31,11 @@ func reverseKGroup(head *listnode.ListNode, k int) *listnode.ListNode {
 }
 
 // 反转链表
-func reverse(head, tail *listnode.ListNode) *listnode.ListNode {
+func reverse(head, tail *listnode2.ListNode) *listnode2.ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	var pre *listnode.ListNode
+	var pre *listnode2.ListNode
 	cur := head
 	for cur != tail {
 		nex := cur.Next

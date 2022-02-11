@@ -3,7 +3,7 @@ package dfsbfs
 import (
 	"math"
 
-	treenode2 "qianliout/leetcode/back/common/treenode"
+	"qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -22,11 +22,11 @@ import (
 返回它的最小深度  2.
 */
 
-func MaxDepth(root *treenode2.TreeNode) int {
+func MaxDepth(root *treenode.TreeNode) int {
 	return DfsMaxDepth(root)
 }
 
-func DfsMaxDepth(root *treenode2.TreeNode) int {
+func DfsMaxDepth(root *treenode.TreeNode) int {
 	// dfs解法,一定要理解这种做法,recursion
 	if root == nil {
 		return 0
@@ -36,13 +36,13 @@ func DfsMaxDepth(root *treenode2.TreeNode) int {
 	return int(math.Max(float64(leftDepth), float64(rightDepth))) + 1
 }
 
-func DfsMaxDepthByStark(root *treenode2.TreeNode) int {
+func DfsMaxDepthByStark(root *treenode.TreeNode) int {
 	// dfs not usr recursion,but use stark
 	if root == nil {
 		return 0
 	}
 	type Result struct {
-		Node  *treenode2.TreeNode
+		Node  *treenode.TreeNode
 		Depth int
 	}
 	depth := 0
@@ -69,11 +69,11 @@ func DfsMaxDepthByStark(root *treenode2.TreeNode) int {
 	return depth
 }
 
-func BfsMaxDepth(root *treenode2.TreeNode) int {
+func BfsMaxDepth(root *treenode.TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	queue := make([]*treenode2.TreeNode, 0)
+	queue := make([]*treenode.TreeNode, 0)
 	queue = append(queue, root)
 	max := 0
 	for len(queue) > 0 {
@@ -92,12 +92,12 @@ func BfsMaxDepth(root *treenode2.TreeNode) int {
 	return max
 }
 
-func BfsMinDepth(root *treenode2.TreeNode) int {
+func BfsMinDepth(root *treenode.TreeNode) int {
 	if root == nil {
 		return 0
 	}
 	min := 0
-	queue := make([]*treenode2.TreeNode, 0)
+	queue := make([]*treenode.TreeNode, 0)
 	queue = append(queue, root)
 	for len(queue) > 0 {
 		length := len(queue)
@@ -119,7 +119,7 @@ func BfsMinDepth(root *treenode2.TreeNode) int {
 }
 
 // 最小深度，是根结点到节子结点，所以，一定不能像最大深度那样进行判断
-func DfsMinDepth(root *treenode2.TreeNode) int {
+func DfsMinDepth(root *treenode.TreeNode) int {
 	if root == nil {
 		return 0
 	}
@@ -137,12 +137,12 @@ func DfsMinDepth(root *treenode2.TreeNode) int {
 	return depth
 }
 
-func DfsMinDepthByStark(root *treenode2.TreeNode) int {
+func DfsMinDepthByStark(root *treenode.TreeNode) int {
 	if root == nil {
 		return 0
 	}
 	type Result struct {
-		Node  *treenode2.TreeNode
+		Node  *treenode.TreeNode
 		Depth int
 	}
 	stark := make([]Result, 0)

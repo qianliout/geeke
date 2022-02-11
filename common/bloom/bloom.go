@@ -25,6 +25,6 @@ func (b *BitSet) Test(offsets []uint) (bool, error) {
 			return false, nil
 		}
 	}
-	
+
 	return true, nil
 }

@@ -1,23 +1,23 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
 
 }
 
-func isValidBST(root *treenode.TreeNode) bool {
+func isValidBST(root *treenode2.TreeNode) bool {
 
 }
 
-func help(min, max int, root *treenode.TreeNode) {
+func help(min, max int, root *treenode2.TreeNode) {
 
 }
 
 // 这种写法有问题，这里的递归是要去改pre,这个值，那么这个值就应该是一个包变量，这样是很不好的，所以不推荐这种写法
-func IsValideByInorder(pre, root *treenode.TreeNode) bool {
+func IsValideByInorder(pre, root *treenode2.TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -35,7 +35,7 @@ func IsValideByInorder(pre, root *treenode.TreeNode) bool {
 	return true
 }
 
-func dfs(root, min, max *treenode.TreeNode) bool {
+func dfs(root, min, max *treenode2.TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -50,7 +50,7 @@ func dfs(root, min, max *treenode.TreeNode) bool {
 }
 
 // 这种写法也是可以的
-func dfs1(root, min, max *treenode.TreeNode) bool {
+func dfs1(root, min, max *treenode2.TreeNode) bool {
 	if root == nil {
 		return true
 	}

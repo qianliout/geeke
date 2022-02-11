@@ -3,7 +3,7 @@ package main
 import (
 	"sort"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -30,7 +30,7 @@ func findMinArrowShots(points [][]int) int {
 			ans++
 			end = points[i][1]
 		} else {
-			end = common.Min(end, points[i][1])
+			end = common2.Min(end, points[i][1])
 		}
 	}
 	return ans
@@ -49,11 +49,11 @@ func useDP(points [][]int) int {
 	for i := 1; i < len(points); i++ {
 		for j := i - 1; j >= 0; j-- {
 			if points[i][0] > points[j][1] {
-				dp[i] = common.Max(dp[i], dp[j]+1)
+				dp[i] = common2.Max(dp[i], dp[j]+1)
 			}
 		}
-		dp[i] = common.Max(dp[i], dp[i-1])
-		ans = common.Max(dp[i], ans)
+		dp[i] = common2.Max(dp[i], dp[i-1])
+		ans = common2.Max(dp[i], ans)
 	}
 	return ans
 }

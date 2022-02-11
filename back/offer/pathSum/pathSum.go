@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -37,15 +37,15 @@ root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
 // 	return res
 // }
 
-func pathSum2(root *treenode.TreeNode, sum int) int {
+func pathSum2(root *treenode2.TreeNode, sum int) int {
 	var res int
-	visit := make(map[*treenode.TreeNode]bool)
+	visit := make(map[*treenode2.TreeNode]bool)
 	helper(root, sum, 0, &res, visit)
 
 	return res
 }
 
-func helper(root *treenode.TreeNode, sum, path int, res *int, visit map[*treenode.TreeNode]bool) {
+func helper(root *treenode2.TreeNode, sum, path int, res *int, visit map[*treenode2.TreeNode]bool) {
 	if root == nil {
 		return
 	}
@@ -62,7 +62,7 @@ func helper(root *treenode.TreeNode, sum, path int, res *int, visit map[*treenod
 	visit[root] = false
 }
 
-func pathSum(root *treenode.TreeNode, sum int) int {
+func pathSum(root *treenode2.TreeNode, sum int) int {
 	// sumList := make([]int, 0)
 	// n := dfs(root, &sumList, sum)
 	// return n
@@ -74,7 +74,7 @@ func pathSum(root *treenode.TreeNode, sum int) int {
 }
 
 // 前缀和的思想
-func recursionPathSum(node *treenode.TreeNode, prefixSumCount map[int]int, target, currSum int) int {
+func recursionPathSum(node *treenode2.TreeNode, prefixSumCount map[int]int, target, currSum int) int {
 	// 1.递归终止条件
 	if node == nil {
 		return 0
@@ -96,7 +96,7 @@ func recursionPathSum(node *treenode.TreeNode, prefixSumCount map[int]int, targe
 	return res
 }
 
-func dfs(root *treenode.TreeNode, sumList *[]int, sum int) int {
+func dfs(root *treenode2.TreeNode, sumList *[]int, sum int) int {
 	if root == nil {
 		return 0
 	}

@@ -4,7 +4,7 @@ import (
 	"container/heap"
 	"math"
 
-	"qianliout/leetcode/back/common/commonHeap"
+	commonHeap2 "qianliout/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -91,13 +91,13 @@ func (this *MinStackBySlice) GetMin() int {
 // 使用最小堆来实现
 
 type MinStack struct {
-	minHeap commonHeap.MinHeap
+	minHeap commonHeap2.MinHeap
 	stack   []int
 }
 
 /** initialize your data structure here. */
 func Constructor() MinStack {
-	m := MinStack{minHeap: make(commonHeap.MinHeap, 0), stack: make([]int, 0)}
+	m := MinStack{minHeap: make(commonHeap2.MinHeap, 0), stack: make([]int, 0)}
 	return m
 }
 

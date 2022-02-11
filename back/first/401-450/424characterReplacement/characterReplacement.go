@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func characterReplacement(s string, k int) int {
 	for left < length && right < length {
 		cha := ss[right] - 'A'
 		frequencyMap[cha]++
-		charMax = common.Max(charMax, frequencyMap[cha])
+		charMax = common2.Max(charMax, frequencyMap[cha])
 		right++
 
 		// 缩小windown

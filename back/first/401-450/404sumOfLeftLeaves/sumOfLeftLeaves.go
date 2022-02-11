@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -20,13 +20,13 @@ func main() {
 */
 
 // 注意,这里算的不是左节点,而不左叶子节点
-func sumOfLeftLeaves(root *treenode.TreeNode) int {
+func sumOfLeftLeaves(root *treenode2.TreeNode) int {
 	if root == nil {
 		return 0
 	}
 
 	ans := 0
-	queue := make([]*treenode.TreeNode, 0)
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	for len(queue) > 0 {
 		first := queue[0]
@@ -45,7 +45,7 @@ func sumOfLeftLeaves(root *treenode.TreeNode) int {
 }
 
 // 递归解法
-func sumof(root *treenode.TreeNode) int {
+func sumof(root *treenode2.TreeNode) int {
 	if root == nil {
 		return 0
 	}

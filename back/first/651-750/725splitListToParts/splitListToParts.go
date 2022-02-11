@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -38,7 +38,7 @@ k 的取值范围： [1, 50].
 */
 
 // 可以获取正确的解，但是解法太不优雅了
-func splitListToParts(root *listnode.ListNode, k int) []*listnode.ListNode {
+func splitListToParts(root *listnode2.ListNode, k int) []*listnode2.ListNode {
 	// 计算原链表的长度
 	count := 0
 	nod := root
@@ -52,7 +52,7 @@ func splitListToParts(root *listnode.ListNode, k int) []*listnode.ListNode {
 	} else {
 		inter = count/k + 1
 	}
-	res := make([]*listnode.ListNode, 0)
+	res := make([]*listnode2.ListNode, 0)
 	nod = root
 	start := 0
 	prek := k
@@ -92,14 +92,14 @@ func splitListToParts(root *listnode.ListNode, k int) []*listnode.ListNode {
 	return res
 }
 
-func splitListToParts2(root *listnode.ListNode, k int) []*listnode.ListNode {
+func splitListToParts2(root *listnode2.ListNode, k int) []*listnode2.ListNode {
 	count := 0
 	tem := root
 	for tem != nil {
 		tem = tem.Next
 		count++
 	}
-	res := make([]*listnode.ListNode, k)
+	res := make([]*listnode2.ListNode, k)
 	if count <= 0 || k <= 0 {
 		return res
 	}

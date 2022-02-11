@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"strconv"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 1}
-	root.Left = &treenode.TreeNode{Val: 2}
-	root.Right = &treenode.TreeNode{Val: 3}
-	root.Left.Left = &treenode.TreeNode{Val: 4}
-	root.Left.Right = &treenode.TreeNode{Val: 5}
+	root := &treenode2.TreeNode{Val: 1}
+	root.Left = &treenode2.TreeNode{Val: 2}
+	root.Right = &treenode2.TreeNode{Val: 3}
+	root.Left.Left = &treenode2.TreeNode{Val: 4}
+	root.Left.Right = &treenode2.TreeNode{Val: 5}
 	res := binaryTreePaths2(root)
 	fmt.Println(res)
 }
@@ -30,12 +30,12 @@ func main() {
 输出: ["1->2->5", "1->3"]
 解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
 */
-func binaryTreePaths(root *treenode.TreeNode) []string {
+func binaryTreePaths(root *treenode2.TreeNode) []string {
 	res := make([][]int, 0)
 	if root == nil {
 		return []string{}
 	}
-	used := make(map[*treenode.TreeNode]bool)
+	used := make(map[*treenode2.TreeNode]bool)
 	dfs(root, used, []int{}, &res)
 	stringRes := make([]string, 0)
 	for _, nums := range res {
@@ -53,7 +53,7 @@ func binaryTreePaths(root *treenode.TreeNode) []string {
 	return stringRes
 }
 
-func dfs(root *treenode.TreeNode, used map[*treenode.TreeNode]bool, path []int, res *[][]int) {
+func dfs(root *treenode2.TreeNode, used map[*treenode2.TreeNode]bool, path []int, res *[][]int) {
 	if root == nil {
 		// *res = append(*res, append([]int{}, path...))
 		return
@@ -73,7 +73,7 @@ func dfs(root *treenode.TreeNode, used map[*treenode.TreeNode]bool, path []int, 
 	}
 }
 
-func binaryTreePaths2(root *treenode.TreeNode) []string {
+func binaryTreePaths2(root *treenode2.TreeNode) []string {
 	res := make([]string, 0)
 	if root == nil {
 		return res

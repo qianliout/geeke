@@ -3,7 +3,7 @@ package main
 import (
 	"strconv"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -16,17 +16,17 @@ func main() {
 */
 
 // 使用序列化的方式
-func findDuplicateSubtrees(root *treenode.TreeNode) []*treenode.TreeNode {
-	res := make([]*treenode.TreeNode, 0)
+func findDuplicateSubtrees(root *treenode2.TreeNode) []*treenode2.TreeNode {
+	res := make([]*treenode2.TreeNode, 0)
 	exit := make(map[string]int)
-	visit := make(map[*treenode.TreeNode]bool)
+	visit := make(map[*treenode2.TreeNode]bool)
 
 	dfs(root, &res, exit, visit)
 
 	return res
 }
 
-func dfs(root *treenode.TreeNode, res *[]*treenode.TreeNode, exit map[string]int, visit map[*treenode.TreeNode]bool) {
+func dfs(root *treenode2.TreeNode, res *[]*treenode2.TreeNode, exit map[string]int, visit map[*treenode2.TreeNode]bool) {
 	if root == nil {
 		return
 	}
@@ -41,7 +41,7 @@ func dfs(root *treenode.TreeNode, res *[]*treenode.TreeNode, exit map[string]int
 	visit[root] = false
 }
 
-func serialization(node *treenode.TreeNode) string {
+func serialization(node *treenode2.TreeNode) string {
 	if node == nil {
 		return "null"
 	}

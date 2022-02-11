@@ -1,7 +1,7 @@
 package tree
 
 import (
-	treenode2 "qianliout/leetcode/back/common/treenode"
+	"qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -19,7 +19,7 @@ import (
    15   7
 */
 
-func BuildTreeInorderAndPostOrder(inorder []int, postorder []int) *treenode2.TreeNode {
+func BuildTreeInorderAndPostOrder(inorder []int, postorder []int) *treenode.TreeNode {
 	inpos := make(map[int]int, 0)
 	for key, value := range inorder {
 		inpos[value] = key
@@ -28,11 +28,11 @@ func BuildTreeInorderAndPostOrder(inorder []int, postorder []int) *treenode2.Tre
 	return BuildTreeHelper(postorder, inpos, length-1, length-1, 0)
 }
 
-func BuildTreeHelper(postorder []int, inpos map[int]int, inEnd, postEnd, postStart int) *treenode2.TreeNode {
+func BuildTreeHelper(postorder []int, inpos map[int]int, inEnd, postEnd, postStart int) *treenode.TreeNode {
 	if postEnd < postStart {
 		return nil
 	}
-	root := treenode2.TreeNode{Val: postorder[postEnd]}
+	root := treenode.TreeNode{Val: postorder[postEnd]}
 	rootIndex := inpos[postorder[postEnd]]
 	rightLen := inEnd - rootIndex
 

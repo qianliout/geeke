@@ -5,7 +5,7 @@ import (
 	"math"
 	"sort"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func threeSumClosest(nums []int, target int) int {
 	for i, n := range nums {
 		left, right := i+1, len(nums)-1
 		for left < right {
-			c := common.AbsSub(n+nums[left]+nums[right], target)
+			c := common2.AbsSub(n+nums[left]+nums[right], target)
 			s := n + nums[left] + nums[right]
 			if c < closest {
 				closest = c

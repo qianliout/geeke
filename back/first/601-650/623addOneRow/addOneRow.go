@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -63,8 +63,8 @@ d = 3
  *     Right *TreeNode
  * }
  */
-func addOneRow(root *treenode.TreeNode, v int, d int) *treenode.TreeNode {
-	queue := make([]*treenode.TreeNode, 0)
+func addOneRow(root *treenode2.TreeNode, v int, d int) *treenode2.TreeNode {
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	flag := false
 	for len(queue) > 0 {
@@ -75,15 +75,15 @@ func addOneRow(root *treenode.TreeNode, v int, d int) *treenode.TreeNode {
 				left := node.Left
 				right := node.Right
 
-				node.Left = &treenode.TreeNode{Val: v}
-				node.Right = &treenode.TreeNode{Val: v}
+				node.Left = &treenode2.TreeNode{Val: v}
+				node.Right = &treenode2.TreeNode{Val: v}
 				node.Left.Left = left
 				node.Right.Right = right
 			}
 			// 操作了
 			break
 		}
-		thisLeve := make([]*treenode.TreeNode, 0)
+		thisLeve := make([]*treenode2.TreeNode, 0)
 		for i := 0; i < len(queue); i++ {
 			if queue[i].Left != nil {
 				thisLeve = append(thisLeve, queue[i].Left)
@@ -96,7 +96,7 @@ func addOneRow(root *treenode.TreeNode, v int, d int) *treenode.TreeNode {
 		queue = thisLeve
 	}
 	if !flag {
-		node := &treenode.TreeNode{Val: v}
+		node := &treenode2.TreeNode{Val: v}
 		node.Left = root
 		return node
 	}

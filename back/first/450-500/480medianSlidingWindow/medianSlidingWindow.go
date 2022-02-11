@@ -4,7 +4,7 @@ import (
 	"container/heap"
 	"fmt"
 
-	"qianliout/leetcode/back/common/commonHeap"
+	commonHeap2 "qianliout/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -45,8 +45,8 @@ func medianSlidingWindow(nums []int, k int) []float64 {
 		return res
 	}
 	// 先构建初始堆
-	rightHeap := make(commonHeap.MinHeap, 0)
-	leftHeap := make(commonHeap.MaxHeap, 0)
+	rightHeap := make(commonHeap2.MinHeap, 0)
+	leftHeap := make(commonHeap2.MaxHeap, 0)
 	length := len(nums)
 	deleteMap := make(map[int]int)
 	// 用这两个变量来控制堆的平衡

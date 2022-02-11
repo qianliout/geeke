@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -36,7 +36,7 @@ func maximumGap(nums []int) int {
 	}
 	min, max := math.MaxInt64, math.MinInt64
 	for _, n := range nums {
-		min, max = common.Min(min, n), common.Max(max, n)
+		min, max = common2.Min(min, n), common2.Max(max, n)
 	}
 	//
 	if min == max {
@@ -61,7 +61,7 @@ func maximumGap(nums []int) int {
 	// 透过例子应该很好理解，但是如果要说根本原因，其实是开闭区间的问题
 	// 这里其实 0,1,2 号桶对应的区间是 [2,4),[4,6),[6,8)
 	// 那 8 怎么办？多加一个桶呗，3 号桶对应区间 [8,10)
-	bucketSize := common.Max(1, (max-min)/(len(nums)-1)) // 桶间距至少为1, 桶里也可能有最大的间距
+	bucketSize := common2.Max(1, (max-min)/(len(nums)-1)) // 桶间距至少为1, 桶里也可能有最大的间距
 	// 题目中说了非负
 	buckets := make([]*bucket, (max-min)/bucketSize+1)
 	for _, n := range nums {
@@ -72,8 +72,8 @@ func maximumGap(nums []int) int {
 				min: math.MaxInt64,
 			}
 		}
-		buckets[loc].min = common.Min(buckets[loc].min, n)
-		buckets[loc].max = common.Max(buckets[loc].max, n)
+		buckets[loc].min = common2.Min(buckets[loc].min, n)
+		buckets[loc].max = common2.Max(buckets[loc].max, n)
 	}
 	// 找值了
 	ans := math.MinInt64
@@ -81,10 +81,10 @@ func maximumGap(nums []int) int {
 	for i := range buckets {
 		if buckets[i] != nil {
 			if preMax != math.MaxInt64 {
-				ans = common.Max(ans, buckets[i].min-preMax)
+				ans = common2.Max(ans, buckets[i].min-preMax)
 			}
 			preMax = buckets[i].max
-			ans = common.Max(ans, buckets[i].max-buckets[i].min)
+			ans = common2.Max(ans, buckets[i].max-buckets[i].min)
 		}
 	}
 	return ans

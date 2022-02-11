@@ -8,7 +8,7 @@ import (
 
 func main() {
 	t := parseTime("2021-03-10 09:24:27")
-	
+
 	fmt.Println(t.String())
 }
 

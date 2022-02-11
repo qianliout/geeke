@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/unionfind"
+	unionfind2 "qianliout/leetcode/common/unionfind"
 )
 
 func main() {
@@ -74,7 +74,7 @@ func useruf(M [][]int) int {
 	if len(M) == 0 || len(M[0]) == 0 {
 		return 0
 	}
-	uf := unionfind.NewUnionFind(len(M)*len(M) + 1)
+	uf := unionfind2.NewUnionFind(len(M)*len(M) + 1)
 	d := len(M) * len(M)
 
 	for i := 0; i < len(M); i++ {

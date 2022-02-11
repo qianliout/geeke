@@ -1,7 +1,7 @@
 package dfsbfs
 
 import (
-	treenode2 "qianliout/leetcode/back/common/treenode"
+	"qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -19,7 +19,7 @@ import (
    15   7
 */
 
-func BuildTreeInAndPost(inorder, postorder []int) *treenode2.TreeNode {
+func BuildTreeInAndPost(inorder, postorder []int) *treenode.TreeNode {
 	pos := make(map[int]int)
 	for key, value := range inorder {
 		pos[value] = key
@@ -28,12 +28,12 @@ func BuildTreeInAndPost(inorder, postorder []int) *treenode2.TreeNode {
 
 }
 
-func InAndPostHelper(postorder []int, postStart, postEnd, inStart int, pos map[int]int) *treenode2.TreeNode {
+func InAndPostHelper(postorder []int, postStart, postEnd, inStart int, pos map[int]int) *treenode.TreeNode {
 	// 从后往前走
 	if postEnd > postStart || postStart < 0 {
 		return nil
 	}
-	root := treenode2.TreeNode{Val: postorder[postStart]}
+	root := treenode.TreeNode{Val: postorder[postStart]}
 	rootIndex := pos[postorder[postStart]]
 	rightLen := postStart - rootIndex
 	root.Right = InAndPostHelper(postorder, postStart-1, postStart-rightLen, rootIndex-1, pos)

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -26,11 +26,11 @@ func Constructor() Codec {
 }
 
 // Serializes a tree to a single string.
-func (this *Codec) serialize(root *treenode.TreeNode) string {
+func (this *Codec) serialize(root *treenode2.TreeNode) string {
 
 }
 
 // Deserializes your encoded data to tree.
-func (this *Codec) deserialize(data string) *treenode.TreeNode {
+func (this *Codec) deserialize(data string) *treenode2.TreeNode {
 
 }

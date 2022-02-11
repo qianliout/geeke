@@ -1,14 +1,14 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
 
 }
 
-func hasCycle(head *listnode.ListNode) bool {
+func hasCycle(head *listnode2.ListNode) bool {
 	slow, fast := head, head
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
@@ -20,7 +20,7 @@ func hasCycle(head *listnode.ListNode) bool {
 	return false
 }
 
-func detectCycle(head *listnode.ListNode) *listnode.ListNode {
+func detectCycle(head *listnode2.ListNode) *listnode2.ListNode {
 	slow, fast := head, head
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
@@ -39,15 +39,15 @@ func detectCycle(head *listnode.ListNode) *listnode.ListNode {
 
 // 用数组就太简单了
 
-var left *listnode.ListNode
+var left *listnode2.ListNode
 
-func isPalindrome(head *listnode.ListNode) bool {
+func isPalindrome(head *listnode2.ListNode) bool {
 	left = head
 	return recursion(head)
 }
 
 // 使用全局变量
-func recursion(right *listnode.ListNode) bool {
+func recursion(right *listnode2.ListNode) bool {
 	if right == nil {
 		return true
 	}

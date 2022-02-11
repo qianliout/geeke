@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
     在每台超级洗衣机中，衣物数量的范围是 [0, 1e5]。
 */
 func findMinMoves(machines []int) int {
-	sum := common.Sum(machines...)
+	sum := common2.Sum(machines...)
 	single := sum / len(machines)
 
 	if sum%len(machines) != 0 {
@@ -52,9 +52,9 @@ func findMinMoves(machines []int) int {
 		left := i*single - leftSum
 		right := (len(machines)-i-1)*single - (sum - leftSum - n)
 		if left > 0 && right > 0 {
-			res = common.Max(left+right, res)
+			res = common2.Max(left+right, res)
 		} else {
-			res = common.Max(common.Abs(left), common.Abs(right), res)
+			res = common2.Max(common2.Abs(left), common2.Abs(right), res)
 		}
 		leftSum += n
 	}

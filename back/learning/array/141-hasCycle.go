@@ -3,7 +3,7 @@ package array
 import (
 	"fmt"
 
-	array2 "qianliout/leetcode/back/common/array"
+	"qianliout/leetcode/common/array"
 )
 
 /*
@@ -15,7 +15,7 @@ import (
 输出：true
 解释：链表中有一个环，其尾部连接到第二个节点。
 */
-func HasCycle(head *array2.ListNode) bool {
+func HasCycle(head *array.ListNode) bool {
 	fast, slow := head, head
 	for fast != nil && slow != nil && fast.Next != nil {
 		if slow == fast {
@@ -29,7 +29,7 @@ func HasCycle(head *array2.ListNode) bool {
 }
 
 // 使用set的方法
-func HasCycleBySet(head *array2.ListNode) bool {
+func HasCycleBySet(head *array.ListNode) bool {
 	isExst := make(map[int]interface{}, 0)
 
 	for head != nil {

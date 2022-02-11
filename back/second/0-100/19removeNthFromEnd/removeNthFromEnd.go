@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
-	head := &listnode.ListNode{Val: 1}
-	head.Next = &listnode.ListNode{Val: 2}
-	head.Next.Next = &listnode.ListNode{Val: 3}
-	head.Next.Next.Next = &listnode.ListNode{Val: 4}
-	head.Next.Next.Next.Next = &listnode.ListNode{Val: 5}
+	head := &listnode2.ListNode{Val: 1}
+	head.Next = &listnode2.ListNode{Val: 2}
+	head.Next.Next = &listnode2.ListNode{Val: 3}
+	head.Next.Next.Next = &listnode2.ListNode{Val: 4}
+	head.Next.Next.Next.Next = &listnode2.ListNode{Val: 5}
 	removeNthFromEnd(head, 2)
 }
 
@@ -25,11 +25,11 @@ func main() {
 进阶：
 你能尝试使用一趟扫描实现吗？
 */
-func removeNthFromEnd(head *listnode.ListNode, n int) *listnode.ListNode {
+func removeNthFromEnd(head *listnode2.ListNode, n int) *listnode2.ListNode {
 	if head == nil || n == 0 {
 		return head
 	}
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	dump.Next = head
 	i, pre, cur := 0, dump, head
 	for cur != nil {

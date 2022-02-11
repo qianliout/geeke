@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -52,7 +52,7 @@ func candy(ratings []int) int {
 	}
 	res := 0
 	for i := 0; i < len(ratings); i++ {
-		res += common.Max(leftToRight[i], rightToLeft[i])
+		res += common2.Max(leftToRight[i], rightToLeft[i])
 	}
 	return res
 }

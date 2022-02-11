@@ -1,20 +1,20 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
-	head := &listnode.ListNode{Val: 3}
-	head.Next = &listnode.ListNode{Val: 5}
-	head.Next.Next = &listnode.ListNode{Val: 4}
+	head := &listnode2.ListNode{Val: 3}
+	head.Next = &listnode2.ListNode{Val: 5}
+	head.Next.Next = &listnode2.ListNode{Val: 4}
 }
 
-func swapPairs(head *listnode.ListNode) *listnode.ListNode {
+func swapPairs(head *listnode2.ListNode) *listnode2.ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	dump.Next = head
 
 	pre := dump

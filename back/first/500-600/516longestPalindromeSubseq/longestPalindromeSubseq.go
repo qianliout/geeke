@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -60,7 +60,7 @@ func longestPalindromeSubseq(s string) int {
 			if s[i] == s[j] {
 				dp[i][j] = dp[i+1][j-1] + 2
 			} else {
-				dp[i][j] = common.Max(dp[i+1][j], dp[i][j-1])
+				dp[i][j] = common2.Max(dp[i+1][j], dp[i][j-1])
 			}
 
 		}

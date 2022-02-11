@@ -1,8 +1,8 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common"
-	"qianliout/leetcode/back/common/treenode"
+	common2 "qianliout/leetcode/common"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -19,16 +19,16 @@ import (
 输出: 4
 解释: 最大值出现在树的第 3 层，宽度为 4 (5,3,null,9)。
 */
-func widthOfBinaryTree(root *treenode.TreeNode) int {
+func widthOfBinaryTree(root *treenode2.TreeNode) int {
 	return bfs(root)
 }
 
 type item struct {
-	node *treenode.TreeNode
+	node *treenode2.TreeNode
 	pas  int
 }
 
-func bfs(root *treenode.TreeNode) int {
+func bfs(root *treenode2.TreeNode) int {
 	if root == nil {
 		return 0
 	}
@@ -55,7 +55,7 @@ func bfs(root *treenode.TreeNode) int {
 				})
 			}
 		}
-		width = common.Max(width, queue[len(queue)-1].pas-queue[0].pas+1)
+		width = common2.Max(width, queue[len(queue)-1].pas-queue[0].pas+1)
 		queue = thisLevle
 	}
 	return width

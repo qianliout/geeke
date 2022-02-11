@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -56,7 +56,7 @@ func minimumDeleteSum(s1 string, s2 string) int {
 			if ss1[i-1] == ss2[j-1] {
 				dp[i][j] = dp[i-1][j-1]
 			} else {
-				dp[i][j] = common.Min(dp[i-1][j]+int(ss1[i-1]),
+				dp[i][j] = common2.Min(dp[i-1][j]+int(ss1[i-1]),
 					dp[i][j-1]+int(ss2[j-1]),
 					dp[i-1][j-1]+int(ss1[i-1])+int(ss2[j-1]))
 			}

@@ -5,7 +5,7 @@ import (
 	"math"
 	"sort"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -37,8 +37,8 @@ func threeSumClosest(nums []int, target int) int {
 				return sum
 			}
 
-			if sub > common.AbsSub(target, sum) {
-				sub = common.AbsSub(target, sum)
+			if sub > common2.AbsSub(target, sum) {
+				sub = common2.AbsSub(target, sum)
 				ans = sum
 			}
 		}

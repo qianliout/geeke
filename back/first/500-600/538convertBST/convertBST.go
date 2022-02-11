@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -35,11 +35,11 @@ func main() {
 */
 
 // 中序遍历，然后相加就行
-func convertBST(root *treenode.TreeNode) *treenode.TreeNode {
+func convertBST(root *treenode2.TreeNode) *treenode2.TreeNode {
 	if root == nil {
 		return root
 	}
-	list := make([]*treenode.TreeNode, 0)
+	list := make([]*treenode2.TreeNode, 0)
 	dfs(root, &list)
 	for i := len(list) - 2; i >= 0; i-- {
 		list[i].Val += list[i+1].Val
@@ -47,7 +47,7 @@ func convertBST(root *treenode.TreeNode) *treenode.TreeNode {
 	return root
 }
 
-func dfs(root *treenode.TreeNode, list *[]*treenode.TreeNode) {
+func dfs(root *treenode2.TreeNode, list *[]*treenode2.TreeNode) {
 	if root == nil {
 		return
 	}

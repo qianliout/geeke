@@ -1,7 +1,7 @@
 package tree
 
 import (
-	treenode2 "qianliout/leetcode/back/common/treenode"
+	"qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -21,13 +21,13 @@ import (
 解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。
 */
 
-func LowestCommonAncestor(root, p, q *treenode2.TreeNode) *treenode2.TreeNode {
+func LowestCommonAncestor(root, p, q *treenode.TreeNode) *treenode.TreeNode {
 	if root == p || root == q || root == nil {
 		return root
 	}
 	left := LowestCommonAncestor(root.Left, p, q)
 	right := LowestCommonAncestor(root.Right, p, q)
-	var result *treenode2.TreeNode
+	var result *treenode.TreeNode
 	// 如果左边找不到，右边找到了，返回右边
 	if left == nil && right != nil {
 		result = right

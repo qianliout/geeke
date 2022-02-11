@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -19,19 +19,19 @@ func main() {
    15   7
 */
 
-func zigzagLevelOrder(root *treenode.TreeNode) [][]int {
+func zigzagLevelOrder(root *treenode2.TreeNode) [][]int {
 	res := make([][]int, 0)
 	if root == nil {
 		return res
 	}
-	queue := make([]*treenode.TreeNode, 0)
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	zig := true
 
 	for len(queue) > 0 {
 		lenght := len(queue)
 		nex := make([]int, lenght)
-		nexnode := make([]*treenode.TreeNode, 0)
+		nexnode := make([]*treenode2.TreeNode, 0)
 		for i := 0; i < lenght; i++ {
 			first := queue[0]
 			queue = queue[1:]

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	unionfind2 "qianliout/leetcode/back/common/unionfind"
+	"qianliout/leetcode/common/unionfind"
 )
 
 func main() {
@@ -44,7 +44,7 @@ func numIslands(grid [][]byte) int {
 	col := len(grid)
 	row := len(grid[0])
 
-	uf := unionfind2.NewUnionFind(col * row)
+	uf := unionfind.NewUnionFind(col * row)
 	for i := 0; i < col; i++ {
 		for j := 0; j < row; j++ {
 			if grid[i][j] == '0' {
@@ -71,7 +71,7 @@ func numIslands(grid [][]byte) int {
 	return uf.Count
 }
 
-func Islands(i, j int, uf *unionfind2.UnionFind, grid [][]byte) bool {
+func Islands(i, j int, uf *unionfind.UnionFind, grid [][]byte) bool {
 	col := len(grid)
 	row := len(grid[0])
 

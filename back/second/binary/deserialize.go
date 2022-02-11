@@ -5,20 +5,20 @@ import (
 	"strconv"
 	"strings"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 1}
-	root.Left = &treenode.TreeNode{Val: 2}
-	root.Right = &treenode.TreeNode{Val: 3}
-	root.Right.Left = &treenode.TreeNode{Val: 4}
-	root.Right.Right = &treenode.TreeNode{Val: 5}
+	root := &treenode2.TreeNode{Val: 1}
+	root.Left = &treenode2.TreeNode{Val: 2}
+	root.Right = &treenode2.TreeNode{Val: 3}
+	root.Right.Left = &treenode2.TreeNode{Val: 4}
+	root.Right.Right = &treenode2.TreeNode{Val: 5}
 	c := Constructor()
 	s := c.serialize(root)
 	fmt.Println("res is ", s)
 	node := c.deserialize(s)
-	treenode.PreOrderTraversal(node)
+	treenode2.PreOrderTraversal(node)
 }
 
 /**
@@ -39,11 +39,11 @@ func Constructor() Codec {
 }
 
 // Serializes a tree to a single string.
-func (this *Codec) serialize(root *treenode.TreeNode) string {
+func (this *Codec) serialize(root *treenode2.TreeNode) string {
 	return BFSs(root, this.fill)
 }
 
-func DFSs(root *treenode.TreeNode, fill string) string {
+func DFSs(root *treenode2.TreeNode, fill string) string {
 	if root == nil {
 		return fill
 	}
@@ -51,8 +51,8 @@ func DFSs(root *treenode.TreeNode, fill string) string {
 }
 
 // 其实就是层序层序遍历
-func BFSs(root *treenode.TreeNode, fill string) string {
-	queue := make([]*treenode.TreeNode, 0)
+func BFSs(root *treenode2.TreeNode, fill string) string {
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	ans := ""
 	for len(queue) > 0 {
@@ -72,12 +72,12 @@ func BFSs(root *treenode.TreeNode, fill string) string {
 }
 
 // Deserializes your encoded data to tree.
-func (this *Codec) deserialize(data string) *treenode.TreeNode {
+func (this *Codec) deserialize(data string) *treenode2.TreeNode {
 	list := strings.Split(data, ",")
 	return BFSd(list)
 }
 
-func DFSd(data *[]string) *treenode.TreeNode {
+func DFSd(data *[]string) *treenode2.TreeNode {
 	if len(*data) == 0 {
 		return nil
 	}
@@ -88,7 +88,7 @@ func DFSd(data *[]string) *treenode.TreeNode {
 	if err != nil {
 		return nil
 	}
-	root := &treenode.TreeNode{Val: v}
+	root := &treenode2.TreeNode{Val: v}
 	root.Left = DFSd(data)
 	root.Right = DFSd(data)
 	return root
@@ -102,7 +102,7 @@ func DFSd(data *[]string) *treenode.TreeNode {
  * ans := deser.deserialize(data);
  */
 
-func BFSd(data []string) *treenode.TreeNode {
+func BFSd(data []string) *treenode2.TreeNode {
 	s := data
 	idx := 0
 	i, err := strconv.Atoi(s[idx])
@@ -110,9 +110,9 @@ func BFSd(data []string) *treenode.TreeNode {
 	if err != nil {
 		return nil
 	}
-	root := &treenode.TreeNode{Val: i}
+	root := &treenode2.TreeNode{Val: i}
 
-	queue := []*treenode.TreeNode{root}
+	queue := []*treenode2.TreeNode{root}
 	for len(queue) > 0 {
 		node := queue[0]
 		queue = queue[1:]
@@ -120,7 +120,7 @@ func BFSd(data []string) *treenode.TreeNode {
 
 		if s[idx] != "null" {
 			if j, e := strconv.Atoi(s[idx]); e == nil {
-				left := &treenode.TreeNode{Val: j}
+				left := &treenode2.TreeNode{Val: j}
 				node.Left = left
 				queue = append(queue, left)
 			}
@@ -128,7 +128,7 @@ func BFSd(data []string) *treenode.TreeNode {
 		idx++
 		if s[idx] != "null" {
 			if j, e := strconv.Atoi(s[idx]); e == nil {
-				right := &treenode.TreeNode{Val: j}
+				right := &treenode2.TreeNode{Val: j}
 				node.Right = right
 				queue = append(queue, right)
 			}

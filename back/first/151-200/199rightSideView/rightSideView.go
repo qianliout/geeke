@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 1}
+	root := &treenode2.TreeNode{Val: 1}
 	// root.Left = &TreeNode{Val: 2}
 	// root.Left.Right = &TreeNode{Val: 5}
 	// root.Right = &TreeNode{Val: 3}
@@ -31,16 +31,16 @@ func main() {
 */
 
 // bfs
-func rightSideView(root *treenode.TreeNode) []int {
+func rightSideView(root *treenode2.TreeNode) []int {
 	res := make([]int, 0)
 	if root == nil {
 		return res
 	}
-	queue := make([]*treenode.TreeNode, 0)
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	res = append(res, root.Val)
 	for len(queue) > 0 {
-		thisLevel := make([]*treenode.TreeNode, 0)
+		thisLevel := make([]*treenode2.TreeNode, 0)
 		for len(queue) > 0 {
 			first := queue[0]
 			queue = queue[1:len(queue)]
@@ -64,7 +64,7 @@ func rightSideView(root *treenode.TreeNode) []int {
 // dfs
 var depth int
 
-func rightSideView2(root *treenode.TreeNode) []int {
+func rightSideView2(root *treenode2.TreeNode) []int {
 	res := make([]int, 0)
 	if root == nil {
 		return res
@@ -75,7 +75,7 @@ func rightSideView2(root *treenode.TreeNode) []int {
 }
 
 // 这道题的dfs一定要好好理解，关键点就是这个depth控制
-func dfs(root *treenode.TreeNode, res *[]int, now int) {
+func dfs(root *treenode2.TreeNode, res *[]int, now int) {
 	if root == nil {
 		return
 	}

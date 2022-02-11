@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
     链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
 */
 
-func oddEvenList(head *listnode.ListNode) *listnode.ListNode {
+func oddEvenList(head *listnode2.ListNode) *listnode2.ListNode {
 	if head == nil || head.Next == nil || head.Next.Next == nil {
 		return head
 	}

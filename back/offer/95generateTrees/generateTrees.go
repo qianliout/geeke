@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -25,9 +25,9 @@ func main() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-func generateTrees(n int) []*treenode.TreeNode {
+func generateTrees(n int) []*treenode2.TreeNode {
 	if n == 0 {
-		return make([]*treenode.TreeNode, 0)
+		return make([]*treenode2.TreeNode, 0)
 	}
 	return helper(1, n)
 }
@@ -57,8 +57,8 @@ func generateTrees(n int) []*treenode.TreeNode {
 // 	return res
 // }
 
-func helper(start, end int) []*treenode.TreeNode {
-	res := make([]*treenode.TreeNode, 0)
+func helper(start, end int) []*treenode2.TreeNode {
+	res := make([]*treenode2.TreeNode, 0)
 	if start > end {
 		res = append(res, nil)
 		return res
@@ -68,7 +68,7 @@ func helper(start, end int) []*treenode.TreeNode {
 		rightNodes := helper(i+1, end)
 		for _, left := range leftNodes {
 			for _, right := range rightNodes {
-				res = append(res, &treenode.TreeNode{
+				res = append(res, &treenode2.TreeNode{
 					Val:   i,
 					Left:  left,
 					Right: right,

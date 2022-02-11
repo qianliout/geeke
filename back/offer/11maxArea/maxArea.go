@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 func maxArea(height []int) int {
 	ans, left, right := 0, 0, len(height)-1
 	for left < right {
-		ans = common.Max(ans, common.Min(height[left], height[right])*(right-left))
+		ans = common2.Max(ans, common2.Min(height[left], height[right])*(right-left))
 		if height[left] >= height[right] {
 			right--
 		} else {

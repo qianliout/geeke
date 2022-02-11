@@ -4,7 +4,7 @@ import (
 	"container/heap"
 	"fmt"
 
-	"qianliout/leetcode/back/common/commonHeap"
+	commonHeap2 "qianliout/leetcode/common/commonHeap"
 )
 
 func main() {
@@ -43,14 +43,14 @@ findMedian() -> 2
 // 解法就是维护两个堆，而且不删除，相对简单
 
 type MedianFinder struct {
-	leftHeap  commonHeap.MaxHeap
-	rightHeap commonHeap.MinHeap
+	leftHeap  commonHeap2.MaxHeap
+	rightHeap commonHeap2.MinHeap
 }
 
 func Constructor() MedianFinder {
 	return MedianFinder{
-		leftHeap:  make(commonHeap.MaxHeap, 0),
-		rightHeap: make(commonHeap.MinHeap, 0),
+		leftHeap:  make(commonHeap2.MaxHeap, 0),
+		rightHeap: make(commonHeap2.MinHeap, 0),
 	}
 }
 

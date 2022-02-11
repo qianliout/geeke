@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -28,12 +28,12 @@ func main() {
         1
 */
 
-func constructMaximumBinaryTree(nums []int) *treenode.TreeNode {
+func constructMaximumBinaryTree(nums []int) *treenode2.TreeNode {
 	if len(nums) == 0 {
 		return nil
 	}
 	max := findMax(nums)
-	root := &treenode.TreeNode{Val: nums[max]}
+	root := &treenode2.TreeNode{Val: nums[max]}
 
 	root.Left = constructMaximumBinaryTree(nums[:max])
 	root.Right = constructMaximumBinaryTree(nums[max+1:])

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 输出: 2->3
 */
 // 删除重复的，
-func deleteDuplicates(head *listnode.ListNode) *listnode.ListNode {
+func deleteDuplicates(head *listnode2.ListNode) *listnode2.ListNode {
 	cur := head
 	for cur != nil && cur.Next != nil {
 		if cur.Val == cur.Next.Val {
@@ -31,8 +31,8 @@ func deleteDuplicates(head *listnode.ListNode) *listnode.ListNode {
 }
 
 // 把重复的删除
-func deleteDuplicates2(head *listnode.ListNode) *listnode.ListNode {
-	dump := new(listnode.ListNode)
+func deleteDuplicates2(head *listnode2.ListNode) *listnode2.ListNode {
+	dump := new(listnode2.ListNode)
 	dump.Next = head
 	cur := dump
 	for cur != nil && cur.Next != nil && cur.Next.Next != nil {

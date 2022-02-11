@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -50,7 +50,7 @@ key = 3
         若root的右子树为空，则要想删除root节点，只需让root的左子树替代它的位置即可。
         若root的右子树不为空，由于右子树中最左的节点即为右子树中值最小的节点，root左子树的所有节点都比这个节点小，因此我们只要找到右子树中这个最左的节点，将root的左子树挂到它下面，成为它的左子树即可。如下图所示：将50的左子树挂到50的右子树的最左的节点60下，成为60节点的左子树
 */
-func deleteNode(root *treenode.TreeNode, key int) *treenode.TreeNode {
+func deleteNode(root *treenode2.TreeNode, key int) *treenode2.TreeNode {
 	if root == nil {
 		return root
 	}

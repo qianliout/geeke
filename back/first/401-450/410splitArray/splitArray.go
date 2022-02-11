@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func splitArray(nums []int, m int) int {
 
 	max, sum := 0, 0
 	for _, n := range nums {
-		max = common.Max(max, n)
+		max = common2.Max(max, n)
 		sum += n
 	}
 	if len(nums) == m {

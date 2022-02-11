@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strconv"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 1}
-	root.Left = &treenode.TreeNode{Val: 2}
-	root.Left.Left = &treenode.TreeNode{Val: 4}
-	root.Right = &treenode.TreeNode{Val: 3}
+	root := &treenode2.TreeNode{Val: 1}
+	root.Left = &treenode2.TreeNode{Val: 2}
+	root.Left.Left = &treenode2.TreeNode{Val: 4}
+	root.Right = &treenode2.TreeNode{Val: 3}
 	str := tree2str2(root)
 	fmt.Println("str is ", str)
 }
@@ -41,7 +41,7 @@ func main() {
 解释: 和第一个示例相似，
 除了我们不能省略第一个对括号来中断输入和输出之间的一对一映射关系。
 */
-func tree2str(t *treenode.TreeNode) string {
+func tree2str(t *treenode2.TreeNode) string {
 	if t == nil {
 		return ""
 	}
@@ -49,7 +49,7 @@ func tree2str(t *treenode.TreeNode) string {
 	return string([]byte(s)[1 : len(s)-1])
 }
 
-func dfs(root *treenode.TreeNode, s string) string {
+func dfs(root *treenode2.TreeNode, s string) string {
 	if root == nil {
 		return ""
 	}

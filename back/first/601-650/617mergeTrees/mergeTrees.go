@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -27,8 +27,8 @@ func main() {
 	  / \   \
 	 5   4   7
 */
-func mergeTrees(t1 *treenode.TreeNode, t2 *treenode.TreeNode) *treenode.TreeNode {
-	root := &treenode.TreeNode{}
+func mergeTrees(t1 *treenode2.TreeNode, t2 *treenode2.TreeNode) *treenode2.TreeNode {
+	root := &treenode2.TreeNode{}
 	if t1 == nil && t2 == nil {
 		return nil
 	}

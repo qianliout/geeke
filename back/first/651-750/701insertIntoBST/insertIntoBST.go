@@ -1,29 +1,29 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
 
 }
 
-func insertIntoBST(root *treenode.TreeNode, val int) *treenode.TreeNode {
+func insertIntoBST(root *treenode2.TreeNode, val int) *treenode2.TreeNode {
 	if root == nil {
-		return &treenode.TreeNode{Val: val}
+		return &treenode2.TreeNode{Val: val}
 	}
 	p := root
 	for p != nil {
 		if val < p.Val {
 			if p.Left == nil {
-				p.Left = &treenode.TreeNode{Val: val}
+				p.Left = &treenode2.TreeNode{Val: val}
 				break
 			} else {
 				p = p.Left
 			}
 		} else {
 			if p.Right == nil {
-				p.Right = &treenode.TreeNode{Val: val}
+				p.Right = &treenode2.TreeNode{Val: val}
 				break
 			} else {
 				p = p.Right
@@ -33,9 +33,9 @@ func insertIntoBST(root *treenode.TreeNode, val int) *treenode.TreeNode {
 	return root
 }
 
-func insertIntoBST2(root *treenode.TreeNode, val int) *treenode.TreeNode {
+func insertIntoBST2(root *treenode2.TreeNode, val int) *treenode2.TreeNode {
 	if root == nil {
-		return &treenode.TreeNode{Val: val}
+		return &treenode2.TreeNode{Val: val}
 	}
 	if root.Val < val {
 		root.Right = insertIntoBST2(root.Right, val)

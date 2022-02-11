@@ -1,7 +1,7 @@
 package tree
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -29,13 +29,13 @@ import (
      根节点的值为 5 ，但是其右子节点值为 4 。
 */
 
-func IsValidBST(root *treenode.TreeNode) bool {
+func IsValidBST(root *treenode2.TreeNode) bool {
 	// return IsValideByRecusion(root, nil, nil)
 	return IsValideByInorder(nil, root)
 }
 
 // BST有个特点是，进行一次中序遍历后，是一个升序序列，所以，可以使用。
-func IsValideByInorder(pre, root *treenode.TreeNode) bool {
+func IsValideByInorder(pre, root *treenode2.TreeNode) bool {
 	// pre 表示前继结点，前继结点一定比之后结点小。
 	if root == nil {
 		return true
@@ -54,7 +54,7 @@ func IsValideByInorder(pre, root *treenode.TreeNode) bool {
 }
 
 // 递归的方法
-func IsValideByRecusion(root, min, max *treenode.TreeNode) bool {
+func IsValideByRecusion(root, min, max *treenode2.TreeNode) bool {
 	// min 记录的是当前最小的那个结点，max记录的当前最大的那个结点，这是关键，不是左结点和右结点
 	if root == nil {
 		return true
@@ -68,7 +68,7 @@ func IsValideByRecusion(root, min, max *treenode.TreeNode) bool {
 	return IsValideByRecusion(root.Left, min, root) && IsValideByRecusion(root.Right, root, max)
 }
 
-func dfspre(pre, root *treenode.TreeNode) bool {
+func dfspre(pre, root *treenode2.TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -85,7 +85,7 @@ func dfspre(pre, root *treenode.TreeNode) bool {
 	return dfspre(pre, root.Right)
 }
 
-func dfsMaxMin(max, min, root *treenode.TreeNode) bool {
+func dfsMaxMin(max, min, root *treenode2.TreeNode) bool {
 	if root == nil {
 		return true
 	}

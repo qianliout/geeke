@@ -1,8 +1,8 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common"
-	"qianliout/leetcode/back/common/treenode"
+	common2 "qianliout/leetcode/common"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 输出：42
 解释：最优路径是 15 -> 20 -> 7 ，路径和为 15 + 20 + 7 = 42
 */
-func maxPathSum(root *treenode.TreeNode) int {
+func maxPathSum(root *treenode2.TreeNode) int {
 	// 一定要先赋值。因为可能有负数
 	var max int = root.Val
 
@@ -33,24 +33,24 @@ func maxPathSum(root *treenode.TreeNode) int {
 }
 
 // 返回值表示只走一边且包扩包前节点的最大值，因为只走一边，所以在计算max的值时可以root.Val+left+right
-func help(root *treenode.TreeNode, max *int) int {
+func help(root *treenode2.TreeNode, max *int) int {
 	if root == nil {
 		return 0
 	}
 	left := help(root.Left, max)
 	right := help(root.Right, max)
-	*max = common.Max(*max, root.Val, root.Val+left, root.Val+right, root.Val+left+right)
+	*max = common2.Max(*max, root.Val, root.Val+left, root.Val+right, root.Val+left+right)
 	// 不能这样写的原因是，只走一边，所以上面max才可以左右都相加
 	// return Max(root.Val, root.Val+left, root.Val+right,root+right+left)
-	return common.Max(root.Val, root.Val+left, root.Val+right)
+	return common2.Max(root.Val, root.Val+left, root.Val+right)
 }
 
-func help2(root *treenode.TreeNode, max *int) int {
+func help2(root *treenode2.TreeNode, max *int) int {
 	if root == nil {
 		return 0
 	}
 	left := help2(root.Left, max)
 	ritght := help2(root.Right, max)
-	*max = common.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght, root.Val+left+ritght)
-	return common.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght)
+	*max = common2.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght, root.Val+left+ritght)
+	return common2.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght)
 }

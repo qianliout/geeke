@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -71,8 +71,8 @@ func maxProfit(k int, prices []int) int {
 				dp[-1][j][0] = 0
 				dp[-1][j][1] = math.MinInt64
 			}
-			dp[i][j][0] = common.Max(dp[i-1][j][1]+prices[i], dp[i-1][j][0])
-			dp[i][j][1] = common.Max(dp[i-1][j][1], dp[i-1][j-1][0]-prices[i])
+			dp[i][j][0] = common2.Max(dp[i-1][j][1]+prices[i], dp[i-1][j][0])
+			dp[i][j][1] = common2.Max(dp[i-1][j][1], dp[i-1][j-1][0]-prices[i])
 		}
 	}
 	return dp[len(prices)-1][k][0]
@@ -91,8 +91,8 @@ func maxProfiKinf(prices []int) int {
 	// 初值
 	dp[-1][0], dp[-1][1] = 0, math.MinInt64
 	for i := 0; i < n; i++ {
-		dp[i][0] = common.Max(dp[i-1][0], dp[i-1][1]+prices[i])
-		dp[i][1] = common.Max(dp[i-1][1], dp[i-1][0]-prices[i])
+		dp[i][0] = common2.Max(dp[i-1][0], dp[i-1][1]+prices[i])
+		dp[i][1] = common2.Max(dp[i-1][1], dp[i-1][0]-prices[i])
 	}
 	return dp[n-1][0]
 }

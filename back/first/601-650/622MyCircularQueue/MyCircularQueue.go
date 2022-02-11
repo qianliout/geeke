@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -31,8 +31,8 @@ func main() {
 type MyCircularQueue struct {
 	length   int
 	capacity int
-	head     *listnode.ListNode
-	tail     *listnode.ListNode
+	head     *listnode2.ListNode
+	tail     *listnode2.ListNode
 }
 
 /** Initialize your data structure here. Set the size of the queue to be k. */
@@ -47,7 +47,7 @@ func (this *MyCircularQueue) EnQueue(value int) bool {
 	if this.length >= this.capacity {
 		return false
 	}
-	n := listnode.ListNode{Val: value}
+	n := listnode2.ListNode{Val: value}
 	if this.length == 0 {
 		this.head = &n
 		this.tail = this.head

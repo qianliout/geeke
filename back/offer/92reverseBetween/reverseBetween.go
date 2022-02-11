@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -16,6 +16,6 @@ func main() {
 输入: 1->2->3->4->5->NULL, m = 2, n = 4
 输出: 1->4->3->2->5->NULL
 */
-func reverseBetween(head *listnode.ListNode, left int, right int) *listnode.ListNode {
+func reverseBetween(head *listnode2.ListNode, left int, right int) *listnode2.ListNode {
 
 }

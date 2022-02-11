@@ -5,16 +5,16 @@ import (
 	"math/rand"
 	"time"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
-	head := &listnode.ListNode{Val: 10}
-	head.Next = &listnode.ListNode{Val: 100}
-	head.Next.Next = &listnode.ListNode{Val: 100}
-	head.Next.Next.Next = &listnode.ListNode{Val: 20}
-	head.Next.Next.Next.Next = &listnode.ListNode{Val: 20}
-	head.Next.Next.Next.Next.Next = &listnode.ListNode{Val: 100}
+	head := &listnode2.ListNode{Val: 10}
+	head.Next = &listnode2.ListNode{Val: 100}
+	head.Next.Next = &listnode2.ListNode{Val: 100}
+	head.Next.Next.Next = &listnode2.ListNode{Val: 20}
+	head.Next.Next.Next.Next = &listnode2.ListNode{Val: 20}
+	head.Next.Next.Next.Next.Next = &listnode2.ListNode{Val: 100}
 	s := Constructor(head)
 	ran := s.GetRandom()
 	fmt.Println("rand is ", ran)
@@ -43,14 +43,14 @@ Solution solution = new Solution(head);
 solution.getRandom();
 */
 type Solution struct {
-	head *listnode.ListNode
+	head *listnode2.ListNode
 
 	r *rand.Rand
 }
 
 /** @param head The linked list's head.
   Note that the head is guaranteed to be not null, so it contains at least one node. */
-func Constructor(head *listnode.ListNode) Solution {
+func Constructor(head *listnode2.ListNode) Solution {
 	seed := time.Now().UnixNano()
 	ran := rand.New(rand.NewSource(seed))
 	return Solution{head: head, r: ran}

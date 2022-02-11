@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -69,7 +69,7 @@ func maxSumSubmatrix1(matrix [][]int, k int) int {
 			for c := 0; c < cols; c++ {
 				rowSum[c] += matrix[c][rr]
 			}
-			max = common.Max(max, dpmax(rowSum, k))
+			max = common2.Max(max, dpmax(rowSum, k))
 		}
 	}
 	return max

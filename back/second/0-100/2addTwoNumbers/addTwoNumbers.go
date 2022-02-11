@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 原因：342 + 465 = 807
 */
 
-func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {
+func addTwoNumbers(l1 *listnode2.ListNode, l2 *listnode2.ListNode) *listnode2.ListNode {
 	if l1 == nil {
 		return l2
 	}
@@ -39,7 +39,7 @@ func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListN
 		nums2 = append(nums2, cur.Val)
 		cur = cur.Next
 	}
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	pre := 0
 	curNode := dump
 	for len(nums1) > 0 || len(nums2) > 0 {
@@ -58,25 +58,25 @@ func addTwoNumbers(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListN
 		} else {
 			pre = 0
 		}
-		node := listnode.ListNode{Val: r}
+		node := listnode2.ListNode{Val: r}
 		curNode.Next = &node
 		curNode = curNode.Next
 	}
 	if pre != 0 {
-		curNode.Next = &listnode.ListNode{Val: pre}
+		curNode.Next = &listnode2.ListNode{Val: pre}
 	}
 
 	return dump.Next
 }
 
-func addTwoNumbers2(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {
+func addTwoNumbers2(l1 *listnode2.ListNode, l2 *listnode2.ListNode) *listnode2.ListNode {
 	if l1 == nil {
 		return l2
 	}
 	if l2 == nil {
 		return l1
 	}
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	cur := dump
 	pre := 0
 	for l1 != nil || l2 != nil {
@@ -95,11 +95,11 @@ func addTwoNumbers2(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.List
 		} else {
 			pre = 0
 		}
-		cur.Next = &listnode.ListNode{Val: a}
+		cur.Next = &listnode2.ListNode{Val: a}
 		cur = cur.Next
 	}
 	if pre != 0 {
-		cur.Next = &listnode.ListNode{Val: pre}
+		cur.Next = &listnode2.ListNode{Val: pre}
 	}
 	return dump.Next
 }

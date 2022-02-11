@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
-	head := &listnode.ListNode{Val: 3}
-	head.Next = &listnode.ListNode{Val: 2}
+	head := &listnode2.ListNode{Val: 3}
+	head.Next = &listnode2.ListNode{Val: 2}
 	res := sortList(head)
 	fmt.Println(res.Val)
 }
@@ -19,7 +19,7 @@ func main() {
 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
 */
 // 主要是常数空间,归并排数的思想
-func sortList(head *listnode.ListNode) *listnode.ListNode {
+func sortList(head *listnode2.ListNode) *listnode2.ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
@@ -34,7 +34,7 @@ func sortList(head *listnode.ListNode) *listnode.ListNode {
 	left, right := sortList(head), sortList(mid)
 
 	// 开始归并
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	cur := dump
 
 	for left != nil && right != nil {

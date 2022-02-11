@@ -3,7 +3,7 @@ package main
 import (
 	"sort"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func findLongestChain(pairs [][]int) int {
 			ans++
 			start = pairs[i][1]
 		} else {
-			start = common.Min(start, pairs[i][1])
+			start = common2.Min(start, pairs[i][1])
 		}
 	}
 	return ans

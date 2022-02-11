@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -24,13 +24,13 @@ func main() {
     p、q 为不同节点且均存在于给定的二叉树中。
 */
 
-func lowestCommonAncestor(root, p, q *treenode.TreeNode) *treenode.TreeNode {
+func lowestCommonAncestor(root, p, q *treenode2.TreeNode) *treenode2.TreeNode {
 	if root == p || root == q || root == nil {
 		return root
 	}
 	left := lowestCommonAncestor(root.Left, p, q)
 	right := lowestCommonAncestor(root.Right, p, q)
-	var res *treenode.TreeNode
+	var res *treenode2.TreeNode
 
 	if left != nil && right == nil {
 		res = left
@@ -45,7 +45,7 @@ func lowestCommonAncestor(root, p, q *treenode.TreeNode) *treenode.TreeNode {
 }
 
 // 如果是二叉搜索树呢
-func lowestCommonAncestor2(root, p, q *treenode.TreeNode) *treenode.TreeNode {
+func lowestCommonAncestor2(root, p, q *treenode2.TreeNode) *treenode2.TreeNode {
 	if root == nil || root == q || root == p {
 		return root
 	}

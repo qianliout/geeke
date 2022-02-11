@@ -1,7 +1,7 @@
 package tree
 
 import (
-	treenode2 "qianliout/leetcode/back/common/treenode"
+	"qianliout/leetcode/common/treenode"
 )
 
 /*
@@ -18,7 +18,7 @@ import (
 解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
 */
 
-func LowestCommonAncestorBST(root, p, q *treenode2.TreeNode) *treenode2.TreeNode {
+func LowestCommonAncestorBST(root, p, q *treenode.TreeNode) *treenode.TreeNode {
 	// 二叉搜索树也是二叉树，所以235的做法仍然也是有用的
 	// 因为是二叉搜索树，所以可以加快速度
 	if p.Val < root.Val && q.Val < root.Val {
@@ -33,7 +33,7 @@ func LowestCommonAncestorBST(root, p, q *treenode2.TreeNode) *treenode2.TreeNode
 	return root
 }
 
-func LowestCommonAncestorBSTByWhile(root, p, q *treenode2.TreeNode) *treenode2.TreeNode {
+func LowestCommonAncestorBSTByWhile(root, p, q *treenode.TreeNode) *treenode.TreeNode {
 	for root != nil {
 		if p.Val < root.Val && q.Val < root.Val {
 			root = root.Left

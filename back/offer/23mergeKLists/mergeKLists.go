@@ -1,14 +1,14 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
 
 }
 
-func mergeKLists(lists []*listnode.ListNode) *listnode.ListNode {
+func mergeKLists(lists []*listnode2.ListNode) *listnode2.ListNode {
 	if len(lists) == 0 {
 		return nil
 	}
@@ -21,7 +21,7 @@ func mergeKLists(lists []*listnode.ListNode) *listnode.ListNode {
 	return root
 }
 
-func mergeTwoLists(l1 *listnode.ListNode, l2 *listnode.ListNode) *listnode.ListNode {
+func mergeTwoLists(l1 *listnode2.ListNode, l2 *listnode2.ListNode) *listnode2.ListNode {
 	if l1 == nil {
 		return l2
 	}

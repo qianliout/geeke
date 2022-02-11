@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -38,8 +38,8 @@ func maxProfit(prices []int, fee int) int {
 	dp2[0] = 0
 
 	for i := 1; i < len(prices); i++ {
-		dp1[i] = common.Max(dp1[i-1], dp2[i-1]-prices[i]-fee)
-		dp2[i] = common.Max(dp2[i-1], dp1[i-1]+prices[i])
+		dp1[i] = common2.Max(dp1[i-1], dp2[i-1]-prices[i]-fee)
+		dp2[i] = common2.Max(dp2[i-1], dp1[i-1]+prices[i])
 	}
 	return dp2[len(prices)-1]
 }

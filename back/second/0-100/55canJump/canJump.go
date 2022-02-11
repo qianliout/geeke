@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func canJump(nums []int) bool {
 			if dp[i-1] < i {
 				return false
 			}
-			dp[i] = common.Max(nums[i]+i, dp[i-1])
+			dp[i] = common2.Max(nums[i]+i, dp[i-1])
 		} else {
 			dp[i] = nums[i] + i
 		}
@@ -52,7 +52,7 @@ func canJump2(nums []int) bool {
 	}
 	step := 0 // 表示还能前进多少步
 	for i := 0; i < len(nums)-1; i++ {
-		step = common.Max(step-1, nums[i])
+		step = common2.Max(step-1, nums[i])
 		if step == 0 {
 			return false
 		}

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -24,11 +24,11 @@ func main() {
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-func buildTree(inorder []int, postorder []int) *treenode.TreeNode {
+func buildTree(inorder []int, postorder []int) *treenode2.TreeNode {
 	if len(inorder) == 0 || len(postorder) == 0 {
 		return nil
 	}
-	root := &treenode.TreeNode{Val: postorder[len(postorder)-1]}
+	root := &treenode2.TreeNode{Val: postorder[len(postorder)-1]}
 	idx := find(inorder, postorder[len(postorder)-1])
 	root.Left = buildTree(inorder[:idx], postorder[:idx])
 	root.Right = buildTree(inorder[idx+1:], postorder[idx:len(postorder)-1])

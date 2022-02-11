@@ -5,21 +5,21 @@ import (
 	"strconv"
 	"strings"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 1}
-	root.Left = &treenode.TreeNode{Val: 2}
-	root.Right = &treenode.TreeNode{Val: 3}
-	root.Right.Left = &treenode.TreeNode{Val: 4}
-	root.Right.Right = &treenode.TreeNode{Val: 5}
+	root := &treenode2.TreeNode{Val: 1}
+	root.Left = &treenode2.TreeNode{Val: 2}
+	root.Right = &treenode2.TreeNode{Val: 3}
+	root.Right.Left = &treenode2.TreeNode{Val: 4}
+	root.Right.Right = &treenode2.TreeNode{Val: 5}
 	c := Constructor()
 	s := c.serialize(root)
 
 	node := c.deserialize(s)
 	fmt.Println("serialize", s)
-	treenode.PreOrderTraversal(node)
+	treenode2.PreOrderTraversal(node)
 }
 
 /*
@@ -50,13 +50,13 @@ func Constructor() Codec {
 
 // 这道题,最后的几个Null可以不用去除,这样会好的多,这个就是一个完全二叉树,反序列化时就会好的很多,而且,也不用加前后的[ ]
 // Serializes a tree to a single string.
-func (this *Codec) serialize(root *treenode.TreeNode) string {
+func (this *Codec) serialize(root *treenode2.TreeNode) string {
 	// return rserialize(root, "")
 	return rserialize(root, "")
 }
 
 // Deserializes your encoded data to tree.
-func (this *Codec) deserialize(data string) *treenode.TreeNode {
+func (this *Codec) deserialize(data string) *treenode2.TreeNode {
 	// 先生成数组
 	queue := strings.Split(data, ",")
 	// bfs
@@ -66,12 +66,12 @@ func (this *Codec) deserialize(data string) *treenode.TreeNode {
 }
 
 // bfs
-func bfsSerialize(root *treenode.TreeNode) string {
+func bfsSerialize(root *treenode2.TreeNode) string {
 	if root == nil {
 		return "null"
 	}
 	s := make([]string, 0)
-	queue := make([]*treenode.TreeNode, 0)
+	queue := make([]*treenode2.TreeNode, 0)
 	queue = append(queue, root)
 	for len(queue) > 0 {
 		first := queue[0]
@@ -87,7 +87,7 @@ func bfsSerialize(root *treenode.TreeNode) string {
 	return strings.Join(s, ",")
 }
 
-func bfsDeserialize(ss *[]string) *treenode.TreeNode {
+func bfsDeserialize(ss *[]string) *treenode2.TreeNode {
 	s := *ss
 	idx := 0
 	i, err := strconv.Atoi(s[idx])
@@ -95,9 +95,9 @@ func bfsDeserialize(ss *[]string) *treenode.TreeNode {
 	if err != nil {
 		return nil
 	}
-	root := &treenode.TreeNode{Val: i}
+	root := &treenode2.TreeNode{Val: i}
 
-	queue := []*treenode.TreeNode{root}
+	queue := []*treenode2.TreeNode{root}
 	for len(queue) > 0 {
 		node := queue[0]
 		queue = queue[1:]
@@ -105,7 +105,7 @@ func bfsDeserialize(ss *[]string) *treenode.TreeNode {
 
 		if s[idx] != "null" {
 			if j, e := strconv.Atoi(s[idx]); e == nil {
-				left := &treenode.TreeNode{Val: j}
+				left := &treenode2.TreeNode{Val: j}
 				node.Left = left
 				queue = append(queue, left)
 			}
@@ -113,7 +113,7 @@ func bfsDeserialize(ss *[]string) *treenode.TreeNode {
 		idx++
 		if s[idx] != "null" {
 			if j, e := strconv.Atoi(s[idx]); e == nil {
-				right := &treenode.TreeNode{Val: j}
+				right := &treenode2.TreeNode{Val: j}
 				node.Right = right
 				queue = append(queue, right)
 			}
@@ -123,7 +123,7 @@ func bfsDeserialize(ss *[]string) *treenode.TreeNode {
 }
 
 // 使用递归的方式
-func rdeserialize(queue *[]string) *treenode.TreeNode {
+func rdeserialize(queue *[]string) *treenode2.TreeNode {
 	if len(*queue) == 0 {
 		return nil
 	}
@@ -133,13 +133,13 @@ func rdeserialize(queue *[]string) *treenode.TreeNode {
 	if err != nil {
 		return nil
 	}
-	root := &treenode.TreeNode{Val: i}
+	root := &treenode2.TreeNode{Val: i}
 	root.Left = rdeserialize(queue)
 	root.Right = rdeserialize(queue)
 	return root
 }
 
-func rserialize(root *treenode.TreeNode, s string) string {
+func rserialize(root *treenode2.TreeNode, s string) string {
 	if root == nil {
 		s = s + "null,"
 	} else {

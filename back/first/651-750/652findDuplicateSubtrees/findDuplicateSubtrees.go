@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"strconv"
 
-	"qianliout/leetcode/back/common/treenode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
-	root := &treenode.TreeNode{Val: 0}
-	root.Left = &treenode.TreeNode{Val: 0}
-	root.Left.Left = &treenode.TreeNode{Val: 0}
-	root.Right = &treenode.TreeNode{Val: 0}
-	root.Right.Right = &treenode.TreeNode{Val: 0}
-	root.Right.Right.Right = &treenode.TreeNode{Val: 0}
+	root := &treenode2.TreeNode{Val: 0}
+	root.Left = &treenode2.TreeNode{Val: 0}
+	root.Left.Left = &treenode2.TreeNode{Val: 0}
+	root.Right = &treenode2.TreeNode{Val: 0}
+	root.Right.Right = &treenode2.TreeNode{Val: 0}
+	root.Right.Right.Right = &treenode2.TreeNode{Val: 0}
 	nodes := findDuplicateSubtrees(root)
-	result := make([]*treenode.TreeNode, 0)
+	result := make([]*treenode2.TreeNode, 0)
 	exit := make(map[string]int)
 	for _, node := range nodes {
 		s := serialize(node, &result, &exit)
@@ -43,8 +43,8 @@ func main() {
     4
 因此，你需要以列表的形式返回上述重复子树的根结点。
 */
-func findDuplicateSubtrees(root *treenode.TreeNode) []*treenode.TreeNode {
-	result := make([]*treenode.TreeNode, 0)
+func findDuplicateSubtrees(root *treenode2.TreeNode) []*treenode2.TreeNode {
+	result := make([]*treenode2.TreeNode, 0)
 	exit := make(map[string]int)
 	if root == nil {
 		return result
@@ -53,7 +53,7 @@ func findDuplicateSubtrees(root *treenode.TreeNode) []*treenode.TreeNode {
 	return result
 }
 
-func serialize(root *treenode.TreeNode, result *[]*treenode.TreeNode, exit *map[string]int) string {
+func serialize(root *treenode2.TreeNode, result *[]*treenode2.TreeNode, exit *map[string]int) string {
 	if root == nil {
 		return "null"
 	}

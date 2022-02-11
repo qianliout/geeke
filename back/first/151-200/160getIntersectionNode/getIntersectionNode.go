@@ -1,7 +1,7 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -12,7 +12,7 @@ func main() {
 编写一个程序，找到两个单链表相交的起始节点。
 */
 // 因为题目中说了,一定相交
-func getIntersectionNode(headA, headB *listnode.ListNode) *listnode.ListNode {
+func getIntersectionNode(headA, headB *listnode2.ListNode) *listnode2.ListNode {
 	if headA == nil || headB == nil {
 		return nil
 	}

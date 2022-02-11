@@ -1,8 +1,8 @@
 package main
 
 import (
-	"qianliout/leetcode/back/common/listnode"
-	"qianliout/leetcode/back/common/treenode"
+	listnode2 "qianliout/leetcode/common/listnode"
+	treenode2 "qianliout/leetcode/common/treenode"
 )
 
 func main() {
@@ -21,14 +21,14 @@ func main() {
    /   /
  -10  5
 */
-func sortedListToBST(head *listnode.ListNode) *treenode.TreeNode {
+func sortedListToBST(head *listnode2.ListNode) *treenode2.TreeNode {
 	if head == nil {
-		return new(treenode.TreeNode)
+		return new(treenode2.TreeNode)
 	}
 	if head.Next == nil {
-		return &treenode.TreeNode{Val: head.Val}
+		return &treenode2.TreeNode{Val: head.Val}
 	}
-	dump := new(listnode.ListNode)
+	dump := new(listnode2.ListNode)
 	dump.Next = head
 
 	pre, slow, fast := dump, head, head
@@ -36,7 +36,7 @@ func sortedListToBST(head *listnode.ListNode) *treenode.TreeNode {
 		pre, slow, fast = pre.Next, slow.Next, fast.Next.Next
 	}
 	pre.Next = nil
-	root := &treenode.TreeNode{
+	root := &treenode2.TreeNode{
 		Val:   slow.Val,
 		Left:  sortedListToBST(head),
 		Right: sortedListToBST(slow.Next),

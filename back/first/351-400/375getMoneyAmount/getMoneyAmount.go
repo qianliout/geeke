@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"qianliout/leetcode/back/common"
+	common2 "qianliout/leetcode/common"
 )
 
 func main() {
@@ -49,9 +49,9 @@ func getMoneyAmount(n int) int {
 	for j := 2; j <= n; j++ { // 计算后一个数
 		for i := j - 1; i >= 1; i-- {
 			for k := i + 1; k <= j-1; k++ {
-				dp[i][j] = common.Min(dp[i][j], common.Max(dp[i][k-1], dp[k+1][j])+k)
+				dp[i][j] = common2.Min(dp[i][j], common2.Max(dp[i][k-1], dp[k+1][j])+k)
 			}
-			dp[i][j] = common.Min(dp[i+1][j]+i, dp[i][j], dp[i][j-1]+j)
+			dp[i][j] = common2.Min(dp[i+1][j]+i, dp[i][j], dp[i][j-1]+j)
 		}
 	}
 

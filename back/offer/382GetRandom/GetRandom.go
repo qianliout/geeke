@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"qianliout/leetcode/back/common/listnode"
+	listnode2 "qianliout/leetcode/common/listnode"
 )
 
 func main() {
@@ -12,13 +12,13 @@ func main() {
 }
 
 type Solution struct {
-	head *listnode.ListNode
+	head *listnode2.ListNode
 	rd   *rand.Rand
 }
 
 /** @param head The linked list's head.
   Note that the head is guaranteed to be not null, so it contains at least one node. */
-func Constructor(head *listnode.ListNode) Solution {
+func Constructor(head *listnode2.ListNode) Solution {
 	rd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	return Solution{
 		head: head,

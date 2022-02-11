@@ -1,7 +1,7 @@
 package array
 
 import (
-	array2 "qianliout/leetcode/back/common/array"
+	"qianliout/leetcode/common/array"
 )
 
 /*
@@ -10,8 +10,8 @@ import (
 示例:
 给定 1->2->3->4, 你应该返回 2->1->4->3.
 */
-func SwapLinkedList(head *array2.ListNode) *array2.ListNode {
-	list := &array2.ListNode{Next: head}
+func SwapLinkedList(head *array.ListNode) *array.ListNode {
+	list := &array.ListNode{Next: head}
 	for prev, node := list, list.Next; node != nil; node = node.Next {
 		if node.Next != nil {
 			//prev.Next, treenode.Next, treenode.Next.Next = treenode.Next, treenode.Next.Next, treenode
@@ -22,7 +22,7 @@ func SwapLinkedList(head *array2.ListNode) *array2.ListNode {
 	return list.Next
 }
 
-func swapNode(prev, node, next *array2.ListNode) {
+func swapNode(prev, node, next *array.ListNode) {
 	prev.Next = next
 	node.Next = next.Next
 	next.Next = node
