@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -73,7 +73,7 @@ func nthUglyNumber2(n int) int {
 	i2, i3, i5 := 0, 0, 0
 	i := 1
 	for i <= n {
-		tem := common2.Min(dp[i2]*2, dp[i3]*3, dp[i5]*5)
+		tem := utils.Min(dp[i2]*2, dp[i3]*3, dp[i5]*5)
 		if !exit[tem] {
 			dp[i] = tem
 			exit[tem] = true

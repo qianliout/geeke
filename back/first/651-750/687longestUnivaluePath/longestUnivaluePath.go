@@ -1,8 +1,8 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
 	treenode2 "qianliout/leetcode/common/treenode"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -48,7 +48,7 @@ func help(root *treenode2.TreeNode, ans *int) int {
 	var res int
 	// 两边相等
 	if root.Left != nil && root.Left.Val == root.Val && root.Right != nil && root.Right.Val == root.Val {
-		*ans = common2.Max(*ans, left+right+2)
+		*ans = utils.Max(*ans, left+right+2)
 	}
 	// 左边相等,就先计算左边
 	if root.Left != nil && root.Left.Val == root.Val {
@@ -56,9 +56,9 @@ func help(root *treenode2.TreeNode, ans *int) int {
 	}
 	// 右边相等，再看右边
 	if root.Right != nil && root.Right.Val == root.Val {
-		res = common2.Max(res, right+1)
+		res = utils.Max(res, right+1)
 	}
 
-	*ans = common2.Max(*ans, res)
+	*ans = utils.Max(*ans, res)
 	return res
 }

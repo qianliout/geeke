@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -51,15 +51,15 @@ func wiggleMaxLength(nums []int) int {
 		// 找dp值
 		for j := i - 1; j >= 0; j-- {
 			if nums[j] < nums[i] {
-				dp1[i] = common2.Max(dp2[j]+1, dp1[i])
+				dp1[i] = utils.Max(dp2[j]+1, dp1[i])
 			}
 		}
 		for j := i - 1; j >= 0; j-- {
 			if nums[j] > nums[i] {
-				dp2[i] = common2.Max(dp1[j]+1, dp2[i])
+				dp2[i] = utils.Max(dp1[j]+1, dp2[i])
 			}
 		}
 	}
 	//fmt.Println(dp1, dp2)
-	return common2.Max(dp1[length-1], dp2[length-1])
+	return utils.Max(dp1[length-1], dp2[length-1])
 }

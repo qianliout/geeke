@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -27,8 +27,8 @@ func maxArea(height []int) int {
 	max := 0
 	for i := 0; i < len(height); i++ {
 		for j := 0; j < len(height); j++ {
-			if common2.Min(height[i], height[j])*(j-i) > max {
-				max = common2.Min(height[i], height[j]) * (j - i)
+			if utils.Min(height[i], height[j])*(j-i) > max {
+				max = utils.Min(height[i], height[j]) * (j - i)
 			}
 		}
 	}
@@ -39,7 +39,7 @@ func maxArea2(height []int) int {
 	left, right := 0, len(height)-1
 	max := 0
 	for left < right {
-		are := common2.Min(height[left], height[right]) * (right - left)
+		are := utils.Min(height[left], height[right]) * (right - left)
 		if are > max {
 			max = are
 		}

@@ -1,7 +1,7 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func (this *MyCalendarTwo) addOver(start, end int) {
 		if bk[0] >= end || bk[1] <= start {
 			continue
 		} else {
-			this.over = append(this.over, [2]int{common2.Max(start, bk[0]), common2.Min(end, bk[1])})
+			this.over = append(this.over, [2]int{utils.Max(start, bk[0]), utils.Min(end, bk[1])})
 		}
 	}
 }

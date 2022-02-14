@@ -1,7 +1,7 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -48,12 +48,12 @@ func deleteAndEarn(nums []int) int {
 	}
 	dp := make(map[int]int)
 	dp[1] = all[1]
-	dp[2] = common2.Max(dp[1], all[2]*2)
+	dp[2] = utils.Max(dp[1], all[2]*2)
 	// dp转移方程
 	// 如果你不删除当前位置的数字，那么你得到就是前一个数字的位置的最优结果。
 	// 如果你觉得当前的位置数字i需要被删，那么你就会得到i - 2位置的那个最优结果加上当前位置的数字乘以个数。
 	for i := 2; i <= max; i++ {
-		dp[i] = common2.Max(dp[i-1], dp[i-2]+all[i]*i)
+		dp[i] = utils.Max(dp[i-1], dp[i-2]+all[i]*i)
 	}
 	return dp[max]
 }

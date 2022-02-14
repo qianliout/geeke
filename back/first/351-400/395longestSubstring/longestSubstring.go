@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -46,7 +46,7 @@ func dfs(word []byte, k int) int {
 			ss := bytes.Split(word, []byte{b})
 			max := 0
 			for _, ssr := range ss {
-				max = common2.Max(max, dfs(ssr, k))
+				max = utils.Max(max, dfs(ssr, k))
 			}
 			return max
 		}

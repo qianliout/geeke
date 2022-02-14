@@ -1,8 +1,8 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
 	treenode2 "qianliout/leetcode/common/treenode"
+	"qianliout/leetcode/common/utils"
 )
 
 /*
@@ -55,7 +55,7 @@ func bfs(root *treenode2.TreeNode) int {
 				})
 			}
 		}
-		width = common2.Max(width, queue[len(queue)-1].pas-queue[0].pas+1)
+		width = utils.Max(width, queue[len(queue)-1].pas-queue[0].pas+1)
 		queue = thisLevle
 	}
 	return width

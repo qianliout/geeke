@@ -1,7 +1,7 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func maximalSquare(matrix [][]byte) int {
 				if col == 0 || row == 0 {
 					dp[col][row] = 1
 				} else {
-					dp[col][row] = common2.Min(dp[col-1][row], dp[col][row-1], dp[col-1][row-1]) + 1
+					dp[col][row] = utils.Min(dp[col-1][row], dp[col][row-1], dp[col-1][row-1]) + 1
 				}
 				if dp[col][row] > max {
 					max = dp[col][row]

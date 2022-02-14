@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -63,7 +63,7 @@ func find(nums []int) int {
 		}
 		idx, ok := hash[preSum]
 		if ok {
-			ans = common2.Max(ans, i-idx)
+			ans = utils.Max(ans, i-idx)
 		} else {
 			hash[preSum] = i
 		}

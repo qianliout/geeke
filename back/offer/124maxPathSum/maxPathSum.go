@@ -1,8 +1,8 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
 	treenode2 "qianliout/leetcode/common/treenode"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -39,10 +39,10 @@ func help(root *treenode2.TreeNode, max *int) int {
 	}
 	left := help(root.Left, max)
 	right := help(root.Right, max)
-	*max = common2.Max(*max, root.Val, root.Val+left, root.Val+right, root.Val+left+right)
+	*max = utils.Max(*max, root.Val, root.Val+left, root.Val+right, root.Val+left+right)
 	// 不能这样写的原因是，只走一边，所以上面max才可以左右都相加
 	// return Max(root.Val, root.Val+left, root.Val+right,root+right+left)
-	return common2.Max(root.Val, root.Val+left, root.Val+right)
+	return utils.Max(root.Val, root.Val+left, root.Val+right)
 }
 
 func help2(root *treenode2.TreeNode, max *int) int {
@@ -51,6 +51,6 @@ func help2(root *treenode2.TreeNode, max *int) int {
 	}
 	left := help2(root.Left, max)
 	ritght := help2(root.Right, max)
-	*max = common2.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght, root.Val+left+ritght)
-	return common2.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght)
+	*max = utils.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght, root.Val+left+ritght)
+	return utils.Max(root.Val, root.Val+left, root.Val+left, root.Val+ritght)
 }

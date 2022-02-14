@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -45,7 +45,7 @@ func minDistance(word1 string, word2 string) int {
 			if w1[i-1] == w2[j-1] {
 				dp[i][j] = dp[i-1][j-1]
 			} else {
-				dp[i][j] = common2.Min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1)
+				dp[i][j] = utils.Min(dp[i-1][j]+1, dp[i][j-1]+1, dp[i-1][j-1]+1)
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func leastBricks(wall [][]int) int {
 			} else {
 				sumMap[sum] = 1
 			}
-			ans = common2.Max(ans, sumMap[sum])
+			ans = utils.Max(ans, sumMap[sum])
 		}
 	}
 	return len(wall) - ans

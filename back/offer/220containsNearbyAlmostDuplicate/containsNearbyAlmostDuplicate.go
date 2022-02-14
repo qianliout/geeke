@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -40,10 +40,10 @@ func containsNearbyAlmostDuplicate(nums []int, k int, t int) bool {
 		if _, ok := bucket[con]; ok {
 			return true
 		}
-		if _, ok := bucket[con-1]; ok && common2.AbsSub(bucket[con-1], nums[i]) <= t {
+		if _, ok := bucket[con-1]; ok && utils.AbsSub(bucket[con-1], nums[i]) <= t {
 			return true
 		}
-		if _, ok := bucket[con+1]; ok && common2.AbsSub(bucket[con+1], nums[i]) <= t {
+		if _, ok := bucket[con+1]; ok && utils.AbsSub(bucket[con+1], nums[i]) <= t {
 			return true
 		}
 		bucket[con] = nums[i]

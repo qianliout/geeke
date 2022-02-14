@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -48,9 +48,9 @@ func useBitset(nums []int) int {
 	ans := 0
 	bitset := make([]int, 0)
 	for i := len(nums) - 1; i >= 0; i-- {
-		left := common2.FindSmallIdx(&bitset, nums[i])
+		left := utils.FindSmallIdx(&bitset, nums[i])
 		ans += left
-		common2.FindSmallIdxAndInsert(&bitset, 2*nums[i])
+		utils.FindSmallIdxAndInsert(&bitset, 2*nums[i])
 	}
 	return ans
 }

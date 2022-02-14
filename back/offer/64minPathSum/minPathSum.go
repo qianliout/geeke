@@ -1,7 +1,7 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -30,7 +30,7 @@ func minPathSum(grid [][]int) int {
 
 	for i := 1; i < len(grid); i++ {
 		for j := 1; j < len(grid[0]); j++ {
-			dp[i][j] = common2.Max(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+			dp[i][j] = utils.Max(dp[i-1][j], dp[i][j-1]) + grid[i][j]
 		}
 	}
 	return dp[len(grid)-1][len(grid[0])-1]

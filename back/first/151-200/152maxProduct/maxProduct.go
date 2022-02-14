@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -35,11 +35,11 @@ func maxProduct(nums []int) int {
 	maxDp[0], minDp[0] = nums[0], nums[0]
 	res := maxDp[0]
 	for i := 1; i < len(nums); i++ {
-		maxDp[i] = common2.Max(nums[i], nums[i]*maxDp[i-1], nums[i]*minDp[i-1])
+		maxDp[i] = utils.Max(nums[i], nums[i]*maxDp[i-1], nums[i]*minDp[i-1])
 		if maxDp[i] > res {
 			res = maxDp[i]
 		}
-		minDp[i] = common2.Min(nums[i], nums[i]*maxDp[i-1], nums[i]*minDp[i-1])
+		minDp[i] = utils.Min(nums[i], nums[i]*maxDp[i-1], nums[i]*minDp[i-1])
 	}
 	return res
 }

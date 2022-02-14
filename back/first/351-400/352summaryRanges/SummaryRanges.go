@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -52,7 +52,7 @@ func Constructor() SummaryRanges {
 
 func (this *SummaryRanges) AddNum(val int) {
 	if !(*this.used)[val] {
-		common2.FindSmallIdxAndInsert(this.bitsic, val)
+		utils.FindSmallIdxAndInsert(this.bitsic, val)
 		(*this.used)[val] = true
 	}
 }

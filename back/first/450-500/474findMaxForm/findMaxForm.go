@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -61,7 +61,7 @@ func findMaxForm(strs []string, m int, n int) int {
 		for i := m; i >= zero; i-- {
 			for j := n; j >= one; j-- {
 				if i-zero >= 0 && j-one >= 0 {
-					dp[i][j] = common2.Max(dp[i][j], dp[i-zero][j-one]+1)
+					dp[i][j] = utils.Max(dp[i][j], dp[i-zero][j-one]+1)
 				}
 			}
 		}
@@ -82,7 +82,7 @@ func findMaxForm2(strs []string, m int, n int) int {
 		for j := m; j >= 0; j-- {
 			for k := n; k >= 0; k-- {
 				if j >= oz[1] && k >= oz[0] {
-					dp[j][k] = common2.Max(dp[j][k], dp[j-oz[1]][k-oz[0]]+1)
+					dp[j][k] = utils.Max(dp[j][k], dp[j-oz[1]][k-oz[0]]+1)
 				}
 			}
 		}

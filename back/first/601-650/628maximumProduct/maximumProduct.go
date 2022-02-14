@@ -3,7 +3,7 @@ package main
 import (
 	"sort"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -24,5 +24,5 @@ func maximumProduct(nums []int) int {
 		return 0
 	}
 	sort.Ints(nums)
-	return common2.Max(nums[0]*nums[1]*nums[len(nums)-1], nums[len(nums)-1]*nums[len(nums)-2]*nums[len(nums)-3])
+	return utils.Max(nums[0]*nums[1]*nums[len(nums)-1], nums[len(nums)-1]*nums[len(nums)-2]*nums[len(nums)-3])
 }

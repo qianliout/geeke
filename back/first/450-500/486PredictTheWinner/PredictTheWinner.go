@@ -1,7 +1,7 @@
 package main
 
 import (
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -56,7 +56,7 @@ func PredictTheWinner(nums []int) bool {
 	// dp的题，计算顺序很重要
 	for i := len(nums) - 2; i >= 0; i-- {
 		for j := i + 1; j < len(nums); j++ {
-			dp[i][j] = common2.Max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
+			dp[i][j] = utils.Max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1])
 		}
 	}
 

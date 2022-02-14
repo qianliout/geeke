@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func arrayNesting(nums []int) int {
 	mem := make(map[int]int)
 
 	for _, n := range nums {
-		ans = common2.Max(ans, help(nums, n, mem))
+		ans = utils.Max(ans, help(nums, n, mem))
 	}
 	return ans
 }

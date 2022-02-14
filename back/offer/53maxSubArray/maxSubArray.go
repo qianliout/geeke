@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func maxSubArray(nums []int) int {
 	ans := dp[0][0]
 	for i := 1; i < len(nums); i++ {
 		for j := i - 1; j >= 0; j-- {
-			dp[i][j] = common2.Max(
+			dp[i][j] = utils.Max(
 				dp[i][j+1]+nums[j],
 				dp[i-1][j]+nums[i],
 				dp[i-1][j+1]+nums[i]+nums[j],
@@ -46,8 +46,8 @@ func maxSubArray2(nums []int) int {
 	currSum, maxSum := nums[0], nums[0]
 
 	for i := 1; i < len(nums); i++ {
-		currSum = common2.Max(nums[i], currSum+nums[i])
-		maxSum = common2.Max(currSum, maxSum)
+		currSum = utils.Max(nums[i], currSum+nums[i])
+		maxSum = utils.Max(currSum, maxSum)
 	}
 	return maxSum
 }
@@ -56,8 +56,8 @@ func maxSubArray3(nums []int) int {
 	dp[0] = nums[0]
 	result := dp[0]
 	for i := 1; i < len(nums); i++ {
-		dp[i] = common2.Max(dp[i-1]+nums[i], nums[i])
-		result = common2.Max(dp[i], result)
+		dp[i] = utils.Max(dp[i-1]+nums[i], nums[i])
+		result = utils.Max(dp[i], result)
 	}
 	return result
 }

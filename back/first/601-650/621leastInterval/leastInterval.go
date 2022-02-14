@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	common2 "qianliout/leetcode/common"
+	"qianliout/leetcode/common/utils"
 )
 
 /*
@@ -61,5 +61,5 @@ func leastInterval(tasks []byte, n int) int {
 		}
 	}
 
-	return common2.Max(len(tasks), cnt+(s[len(s)-1]-1)*(n+1))
+	return utils.Max(len(tasks), cnt+(s[len(s)-1]-1)*(n+1))
 }
