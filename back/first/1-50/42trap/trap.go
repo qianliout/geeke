@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"outback/leetcode/back/common"
+	. "qianliout/leetcode/common/utils"
 )
 
 func main() {
@@ -74,11 +74,11 @@ func trap2(height []int) int {
 		if lMax < rMax {
 			ans += lMax - height[left]
 			left++
-			lMax = common.Max(height[left], lMax)
+			lMax = Max(height[left], lMax)
 		} else {
 			ans += rMax - height[right]
 			right--
-			rMax = common.Max(rMax, height[right])
+			rMax = Max(rMax, height[right])
 		}
 	}
 	return ans
