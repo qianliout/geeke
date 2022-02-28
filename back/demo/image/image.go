@@ -2,20 +2,23 @@ package main
 
 import (
 	"fmt"
+	"hash/fnv"
 	"strings"
 
 	"github.com/google/go-containerregistry/pkg/name"
 )
 
 func main() {
-	image := "https:ts-acr-registry.cn-hangzhou.cr.aliyuncs.cn/liuqianli/001100/spa_autobuilds:hello"
-	simpleImage, err := parseImage(image)
-	if err != nil {
-		fmt.Println("err is ", err.Error())
-		return
-	}
-	fmt.Println(simpleImage.Library, simpleImage.FullRepoName, simpleImage.Tag)
+	imageName := "harbor"
+	imageName = strings.TrimLeft(imageName, "https")
+	fmt.Println(imageName)
+}
 
+func GenerateUUID(strs ...string) uint32 {
+	s := strings.Join(strs, "/")
+	h := fnv.New32a()
+	_, _ = h.Write([]byte(s))
+	return h.Sum32()
 }
 
 func parseImage(imageName string) (*SimpleImage, error) {
