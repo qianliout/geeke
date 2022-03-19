@@ -1,0 +1,288 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    meta.helm.sh/release-name: navigator
+    meta.helm.sh/release-namespace: tensorsec
+  creationTimestamp: "2022-03-18T08:54:46Z"
+  generation: 3
+  labels:
+    app.kubernetes.io/instance: navigator
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: console
+    helm.sh/chart: console-0.1.0
+  name: prod-console
+  namespace: tensorsec
+  resourceVersion: "18091866"
+  uid: 7c17bd7e-1dc3-47f8-b878-7a8f853dec67
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: navigator
+      app.kubernetes.io/name: console
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: navigator
+        app.kubernetes.io/name: console
+    spec:
+      affinity: {}
+      containers:
+      - args:
+        - --rdb-pvc=data-prod-mysql-ha-0
+        - --rdb-pod=prod-mysql-ha-0
+        - --rdb-data-path=/var/lib/mysql
+        - --rdb-container=mysql
+        - --vegeta-scanner-host=prod-scanner
+        - --vegeta-scanner-port=8888
+        - --elastic-index=filebeat-*
+        - --elastic-pvc=data-prod-elasticsearch-master-0
+        - --elastic-pod=prod-elasticsearch-master-0
+        - --elastic-data-path=/usr/share/elasticsearch/data
+        - -v
+        command:
+        - /console
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: OPENAPI_RATE_LIMIT_PER_MIN
+          value: "20"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: REDIS_PASSWORD
+              name: common-secret
+        - name: EMAIL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: EMAIL_PASSWORD
+              name: common-secret
+        - name: ELASTIC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ELASTIC_PASSWORD
+              name: common-secret
+        - name: RDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RDB_PASSWORD
+              name: common-secret
+        - name: APISCANJOB_IMAGE
+          value: harbor-prod.tensorsecurity.com/tensorsecurity/apiscan-job:latest
+        - name: AUDIT_PVC
+          value: audit-pvc
+        - name: AUDIT_PATH
+          value: /audit
+        - name: PPROF_PORT
+          value: "18080"
+        - name: K8S_AUDIT_INDEX_PREFIX
+          value: audit_
+        - name: OPEN_API_GUIDE_URL
+          value: https://shimo.im/docs/KyKK86Y6jhwDRCc8
+        envFrom:
+        - configMapRef:
+            name: common-env
+        - secretRef:
+            name: common-secret
+        image: harbor-prod.tensorsecurity.com/tensorsecurity/console:latest
+        imagePullPolicy: Always
+        name: console
+        ports:
+        - containerPort: 8080
+          name: console
+          protocol: TCP
+        - containerPort: 18080
+          name: pprof
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 200m
+            memory: 500Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /auth/server
+          name: server-cert
+          readOnly: true
+        - mountPath: /jobs/platform-report/job.yaml
+          name: platform-report
+          subPath: job.yaml
+        - mountPath: /jobs/kube-scanner/job.yaml
+          name: kube-scanner
+          subPath: job.yaml
+        - mountPath: /jobs/cold/job.yaml
+          name: cold-cleaner
+          subPath: job.yaml
+        - mountPath: /jobs/hot-logic/job.yaml
+          name: hot-logic
+          subPath: job.yaml
+        - mountPath: /jobs/hot-offline/job.yaml
+          name: hot-offline
+          subPath: job.yaml
+        - mountPath: /jobs/docker-bench-security/job.yaml
+          name: docker-bench
+          subPath: job.yaml
+        - mountPath: /jobs/host-bench/job.yaml
+          name: host-bench
+          subPath: job.yaml
+        - mountPath: /jobs/kube-bench/job.yaml
+          name: kube-bench
+          subPath: job.yaml
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor-admin-secret
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - |
+          until nc -z -w3 $RDB_HOST $RDB_PORT; do echo waiting for rdb; sleep 3; done
+          sleep 5
+          cd /opt && migrate -verbose -source file://mysql -database "mysql://$RDB_USER:$RDB_PASSWORD@tcp($RDB_HOST:$RDB_PORT)/$RDB_DBNAME?multiStatements=true&x-migrations-table=migrations_record" up
+        env:
+        - name: RDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: RDB_PASSWORD
+              name: common-secret
+        envFrom:
+        - configMapRef:
+            name: common-env
+        - secretRef:
+            name: common-secret
+        image: harbor-prod.tensorsecurity.com/tensorsecurity/init-mysql:latest
+        imagePullPolicy: Always
+        name: rdb-init
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - command:
+        - sh
+        - -c
+        - for i in $(seq 1 200); do nc -z -w3 prod-elasticsearch-master 9200 && exit
+          0 || sleep 3; done; exit 1
+        image: harbor-prod.tensorsecurity.com/tensorsecurity/alpine:latest
+        imagePullPolicy: Always
+        name: elasticsearch-listener
+        resources:
+          limits:
+            cpu: 50m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: prod-console
+      serviceAccountName: prod-console
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: server-cert
+        secret:
+          defaultMode: 400
+          secretName: eventcenter-tls-server-cert-secret
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: platform-report-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: platform-report
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: kube-scanner-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: kube-scanner
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: cold-cleaner-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: cold-cleaner
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: hot-logic-cleaner-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: hot-logic
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: hot-offline-cleaner-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: hot-offline
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: docker-bench-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: docker-bench
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: host-bench-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: host-bench
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: kube-bench-job.yaml
+            path: job.yaml
+          name: prod-console-jobs
+        name: kube-bench
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-03-18T09:05:47Z"
+    lastUpdateTime: "2022-03-18T09:05:47Z"
+    message: ReplicaSet "prod-console-cd5f5cb75" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2022-03-18T16:13:52Z"
+    lastUpdateTime: "2022-03-18T16:13:52Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 3
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
