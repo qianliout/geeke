@@ -14,20 +14,47 @@ func main() {
 */
 func exist(board [][]byte, word string) bool {
 	if len(board) == 0 || len(board[0]) == 0 {
-		if word == "" {
-			return true
+		return word == ""
+	}
+
+	used := make([][]bool, len(board))
+	for i := range used {
+		used[i] = make([]bool, len(board[i]))
+	}
+	path, wordByte := make([]byte, 0), []byte(word)
+	var res []string
+	for i := range board {
+		for j := range board[i] {
+			dfs(board, i, j, 0, path, wordByte, &res, used)
+			if len(res) > 0 {
+				return true
+			}
 		}
-		return false
 	}
-
-	dp := make([][]bool, len(board))
-	for i := range dp {
-		dp[i] = make([]bool, len(board[0]))
-	}
-
 	return false
 }
 
-func dfs() {
-
+func dfs(board [][]byte, col, row, wordStart int, path, word []byte, res *[]string, used [][]bool) {
+	if string(path) == string(word) {
+		*res = append(*res, string(append([]byte{}, path...)))
+		return
+	}
+	if len(*res) > 0 {
+		return
+	}
+	if col < 0 || row < 0 || col >= len(board) || row >= len(board[0]) || wordStart < 0 || wordStart >= len(word) {
+		return
+	}
+	if board[col][row] == word[wordStart] && !used[col][row] {
+		path = append(path, board[col][row])
+		used[col][row] = true
+		wordStart++
+		dfs(board, col+1, row, wordStart, path, word, res, used)
+		dfs(board, col, row+1, wordStart, path, word, res, used)
+		dfs(board, col-1, row, wordStart, path, word, res, used)
+		dfs(board, col, row-1, wordStart, path, word, res, used)
+		path = path[:len(path)-1]
+		used[col][row] = false
+		wordStart--
+	}
 }
