@@ -1,21 +1,19 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	res := []string{"http://192.168.199.109"}
-	bts, _ := json.Marshal(res)
-	fmt.Println(string(bts))
-
+	r := gin.Default()
+	r.GET("/ping", hander)
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
 func hander(ctx *gin.Context) {
-	action := ctx.Param("action")
-
+	action := ctx.Query("action")
+	fmt.Println("action is ", action)
 	ctx.JSON(200, action)
 }

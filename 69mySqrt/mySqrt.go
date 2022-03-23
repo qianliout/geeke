@@ -7,6 +7,7 @@ import (
 func main() {
 	sqrt := mySqrt(9)
 	fmt.Println("sqrt is ", sqrt)
+	fmt.Println(1 << 9)
 }
 
 /*
