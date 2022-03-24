@@ -30,7 +30,6 @@ func largestRectangleArea(heights []int) int {
 		for len(stark) > 0 && heights[stark[len(stark)-1]] > heights[i] {
 			// 单调递增 说明：栈顶的一定是比之前没有入栈的元素都小,直到栈顶的前一个元素
 			top := heights[stark[len(stark)-1]]
-
 			stark = stark[:len(stark)-1]
 			right := i - 1
 			left := stark[len(stark)-1]
