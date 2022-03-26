@@ -10,6 +10,15 @@ func main() {
 	matrix := [][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}}
 	area := maximalRectangle(matrix)
 	fmt.Println("area is ", area)
+	fmt.Println(1 << 7)
+	fmt.Println(1 << 8)
+
+	fmt.Println(ExistFlag(128, 7))
+	fmt.Println(ExistFlag(0, 0))
+}
+
+func ExistFlag(value uint64, flag int64) bool {
+	return (value>>flag)&1 == 1
 }
 
 /*
