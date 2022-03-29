@@ -35,6 +35,7 @@ func spiralOrder(matrix [][]int) []int {
 			res = append(res, matrix[i][left])
 		}
 		left++
+		// 这里写退出循环代码很重要
 		if len(res) >= all {
 			break
 		}
