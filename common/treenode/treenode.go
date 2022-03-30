@@ -23,9 +23,6 @@ func PreOrderTraversal(root *TreeNode) {
 
 // 中序排列
 func InOrderTraversal(root *TreeNode) {
-	//if root == nil {
-	//	fmt.Printf("nil ")
-	//}
 	if root != nil {
 		InOrderTraversal(root.Left)
 		fmt.Printf("%d ", root.Val)
