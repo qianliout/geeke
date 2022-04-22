@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"hash/fnv"
 	"strings"
-
-	"github.com/google/go-containerregistry/pkg/name"
 )
 
 func main() {
-	imageName := "harbor"
-	imageName = strings.TrimLeft(imageName, "https")
-	fmt.Println(imageName)
+	res := make([]SimpleImage, 3)
+
+	for i := range res {
+		res[i].Ser()
+	}
+	fmt.Println("hello wrod")
+
 }
 
 func GenerateUUID(strs ...string) uint32 {
@@ -21,32 +23,15 @@ func GenerateUUID(strs ...string) uint32 {
 	return h.Sum32()
 }
 
-func parseImage(imageName string) (*SimpleImage, error) {
-	imageName = strings.TrimLeft(imageName, "https:")
-	imageName = strings.TrimLeft(imageName, "http:")
-	imageName = strings.TrimLeft(imageName, ":")
-	imageName = strings.TrimLeft(imageName, "//")
-	imageName = strings.TrimLeft(imageName, "/")
-
-	var nameOpts []name.Option
-	nameOpts = append(nameOpts, name.Insecure)
-
-	ref, err := name.ParseReference(imageName, nameOpts...)
-	if err != nil {
-		return nil, err
-	}
-	repo := ref.Context()
-
-	lib := repo.RegistryStr()
-
-	tag := ref.Identifier()
-	repoName := ref.Context().RepositoryStr()
-
-	return &SimpleImage{Library: lib, FullRepoName: repoName, Tag: tag}, nil
-}
-
 type SimpleImage struct {
 	Library      string
 	FullRepoName string
 	Tag          string
+}
+
+func (si *SimpleImage) Ser() {
+	si.Library = "hello"
+	si.FullRepoName = "word"
+	si.Tag = "what"
+
 }
