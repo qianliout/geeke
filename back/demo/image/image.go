@@ -1,18 +1,32 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"hash/fnv"
 	"strings"
+	"time"
 )
 
 func main() {
-	res := make([]SimpleImage, 3)
 
-	for i := range res {
-		res[i].Ser()
+	iss := ImageSyncSchedule{
+		ID:         12,
+		RegistryId: 3,
+		TaskID:     1232,
+		Projects: []ProjectSchedule{{
+			Project:   "tensorsec",
+			Total:     30,
+			Completed: 20,
+		}},
+		Total:     100,
+		Completed: 30,
+		Done:      false,
+		CreatedAt: time.Now().UTC().Unix(),
+		UpdatedAt: time.Now().UTC().Unix(),
 	}
-	fmt.Println("hello wrod")
+	bys, _ := json.Marshal(iss)
+	fmt.Println(string(bys))
 
 }
 
@@ -34,4 +48,23 @@ func (si *SimpleImage) Ser() {
 	si.FullRepoName = "word"
 	si.Tag = "what"
 
+}
+
+type ImageSyncSchedule struct {
+	ID           int64             `json:"id"`
+	RegistryId   int64             `json:"registryId"`
+	RegistryName string            `json:"registryName"`
+	RegistryURL  string            `json:"registryURL"`
+	Projects     []ProjectSchedule `json:"projects"`
+	Total        int64             `json:"total"`
+	Completed    int64             `json:"completed"`
+	Done         bool              `json:"done"`
+	CreatedAt    int64             `json:"createdAt"`
+	UpdatedAt    int64             `json:"updatedAt"`
+}
+
+type ProjectSchedule struct {
+	Project   string `json:"project"`
+	Total     int64  `json:"total"`
+	Completed int64  `json:"completed"`
 }
