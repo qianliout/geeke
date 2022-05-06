@@ -13,7 +13,6 @@ func main() {
 	iss := ImageSyncSchedule{
 		ID:         12,
 		RegistryId: 3,
-		TaskID:     1232,
 		Projects: []ProjectSchedule{{
 			Project:   "tensorsec",
 			Total:     30,
