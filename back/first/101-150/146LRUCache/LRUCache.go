@@ -91,12 +91,12 @@ func (this *LRUCache) Put(key int, value int) {
 		}
 	}
 	this.CacheMap[key] = node
-	this.CacheList.Print("Put ")
+	this.CacheList.Print("PutNode ")
 }
 
 /**
  * Your LRUCache object will be instantiated and called as such:
  * obj := Constructor(capacity);
  * param_1 := obj.Get(key);
- * obj.Put(key,value);
+ * obj.PutNode(key,value);
  */

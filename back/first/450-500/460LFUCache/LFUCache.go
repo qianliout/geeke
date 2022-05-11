@@ -22,7 +22,7 @@ func main() {
 	//lfu.Get(2)
 	////time.Sleep(time.Second)
 	//lfu.Get(1)
-	//lfu.Put(5, 5)
+	//lfu.PutNode(5, 5)
 	////lfu.Get(4)
 	//
 	//fmt.Println(lfu.Get(1))
@@ -30,10 +30,10 @@ func main() {
 	//fmt.Println(lfu.Get(3))
 	//fmt.Println(lfu.Get(4))
 	//fmt.Println(lfu.Get(5))
-	//lfu.Put(3, 3)
+	//lfu.PutNode(3, 3)
 	//fmt.Println(lfu.Get(2))
 	//fmt.Println(lfu.Get(3))
-	//lfu.Put(4, 4)
+	//lfu.PutNode(4, 4)
 	//fmt.Println(lfu.Get(1))
 	//fmt.Println(lfu.Get(3))
 	//fmt.Println(lfu.Get(4))
@@ -101,7 +101,7 @@ cache.get(4) // 返回 4
 //	return v
 //}
 //
-//func (this *LFUCache) Put(key int, value int) {
+//func (this *LFUCache) PutNode(key int, value int) {
 //	if this.Cap <= 0 {
 //		return
 //	}
@@ -154,7 +154,7 @@ cache.get(4) // 返回 4
  * Your LFUCache object will be instantiated and called as such:
  * obj := Constructor(capacity);
  * param_1 := obj.Get(key);
- * obj.Put(key,value);
+ * obj.PutNode(key,value);
  */
 
 type PriorityItem struct {

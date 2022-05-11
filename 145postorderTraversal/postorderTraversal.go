@@ -23,7 +23,7 @@ func dfs(root *TreeNode, res *[]int) {
 	*res = append(*res, root.Val)
 }
 
-// 后续
+// 后序遍历
 func iterate(root *TreeNode) []int {
 	res := make([]int, 0)
 	stack1, stack2 := make([]*TreeNode, 0), make([]*TreeNode, 0)

@@ -28,6 +28,7 @@ func InitLinkedList(n int) *ListNode {
 	}
 	fmt.Println("hello")
 
+
 	start := &ListNode{0, nil}
 	pre := start
 	for i := 1; i < n; i++ {
