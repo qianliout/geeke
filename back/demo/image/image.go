@@ -1,32 +1,29 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"hash/fnv"
 	"strings"
-	"time"
 )
 
 func main() {
+	ss := []string{"hello", "word", "fuck"}
 
-	iss := ImageSyncSchedule{
-		ID:         12,
-		RegistryId: 3,
-		Projects: []ProjectSchedule{{
-			Project:   "tensorsec",
-			Total:     30,
-			Completed: 20,
-		}},
-		Total:     100,
-		Completed: 30,
-		Done:      false,
-		CreatedAt: time.Now().UTC().Unix(),
-		UpdatedAt: time.Now().UTC().Unix(),
+	pp := ProjectSchedule{
+		Total:     13,
+		Completed: 34,
 	}
-	bys, _ := json.Marshal(iss)
-	fmt.Println(string(bys))
+	for _, v := range ss {
+		pp.Project = v
+		print(pp)
+	}
 
+}
+
+func print(pp ProjectSchedule) {
+	fmt.Println(pp.Project)
+	fmt.Println(pp.Total)
+	fmt.Println(pp.Completed)
 }
 
 func GenerateUUID(strs ...string) uint32 {
