@@ -11,7 +11,7 @@ func NewLinkedList(list []int) *ListNode {
 	if len(list) <= 0 {
 		return nil
 	}
-
+	
 	start := &ListNode{}
 	pre := start
 	for _, value := range list {
