@@ -47,7 +47,6 @@ func calculateMinimumHP(dungeon [][]int) int {
 	for i := col - 1; i >= 0; i-- {
 		for j := row - 1; j >= 0; j-- {
 			dp[i][j] = Max(0, Min(dp[i+1][j], dp[i][j+1])-dungeon[i][j])
-
 		}
 	}
 	// 至少要有1的血量，才能不死
