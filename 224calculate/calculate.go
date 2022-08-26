@@ -1,5 +1,9 @@
 package main
 
+import (
+	"strconv"
+)
+
 func main() {
 
 }
@@ -17,5 +21,35 @@ s 表示一个有效的表达式
 每个数字和运行的计算将适合于一个有符号的 32位 整数
 */
 func calculate(s string) int {
-
+	ss := []byte(s)
+	res, num, op := 0, 0, 1
+	numStack := make([]int, 0)
+	opStack := make([]int, 0)
+	for _, ch := range ss {
+		if ch == ' ' {
+			continue
+		}
+		if ch == '(' {
+			res = res + num*op
+			numStack = append(numStack, res)
+			opStack = append(opStack, op)
+			res, num, op = 0, 0, 1
+		} else if ch == ')' {
+			res += num * op
+			res *= opStack[len(numStack)-1]
+			res += numStack[len(numStack)-1]
+			num, op = 0, 1
+			opStack, numStack = opStack[:len(opStack)-1], numStack[:len(numStack)-1]
+		} else if ch == '+' {
+			res += num * op
+			num, op = 0, 1
+		} else if ch == '-' {
+			res += num * op
+			num, op = 0, -1
+		} else {
+			n, _ := strconv.Atoi(string(ch))
+			num = num*10 + n
+		}
+	}
+	return res + op*num
 }
