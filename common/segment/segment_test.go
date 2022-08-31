@@ -26,7 +26,7 @@ func TestSegment_Update(t *testing.T) {
 			s := NewSegment(nums)
 			s.Update(0, 3)
 			tree := []int{0, 35, 29, 6, 12, 17, 2, 4, 5, 7, 8, 9}
-			//convey.So(s.Data, convey.ShouldEqual, nums)
+			// convey.So(s.Data, convey.ShouldEqual, nums)
 			convey.So(s.Tree, convey.ShouldEqual, tree)
 		})
 
