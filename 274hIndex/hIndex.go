@@ -3,12 +3,16 @@ package main
 import (
 	"fmt"
 	"sort"
+
+	"qianliout/leetcode/274hIndex/name"
 )
 
 func main() {
-	citations := []int{3, 0, 6, 1, 5}
-	index := hIndex(citations)
-	fmt.Println("index  is ", index)
+
+	r := &name.Res{}
+
+	r.SetAge(12)
+	fmt.Println(r.GetAge())
 }
 
 func hIndex(citations []int) int {
