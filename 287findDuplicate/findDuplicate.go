@@ -9,10 +9,18 @@ func main() {
 	fmt.Println(ans)
 }
 
+// 确定有环
 func findDuplicate(nums []int) int {
-	ans := 0
-	for i, v := range nums {
-		ans = ans ^ i ^ v
+	slow, fast := 0, 0
+	for {
+		slow, fast = nums[slow], nums[nums[fast]]
+		if slow == fast {
+			break
+		}
 	}
-	return ans
+	fast = 0
+	for fast != slow {
+		fast, slow = nums[fast], nums[slow]
+	}
+	return fast
 }
