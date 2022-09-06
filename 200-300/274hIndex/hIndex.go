@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"qianliout/leetcode/274hIndex/name"
+	"qianliout/leetcode/200-300/274hIndex/name"
 )
 
 func main() {
