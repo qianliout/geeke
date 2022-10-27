@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	// "golang.org/x/net/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -17,22 +18,22 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
-	c := Conn{
-		msgChan: msgCh(),
-		fuChan:  make(chan func(string2 string)),
-	}
-	go func() {
-		c.fuChan <- fun(1)
-		c.fuChan <- fun(2)
-		c.fuChan <- fun(3)
-	}()
-
-	go c.Hello()
-	// r := gin.Default()
-	// r.GET("/ws/scanner", handler)
-	// r.GET("/hello", hello)
-	// r.Run(":8081") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	time.Sleep(10 * time.Second)
+	// c := Conn{
+	// 	msgChan: msgCh(),
+	// 	fuChan:  make(chan func(string2 string)),
+	// }
+	// go func() {
+	// 	c.fuChan <- fun(1)
+	// 	c.fuChan <- fun(2)
+	// 	c.fuChan <- fun(3)
+	// }()
+	//
+	// go c.Hello()
+	r := gin.Default()
+	r.GET("/ws/scanner", handler)
+	r.GET("/hello", hello)
+	r.Run(":8081") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	// time.Sleep(10 * time.Second)
 }
 
 type Conn struct {
@@ -57,25 +58,6 @@ func msgCh() chan string {
 func fun(i int) func(string2 string) {
 	return func(s string) {
 		fmt.Println("func ", i, s)
-	}
-}
-
-func (s Conn) Hello() {
-	for {
-		msg := <-s.msgChan
-
-		fus := make([]func(string), 0)
-
-		if len(s.fuChan) == 0 {
-			fmt.Println("no cl")
-			continue
-		}
-		for i := range s.fuChan {
-			s.fuChan[i](msg)
-			fus = append(fus, fun(i+10))
-		}
-		s.fuChan = fus
-		go func() { s.msgChan <- "fuck" }()
 	}
 }
 
