@@ -25,7 +25,7 @@ func isNStraightHand(hand []int, groupSize int) bool {
 		if left[v] <= 0 {
 			continue
 		}
-		// // 否则，生成一个长度为 groupSize 的连续子序列
+		// 否则，生成一个长度为 groupSize 的连续子序列
 		for i := 1; i < groupSize; i++ {
 			if left[v+i] <= 0 {
 				return false
