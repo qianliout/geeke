@@ -16,6 +16,7 @@ func isSymmetric(root *TreeNode) bool {
 }
 
 func symmetric(left, right *TreeNode) bool {
+	if left
 	if left == nil && right == nil {
 		return true
 	}

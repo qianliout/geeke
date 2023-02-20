@@ -1,7 +1,9 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	fmt.Print("hello")
 }
 
 /*
