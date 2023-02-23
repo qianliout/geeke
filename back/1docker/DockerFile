@@ -7,6 +7,7 @@ RUN sed -i "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
 
 # 千万不能加sudo,一定要加  -y
 RUN  apt update &&  apt -y  install gcc make git
+#  
 
 WORKDIR /data
 RUN git clone  https://github.com/beanstalkd/beanstalkd.git
