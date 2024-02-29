@@ -10,3 +10,5 @@ dump.rdb
 *.exe~
 .idea/
 .vscode
+.vagrant
+/tensor

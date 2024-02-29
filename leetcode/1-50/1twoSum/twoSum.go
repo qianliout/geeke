@@ -1,7 +1,50 @@
 package main
 
-func main() {
+import (
+	"time"
+)
 
+func main() {
+	// // var redhatRe = regexp.MustCompile(`(.*) release (\d[\d\.]*)(.*)`)
+	// var bclinuxBaseOERe = regexp.MustCompile(`(.*) release (\d[\d\.]*)(.*)`)
+	//
+	// // str := "BigCloud Enterprise Linux release 7.8.2105 (Core)"
+	// // str := "BigCloud Enterprise Linux For Euler release 22.10 LTS"
+	// str := "BigCloud Enterprise Linux For Euler release 22.10 (list)"
+	// submatch := bclinuxBaseOERe.FindStringSubmatch(str)
+	// for i := range submatch {
+	// 	fmt.Println(submatch[i])
+	// }
+	// fmt.Println(len(submatch))
+	// reg1 := regexp.MustCompile("\\.p12$")
+	// str1 := "/usr/share/terminfo/p/p12"
+	// allString := reg1.FindString(str1)
+	// fmt.Println(allString)
+	//
+	// reg2 := regexp.MustCompile(".p12$")
+	// allString2 := reg2.FindString(str1)
+	// fmt.Println(allString2)
+	// str3 := "./usr/share/groff/1.22.4/tmac/hyphenex.us"
+	// fmt.Println(strings.Replace(str3, "./", "/", 1))
+	//
+	// h := strings.HasPrefix("./usr/share/groff/1.22.4/tmac/hyphenex.us", "./")
+	// fmt.Println(h)
+
+	time.Sleep(1 * time.Second)
+	n := Name{
+		ID: "id",
+		Na: Hello{Name: "name"},
+	}
+
+}
+
+type Hello struct {
+	Name string
+}
+
+type Name struct {
+	ID string
+	Hello
 }
 
 /*

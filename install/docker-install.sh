@@ -1,3 +1,4 @@
+
 sudo apt-get -y remove docker docker-engine docker.io containerd runc
 
 sudo apt-get -y update
@@ -45,4 +46,8 @@ sudo systemctl restart docker
 
 sudo systemctl enable docker
 
-# sudo usermod -aG docker $USER && newgrp docker
+sudo usermod -aG docker $USER && newgrp docker
+
+sudo curl -L "https://github.com/docker/compose/releases/download/2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
